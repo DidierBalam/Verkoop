@@ -13,14 +13,14 @@ namespace Verkoop.Business
         public bool ActualizarDatosUsuario(ActualizarDatosUsuarioDTO objDatos)
         {
 
-            return null;
+            return true;
         }
 
       
         public bool CambiarEstadoUsuario(bool bEstado, int iIdUsuario)
         {
 
-            return null;
+            return true;
         }
 
        
@@ -61,7 +61,7 @@ namespace Verkoop.Business
         public bool RegistrarUsuario(RegistrarUsuarioDTO objDatosUsuario)
         {
 
-            return null;
+            return true;
         }
     }
 }

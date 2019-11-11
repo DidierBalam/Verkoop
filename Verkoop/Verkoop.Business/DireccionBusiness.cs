@@ -13,13 +13,13 @@ namespace Verkoop.Business
         public bool ActualizarDireccion(DireccionDTO objDatosDireccion)
         {
 
-            return null;
+            return true;
         }
 
         public bool EliminarDirecion(int iIdDireccion)
         {
 
-            return null;
+            return true;
         }
 
        

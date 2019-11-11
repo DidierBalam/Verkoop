@@ -13,21 +13,21 @@ namespace Verkoop.Business
         public bool ActualizarTarjeta(TarjetaDTO objDatosTarjeta)
         {
 
-            return null;
+            return true;
         }
 
        
         public bool EliminarTarjeta(int iIdTarjeta)
         {
 
-            return null;
+            return true;
         }
 
         
         public bool GuardarTarjeta(TarjetaDTO objDatosTarjeta)
         {
 
-            return null;
+            return true;
         }
 
        

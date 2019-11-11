@@ -12,14 +12,14 @@ namespace Verkoop.Business
         public bool AgregarProductoCarrito(int iIdProducto, int iIdUsuario)
         {
 
-            return null;
+            return true;
         }
 
        
         public bool CambiarEstadoProductoCarrito(int iIdCarrito, bool bEstado)
         {
 
-            return null;
+            return true;
         }
 
        
@@ -40,14 +40,14 @@ namespace Verkoop.Business
         public bool QuitarProductoCarrito(int iIdCarrito, int iIdUsuario)
         {
 
-            return null;
+            return true;
         }
 
      
         public bool RealizarPago(RealizarPagoDTO objDatos)
         {
 
-            return null;
+            return true;
         }
     }
 }

@@ -12,19 +12,19 @@ namespace Verkoop.Business
         public bool CambiarContrasenia(string cContraseniaNueva)
         {
 
-            return null;
+            return true;
         }
 
         public bool CerrarSesion()
         {
 
-            return null;
+            return true;
         }
 
         public bool IniciarSesion()
         {
 
-            return null;
+            return true;
         }
     }
 }

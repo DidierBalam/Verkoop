@@ -7,19 +7,19 @@ using Verkoop.CapaDatos.DTO;
 
 namespace Verkoop.Business
 {
-    class CategoriaBusiness
+    public class CategoriaBusiness
     {
-        public bool AgregarCategoria(string cNombreCategoria)
+        public bool AgregarCategoria(string _cNombreCategoria)
         {
 
-            return null;
+            return false;
         }
 
        
         public bool EliminarCategoria(int iIdCategoria)
         {
 
-            return null;
+            return true;
         }
 
         public List<CategoriaDTO> ObtenerCategorias()

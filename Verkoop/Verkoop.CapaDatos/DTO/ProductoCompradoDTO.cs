@@ -9,6 +9,6 @@ namespace Verkoop.CapaDatos.DTO
         private int iIdProducto { get; set; }
         private int iIdProductoComprado { get; set; }
 
-        public RealizarPagoDTO m_RealizarPagoDTO;
+        //public RealizarPagoDTO m_RealizarPagoDTO;
     }
 }
