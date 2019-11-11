@@ -9,7 +9,7 @@ namespace Verkoop.Business
 {
     class SesionBusiness
     {
-        public bool CambiarContrasenia(string cContraseniaNueva)
+        public bool CambiarContrasenia(string _cContraseniaNueva)
         {
 
             return true;

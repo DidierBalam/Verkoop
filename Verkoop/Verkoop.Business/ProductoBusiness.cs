@@ -3,74 +3,102 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Verkoop.CapaDatos.DTO;
 
 namespace Verkoop.Business
 {
     class ProductoBusiness
     {
-        public List<string> ObtenerTodos()
+        public bool ActualizarDatosProducto(ProductoDTO _objDatosProducto)
         {
-            throw new NotImplementedException();
+
+            return true;
         }
 
-        public string ObtenerResumenDeUno(int iIdProducto)
+      
+        public int CambiarCantidadProducto(int _iCantidad, int _iIdProducto)
         {
-            throw new NotImplementedException();
+
+            return 0;
         }
 
-        public List<string> ObtenerPorFiltro(object oDatos)
+     
+        public bool CambiarEstadoProducto(bool _bEstado, int _iIdProducto)
         {
-            throw new NotImplementedException();
+
+            return true;
         }
 
-        public List<string> ObtenerNumeroTotalPorCategorias()
+     
+        public string CambiarImagenProducto(int _iIdProducto, string _cRutaImagen)
         {
-            throw new NotImplementedException();
+
+            return "";
         }
 
-        public int ObtenerNumeroTotal()
+        public string CargarPlantilla()
         {
-            throw new NotImplementedException();
-        }     
 
-        public List<string> InsertarNuevo(object oDatos)
-        {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public List<string> DescargarPlantilla()
+        public string DescargarPlantilla()
         {
-            throw new NotImplementedException();
+
+            return "";
         }
 
-        public List<string> CargarPlantilla(object oDatos)
+        public string ExportarDatos()
         {
-            throw new NotImplementedException();
+
+            return "";
         }
 
-        public List<string> ExportarDatos()
+        public Object ObtenerNumeroTotalProductoPorCategoria()
         {
-            throw new NotImplementedException();
+
+            return null;
         }
 
-        public List<string> ActualizarDatos(object oDatos)
+        public int ObtenerNumeroTotalProductos()
         {
-            throw new NotImplementedException();
+
+            return 0;
         }
 
-        public int CambiarCantidad(object oDatos)
+       
+        public List<VistaPreviaProductoClienteDTO> ObtenerProductoPorFiltro(int _iHistoral, int _iIdCategoria, decimal _dPrecioInicial, decimal _dPrecioFinal, string _cNombre)
         {
-            throw new NotImplementedException();
+
+            return null;
         }
 
-        public bool CambiarEstado(object oDatos)
+       
+        public List<CatalogoProductoAdministradorDTO> ObtenerProductosPorEstado(bool _bEstado)
         {
-            throw new NotImplementedException();
+
+            return null;
         }
 
-        public bool CambiarImagen(object oDatos)
+        
+        public bool RegistrarProducto(ProductoDTO _objDatosProducto)
         {
-            throw new NotImplementedException();
+
+            return true;
+        }
+
+      
+        public List<DetallesProductoDTO> VisualizarDetallesDeProductoCliente(int _iIdProducto)
+        {
+
+            return null;
+        }
+
+        
+        public List<VisualizarDetallesProductoAdministradorDTO> VisualizarDetallesProductoAdministrador(int _iIdProducto)
+        {
+
+            return null;
         }
     }
 }

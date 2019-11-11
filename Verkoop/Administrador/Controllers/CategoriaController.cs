@@ -20,9 +20,9 @@ namespace Administrador.Controllers
         [HttpGet]
         public bool GuardarCategoria(string _cNombreCategoria)
         {
-            bool _lResultado = ClaseBusiness.AgregarCategoria(_cNombreCategoria);
+            bool _bResultado = ClaseBusiness.AgregarCategoria(_cNombreCategoria);
            
-            return _lResultado;
+            return _bResultado;
         }
     }
 }

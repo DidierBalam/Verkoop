@@ -10,21 +10,21 @@ namespace Verkoop.Business
     class UsuarioBusiness
     {
 
-        public bool ActualizarDatosUsuario(ActualizarDatosUsuarioDTO objDatos)
+        public bool ActualizarDatosUsuario(ActualizarDatosUsuarioDTO _objDatos)
         {
 
             return true;
         }
 
       
-        public bool CambiarEstadoUsuario(bool bEstado, int iIdUsuario)
+        public bool CambiarEstadoUsuario(bool _bEstado, int _iIdUsuario)
         {
 
             return true;
         }
 
        
-        public string CambiarFotoPerfil(string cRutaFoto, int iIdUsuario)
+        public string CambiarFotoPerfil(string _cRutaFoto, int iIdUsuario)
         {
 
             return "";
@@ -51,14 +51,14 @@ namespace Verkoop.Business
         }
 
       
-        public List<BusquedaUsuarioPorEstadoDTO> ObtenerUsuarioClientePorEstado(bool bEstado)
+        public List<BusquedaUsuarioPorEstadoDTO> ObtenerUsuarioClientePorEstado(bool _bEstado)
         {
 
             return null;
         }
 
         
-        public bool RegistrarUsuario(RegistrarUsuarioDTO objDatosUsuario)
+        public bool RegistrarUsuario(RegistrarUsuarioDTO _objDatosUsuario)
         {
 
             return true;

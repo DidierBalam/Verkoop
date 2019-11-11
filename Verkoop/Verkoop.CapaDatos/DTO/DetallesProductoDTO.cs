@@ -2,7 +2,7 @@
 
 namespace Verkoop.CapaDatos.DTO
 {
-    class DetallesProductoDTO
+    public class DetallesProductoDTO
     {
         private string cDescripcionProducto { get; set; }
         private string cImagenProducto { get; set; }

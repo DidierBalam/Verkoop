@@ -9,21 +9,21 @@ namespace Verkoop.Business
 {
     class CompraBusiness
     {
-        public bool EnviarCorreo(DetallesCompraClienteDTO objDatos)
+        public bool EnviarCorreo(DetallesCompraClienteDTO _objDatos)
         {
 
             return false;
         }
 
        
-        public string GenerarTicketDeCompra(DetallesCompraClienteDTO objDatos)
+        public string GenerarTicketDeCompra(DetallesCompraClienteDTO _objDatos)
         {
 
             return "";
         }
 
       
-        public List<CompraDeClienteDTO> ObtenerComprasDeCliente(int iIdUsuario)
+        public List<CompraDeClienteDTO> ObtenerComprasDeCliente(int _iIdUsuario)
         {
 
             return null;
@@ -54,7 +54,7 @@ namespace Verkoop.Business
         }
 
         
-        public List<DetallesCompraClienteDTO> VisualizarDetallesCompraCliente(int iIdCompra)
+        public List<DetallesCompraClienteDTO> VisualizarDetallesCompraCliente(int _iIdCompra)
         {
 
             return null;

@@ -12,11 +12,11 @@ namespace Verkoop.Business
         public bool AgregarCategoria(string _cNombreCategoria)
         {
 
-            return false;
+            return true;
         }
 
        
-        public bool EliminarCategoria(int iIdCategoria)
+        public bool EliminarCategoria(int _iIdCategoria)
         {
 
             return true;

@@ -9,42 +9,42 @@ namespace Verkoop.Business
 {
     class CarritoBusiness
     {       
-        public bool AgregarProductoCarrito(int iIdProducto, int iIdUsuario)
+        public bool AgregarProductoCarrito(int _iIdProducto, int _iIdUsuario)
         {
 
             return true;
         }
 
        
-        public bool CambiarEstadoProductoCarrito(int iIdCarrito, bool bEstado)
+        public bool CambiarEstadoProductoCarrito(int _iIdCarrito, bool _bEstado)
         {
 
             return true;
         }
 
        
-        public int ObtenerNumeroTotalProductosDeUsuario(int iIdUsuario)
+        public int ObtenerNumeroTotalProductosDeUsuario(int _iIdUsuario)
         {
 
             return 0;
         }
 
        
-        public List<ProductoEnCarritoDTO> ObtenerProductosDeUsuario(int iIdUsuario)
+        public List<ProductoEnCarritoDTO> ObtenerProductosDeUsuario(int _iIdUsuario)
         {
 
             return null;
         }
 
        
-        public bool QuitarProductoCarrito(int iIdCarrito, int iIdUsuario)
+        public bool QuitarProductoCarrito(int _iIdCarrito, int _iIdUsuario)
         {
 
             return true;
         }
 
      
-        public bool RealizarPago(RealizarPagoDTO objDatos)
+        public bool RealizarPago(RealizarPagoDTO _objDatos)
         {
 
             return true;
