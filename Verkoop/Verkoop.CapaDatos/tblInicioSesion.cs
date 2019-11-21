@@ -17,7 +17,7 @@ namespace Verkoop.CapaDatos
         public int iIdInicioSesion { get; set; }
         public int iIdUsuario { get; set; }
         public string cCorreo { get; set; }
-        public string cContraseña { get; set; }
+        public string cContrasenia { get; set; }
         public Nullable<System.DateTime> dtFechaActualizacion { get; set; }
     
         public virtual tblCat_Usuario tblCat_Usuario { get; set; }

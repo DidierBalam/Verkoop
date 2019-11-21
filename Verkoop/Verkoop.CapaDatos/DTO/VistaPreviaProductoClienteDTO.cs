@@ -4,10 +4,10 @@ namespace Verkoop.CapaDatos.DTO
 {
     public class VistaPreviaProductoClienteDTO
     {
-        private string cImagenProducto { get; set; }
-        private string cNombreProducto { get; set; }
-        private decimal dPrecioProducto { get; set; }
-        private int iCantidad { get; set; }
-        private int iIdProducto { get; set; }
+        public string cImagenProducto { get; set; }
+        public string cNombreProducto { get; set; }
+        public string dPrecioProducto { get; set; }
+        public int iCantidad { get; set; }
+        public int iIdProducto { get; set; }
     }
 }

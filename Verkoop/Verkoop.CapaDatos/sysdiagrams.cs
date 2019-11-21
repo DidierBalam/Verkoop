@@ -12,15 +12,12 @@ namespace Verkoop.CapaDatos
     using System;
     using System.Collections.Generic;
     
-    public partial class tblDireccion
+    public partial class sysdiagrams
     {
-        public int iIdDireccion { get; set; }
-        public int iIdUsuario { get; set; }
-        public int iIdMunicipio { get; set; }
-        public string cDireccion { get; set; }
-        public string cCodigoPostal { get; set; }
-        public bool lDefault { get; set; }
-    
-        public virtual tblCat_Usuario tblCat_Usuario { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

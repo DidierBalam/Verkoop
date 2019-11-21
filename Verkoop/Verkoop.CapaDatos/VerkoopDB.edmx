@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VerkoopDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="VerkoopDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="tblCarrito">
           <Key>
             <PropertyRef Name="iIdCarrito" />
@@ -65,14 +75,9 @@
           <Property Name="dPrecioTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="dtFecha" Type="datetime" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="tblDireccion">
           <Key>
             <PropertyRef Name="iIdDireccion" />
-            <PropertyRef Name="iIdUsuario" />
-            <PropertyRef Name="iIdMunicipio" />
-            <PropertyRef Name="lDefault" />
           </Key>
           <Property Name="iIdDireccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="iIdUsuario" Type="int" Nullable="false" />
@@ -96,7 +101,7 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           <Property Name="iIdInicioSesion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="iIdUsuario" Type="int" Nullable="false" />
           <Property Name="cCorreo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cContraseña" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cContrasenia" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="dtFechaActualizacion" Type="datetime" />
         </EntityType>
         <EntityType Name="tblMunicipio">
@@ -206,6 +211,20 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblDireccion_tblCat_Usuario">
+          <End Role="tblCat_Usuario" Type="Self.tblCat_Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblDireccion" Type="Self.tblDireccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Usuario">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="tblDireccion">
+              <PropertyRef Name="iIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblEstado_iIdPais">
           <End Role="tblPais" Type="Self.tblPais" Multiplicity="1" />
           <End Role="tblEstado" Type="Self.tblEstado" Multiplicity="*" />
@@ -279,27 +298,19 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="VerkoopDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCarrito" EntityType="Self.tblCarrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCat_Categoria" EntityType="Self.tblCat_Categoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCat_Producto" EntityType="Self.tblCat_Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCat_Usuario" EntityType="Self.tblCat_Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCompra" EntityType="Self.tblCompra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDireccion" EntityType="Self.tblDireccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEstado" EntityType="Self.tblEstado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblInicioSesion" EntityType="Self.tblInicioSesion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMunicipio" EntityType="Self.tblMunicipio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPais" EntityType="Self.tblPais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProductoComprado" EntityType="Self.tblProductoComprado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTarjeta" EntityType="Self.tblTarjeta" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblDireccion" EntityType="Self.tblDireccion" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblDireccion].[iIdDireccion] AS [iIdDireccion], 
-    [tblDireccion].[iIdUsuario] AS [iIdUsuario], 
-    [tblDireccion].[iIdMunicipio] AS [iIdMunicipio], 
-    [tblDireccion].[cDireccion] AS [cDireccion], 
-    [tblDireccion].[cCodigoPostal] AS [cCodigoPostal], 
-    [tblDireccion].[lDefault] AS [lDefault]
-    FROM [dbo].[tblDireccion] AS [tblDireccion]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_tblCarrito_iIdProducto" Association="Self.FK_tblCarrito_iIdProducto">
             <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
             <End Role="tblCarrito" EntitySet="tblCarrito" />
@@ -323,6 +334,10 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           <AssociationSet Name="FK_tblCompra_iIdUsuario" Association="Self.FK_tblCompra_iIdUsuario">
             <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
             <End Role="tblCompra" EntitySet="tblCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDireccion_tblCat_Usuario" Association="Self.FK_tblDireccion_tblCat_Usuario">
+            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
+            <End Role="tblDireccion" EntitySet="tblDireccion" />
           </AssociationSet>
           <AssociationSet Name="FK_tblEstado_iIdPais" Association="Self.FK_tblEstado_iIdPais">
             <End Role="tblPais" EntitySet="tblPais" />
@@ -349,11 +364,87 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
             <End Role="tblTarjeta" EntitySet="tblTarjeta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VerkoopDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="VerkoopDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="VerkoopDBModel.sysdiagrams" />
+          <EntitySet Name="tblCarrito" EntityType="VerkoopDBModel.tblCarrito" />
+          <EntitySet Name="tblCat_Categoria" EntityType="VerkoopDBModel.tblCat_Categoria" />
+          <EntitySet Name="tblCat_Producto" EntityType="VerkoopDBModel.tblCat_Producto" />
+          <EntitySet Name="tblCat_Usuario" EntityType="VerkoopDBModel.tblCat_Usuario" />
+          <EntitySet Name="tblCompra" EntityType="VerkoopDBModel.tblCompra" />
+          <EntitySet Name="tblDireccion" EntityType="VerkoopDBModel.tblDireccion" />
+          <EntitySet Name="tblEstado" EntityType="VerkoopDBModel.tblEstado" />
+          <EntitySet Name="tblInicioSesion" EntityType="VerkoopDBModel.tblInicioSesion" />
+          <EntitySet Name="tblMunicipio" EntityType="VerkoopDBModel.tblMunicipio" />
+          <EntitySet Name="tblPais" EntityType="VerkoopDBModel.tblPais" />
+          <EntitySet Name="tblProductoComprado" EntityType="VerkoopDBModel.tblProductoComprado" />
+          <EntitySet Name="tblTarjeta" EntityType="VerkoopDBModel.tblTarjeta" />
+          <AssociationSet Name="FK_tblCarrito_iIdProducto" Association="VerkoopDBModel.FK_tblCarrito_iIdProducto">
+            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
+            <End Role="tblCarrito" EntitySet="tblCarrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCarrito_iIdUsuario" Association="VerkoopDBModel.FK_tblCarrito_iIdUsuario">
+            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
+            <End Role="tblCarrito" EntitySet="tblCarrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCat_Producto_iIdCategoria" Association="VerkoopDBModel.FK_tblCat_Producto_iIdCategoria">
+            <End Role="tblCat_Categoria" EntitySet="tblCat_Categoria" />
+            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompra_iIdProducto" Association="VerkoopDBModel.FK_tblCompra_iIdProducto">
+            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
+            <End Role="tblCompra" EntitySet="tblCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProductoComprado_iIdProducto" Association="VerkoopDBModel.FK_tblProductoComprado_iIdProducto">
+            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
+            <End Role="tblProductoComprado" EntitySet="tblProductoComprado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompra_iIdUsuario" Association="VerkoopDBModel.FK_tblCompra_iIdUsuario">
+            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
+            <End Role="tblCompra" EntitySet="tblCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDireccion_tblCat_Usuario" Association="VerkoopDBModel.FK_tblDireccion_tblCat_Usuario">
+            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
+            <End Role="tblDireccion" EntitySet="tblDireccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblInicioSesion_iIdUsuario" Association="VerkoopDBModel.FK_tblInicioSesion_iIdUsuario">
+            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
+            <End Role="tblInicioSesion" EntitySet="tblInicioSesion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTarjeta_iIdUsuario" Association="VerkoopDBModel.FK_tblTarjeta_iIdUsuario">
+            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
+            <End Role="tblTarjeta" EntitySet="tblTarjeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompra_iIdTarjeta" Association="VerkoopDBModel.FK_tblCompra_iIdTarjeta">
+            <End Role="tblTarjeta" EntitySet="tblTarjeta" />
+            <End Role="tblCompra" EntitySet="tblCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProductoComprado_iIdCompra" Association="VerkoopDBModel.FK_tblProductoComprado_iIdCompra">
+            <End Role="tblCompra" EntitySet="tblCompra" />
+            <End Role="tblProductoComprado" EntitySet="tblProductoComprado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblEstado_iIdPais" Association="VerkoopDBModel.FK_tblEstado_iIdPais">
+            <End Role="tblPais" EntitySet="tblPais" />
+            <End Role="tblEstado" EntitySet="tblEstado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMunicipio_iIdEstado" Association="VerkoopDBModel.FK_tblMunicipio_iIdEstado">
+            <End Role="tblEstado" EntitySet="tblEstado" />
+            <End Role="tblMunicipio" EntitySet="tblMunicipio" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="tblCarrito">
           <Key>
             <PropertyRef Name="iIdCarrito" />
@@ -363,16 +454,16 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           <Property Name="iIdProducto" Type="Int32" Nullable="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaSeleccion" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="tblCat_Producto" Relationship="Self.FK_tblCarrito_iIdProducto" FromRole="tblCarrito" ToRole="tblCat_Producto" />
-          <NavigationProperty Name="tblCat_Usuario" Relationship="Self.FK_tblCarrito_iIdUsuario" FromRole="tblCarrito" ToRole="tblCat_Usuario" />
+          <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblCarrito_iIdProducto" FromRole="tblCarrito" ToRole="tblCat_Producto" />
+          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblCarrito_iIdUsuario" FromRole="tblCarrito" ToRole="tblCat_Usuario" />
         </EntityType>
         <EntityType Name="tblCat_Categoria">
           <Key>
             <PropertyRef Name="iIdCategoria" />
           </Key>
           <Property Name="iIdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tblCat_Producto" Relationship="Self.FK_tblCat_Producto_iIdCategoria" FromRole="tblCat_Categoria" ToRole="tblCat_Producto" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblCat_Producto_iIdCategoria" FromRole="tblCat_Categoria" ToRole="tblCat_Producto" />
         </EntityType>
         <EntityType Name="tblCat_Producto">
           <Key>
@@ -381,26 +472,26 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           <Property Name="iIdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdCategoria" Type="Int32" Nullable="false" />
           <Property Name="iCantidad" Type="Int32" Nullable="false" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cDescripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="cImagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="dPrecio" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="dPrecio" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaAlta" Type="DateTime" Precision="3" />
           <Property Name="dtFechaBaja" Type="DateTime" Precision="3" />
           <Property Name="dtFechaModificacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblCarrito" Relationship="Self.FK_tblCarrito_iIdProducto" FromRole="tblCat_Producto" ToRole="tblCarrito" />
-          <NavigationProperty Name="tblCat_Categoria" Relationship="Self.FK_tblCat_Producto_iIdCategoria" FromRole="tblCat_Producto" ToRole="tblCat_Categoria" />
-          <NavigationProperty Name="tblCompra" Relationship="Self.FK_tblCompra_iIdProducto" FromRole="tblCat_Producto" ToRole="tblCompra" />
-          <NavigationProperty Name="tblProductoComprado" Relationship="Self.FK_tblProductoComprado_iIdProducto" FromRole="tblCat_Producto" ToRole="tblProductoComprado" />
+          <NavigationProperty Name="tblCarrito" Relationship="VerkoopDBModel.FK_tblCarrito_iIdProducto" FromRole="tblCat_Producto" ToRole="tblCarrito" />
+          <NavigationProperty Name="tblCat_Categoria" Relationship="VerkoopDBModel.FK_tblCat_Producto_iIdCategoria" FromRole="tblCat_Producto" ToRole="tblCat_Categoria" />
+          <NavigationProperty Name="tblCompra" Relationship="VerkoopDBModel.FK_tblCompra_iIdProducto" FromRole="tblCat_Producto" ToRole="tblCompra" />
+          <NavigationProperty Name="tblProductoComprado" Relationship="VerkoopDBModel.FK_tblProductoComprado_iIdProducto" FromRole="tblCat_Producto" ToRole="tblProductoComprado" />
         </EntityType>
         <EntityType Name="tblCat_Usuario">
           <Key>
             <PropertyRef Name="iIdUsuario" />
           </Key>
           <Property Name="iIdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cApellidoPaterno" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cImagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="cTelefono" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
@@ -409,10 +500,11 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           <Property Name="dtFechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="dtFechaFinalizacion" Type="DateTime" Precision="3" />
           <Property Name="dtFechaBaja" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblCarrito" Relationship="Self.FK_tblCarrito_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblCarrito" />
-          <NavigationProperty Name="tblCompra" Relationship="Self.FK_tblCompra_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblCompra" />
-          <NavigationProperty Name="tblInicioSesion" Relationship="Self.FK_tblInicioSesion_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblInicioSesion" />
-          <NavigationProperty Name="tblTarjeta" Relationship="Self.FK_tblTarjeta_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblTarjeta" />
+          <NavigationProperty Name="tblCarrito" Relationship="VerkoopDBModel.FK_tblCarrito_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblCarrito" />
+          <NavigationProperty Name="tblCompra" Relationship="VerkoopDBModel.FK_tblCompra_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblCompra" />
+          <NavigationProperty Name="tblDireccion" Relationship="VerkoopDBModel.FK_tblDireccion_tblCat_Usuario" FromRole="tblCat_Usuario" ToRole="tblDireccion" />
+          <NavigationProperty Name="tblInicioSesion" Relationship="VerkoopDBModel.FK_tblInicioSesion_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblInicioSesion" />
+          <NavigationProperty Name="tblTarjeta" Relationship="VerkoopDBModel.FK_tblTarjeta_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblTarjeta" />
         </EntityType>
         <EntityType Name="tblCompra">
           <Key>
@@ -422,12 +514,24 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
           <Property Name="iIdProducto" Type="Int32" Nullable="false" />
           <Property Name="iIdTarjeta" Type="Int32" Nullable="false" />
-          <Property Name="dPrecioTotal" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="dPrecioTotal" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="dtFecha" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblCat_Producto" Relationship="Self.FK_tblCompra_iIdProducto" FromRole="tblCompra" ToRole="tblCat_Producto" />
-          <NavigationProperty Name="tblCat_Usuario" Relationship="Self.FK_tblCompra_iIdUsuario" FromRole="tblCompra" ToRole="tblCat_Usuario" />
-          <NavigationProperty Name="tblTarjeta" Relationship="Self.FK_tblCompra_iIdTarjeta" FromRole="tblCompra" ToRole="tblTarjeta" />
-          <NavigationProperty Name="tblProductoComprado" Relationship="Self.FK_tblProductoComprado_iIdCompra" FromRole="tblCompra" ToRole="tblProductoComprado" />
+          <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblCompra_iIdProducto" FromRole="tblCompra" ToRole="tblCat_Producto" />
+          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblCompra_iIdUsuario" FromRole="tblCompra" ToRole="tblCat_Usuario" />
+          <NavigationProperty Name="tblTarjeta" Relationship="VerkoopDBModel.FK_tblCompra_iIdTarjeta" FromRole="tblCompra" ToRole="tblTarjeta" />
+          <NavigationProperty Name="tblProductoComprado" Relationship="VerkoopDBModel.FK_tblProductoComprado_iIdCompra" FromRole="tblCompra" ToRole="tblProductoComprado" />
+        </EntityType>
+        <EntityType Name="tblDireccion">
+          <Key>
+            <PropertyRef Name="iIdDireccion" />
+          </Key>
+          <Property Name="iIdDireccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="iIdMunicipio" Type="Int32" Nullable="false" />
+          <Property Name="cDireccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cCodigoPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="lDefault" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblDireccion_tblCat_Usuario" FromRole="tblDireccion" ToRole="tblCat_Usuario" />
         </EntityType>
         <EntityType Name="tblEstado">
           <Key>
@@ -435,9 +539,9 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </Key>
           <Property Name="iIdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdPais" Type="Int32" Nullable="false" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tblPais" Relationship="Self.FK_tblEstado_iIdPais" FromRole="tblEstado" ToRole="tblPais" />
-          <NavigationProperty Name="tblMunicipio" Relationship="Self.FK_tblMunicipio_iIdEstado" FromRole="tblEstado" ToRole="tblMunicipio" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblPais" Relationship="VerkoopDBModel.FK_tblEstado_iIdPais" FromRole="tblEstado" ToRole="tblPais" />
+          <NavigationProperty Name="tblMunicipio" Relationship="VerkoopDBModel.FK_tblMunicipio_iIdEstado" FromRole="tblEstado" ToRole="tblMunicipio" />
         </EntityType>
         <EntityType Name="tblInicioSesion">
           <Key>
@@ -445,10 +549,10 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </Key>
           <Property Name="iIdInicioSesion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="cCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cContraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cCorreo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cContrasenia" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="dtFechaActualizacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblCat_Usuario" Relationship="Self.FK_tblInicioSesion_iIdUsuario" FromRole="tblInicioSesion" ToRole="tblCat_Usuario" />
+          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblInicioSesion_iIdUsuario" FromRole="tblInicioSesion" ToRole="tblCat_Usuario" />
         </EntityType>
         <EntityType Name="tblMunicipio">
           <Key>
@@ -456,16 +560,16 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </Key>
           <Property Name="iIdMunicipio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdEstado" Type="Int32" Nullable="false" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tblEstado" Relationship="Self.FK_tblMunicipio_iIdEstado" FromRole="tblMunicipio" ToRole="tblEstado" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblEstado" Relationship="VerkoopDBModel.FK_tblMunicipio_iIdEstado" FromRole="tblMunicipio" ToRole="tblEstado" />
         </EntityType>
         <EntityType Name="tblPais">
           <Key>
             <PropertyRef Name="iIdPais" />
           </Key>
           <Property Name="iIdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tblEstado" Relationship="Self.FK_tblEstado_iIdPais" FromRole="tblPais" ToRole="tblEstado" />
+          <Property Name="cNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblEstado" Relationship="VerkoopDBModel.FK_tblEstado_iIdPais" FromRole="tblPais" ToRole="tblEstado" />
         </EntityType>
         <EntityType Name="tblProductoComprado">
           <Key>
@@ -475,8 +579,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           <Property Name="iIdCompra" Type="Int32" Nullable="false" />
           <Property Name="iIdProducto" Type="Int32" Nullable="false" />
           <Property Name="iCantidad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblCat_Producto" Relationship="Self.FK_tblProductoComprado_iIdProducto" FromRole="tblProductoComprado" ToRole="tblCat_Producto" />
-          <NavigationProperty Name="tblCompra" Relationship="Self.FK_tblProductoComprado_iIdCompra" FromRole="tblProductoComprado" ToRole="tblCompra" />
+          <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblProductoComprado_iIdProducto" FromRole="tblProductoComprado" ToRole="tblCat_Producto" />
+          <NavigationProperty Name="tblCompra" Relationship="VerkoopDBModel.FK_tblProductoComprado_iIdCompra" FromRole="tblProductoComprado" ToRole="tblCompra" />
         </EntityType>
         <EntityType Name="tblTarjeta">
           <Key>
@@ -484,30 +588,16 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </Key>
           <Property Name="iIdTarjeta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="cNumeroTarjeta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cMesVigencia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cAñoVigencia" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cNumeroTarjeta" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cMesVigencia" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cAñoVigencia" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="lDefault" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="tblCat_Usuario" Relationship="Self.FK_tblTarjeta_iIdUsuario" FromRole="tblTarjeta" ToRole="tblCat_Usuario" />
-          <NavigationProperty Name="tblCompra" Relationship="Self.FK_tblCompra_iIdTarjeta" FromRole="tblTarjeta" ToRole="tblCompra" />
-        </EntityType>
-        <EntityType Name="tblDireccion">
-          <Key>
-            <PropertyRef Name="iIdDireccion" />
-            <PropertyRef Name="iIdUsuario" />
-            <PropertyRef Name="iIdMunicipio" />
-            <PropertyRef Name="lDefault" />
-          </Key>
-          <Property Name="iIdDireccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="iIdMunicipio" Type="Int32" Nullable="false" />
-          <Property Name="cDireccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cCodigoPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="lDefault" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblTarjeta_iIdUsuario" FromRole="tblTarjeta" ToRole="tblCat_Usuario" />
+          <NavigationProperty Name="tblCompra" Relationship="VerkoopDBModel.FK_tblCompra_iIdTarjeta" FromRole="tblTarjeta" ToRole="tblCompra" />
         </EntityType>
         <Association Name="FK_tblCarrito_iIdProducto">
-          <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="1" />
-          <End Role="tblCarrito" Type="Self.tblCarrito" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblCarrito" Role="tblCarrito" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Producto">
               <PropertyRef Name="iIdProducto" />
@@ -518,8 +608,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCarrito_iIdUsuario">
-          <End Role="tblCat_Usuario" Type="Self.tblCat_Usuario" Multiplicity="1" />
-          <End Role="tblCarrito" Type="Self.tblCarrito" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblCarrito" Role="tblCarrito" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Usuario">
               <PropertyRef Name="iIdUsuario" />
@@ -530,8 +620,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCat_Producto_iIdCategoria">
-          <End Role="tblCat_Categoria" Type="Self.tblCat_Categoria" Multiplicity="1" />
-          <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblCat_Categoria" Role="tblCat_Categoria" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Categoria">
               <PropertyRef Name="iIdCategoria" />
@@ -542,8 +632,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCompra_iIdProducto">
-          <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="1" />
-          <End Role="tblCompra" Type="Self.tblCompra" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Producto">
               <PropertyRef Name="iIdProducto" />
@@ -554,8 +644,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblProductoComprado_iIdProducto">
-          <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="1" />
-          <End Role="tblProductoComprado" Type="Self.tblProductoComprado" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblProductoComprado" Role="tblProductoComprado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Producto">
               <PropertyRef Name="iIdProducto" />
@@ -566,8 +656,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCompra_iIdUsuario">
-          <End Role="tblCat_Usuario" Type="Self.tblCat_Usuario" Multiplicity="1" />
-          <End Role="tblCompra" Type="Self.tblCompra" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Usuario">
               <PropertyRef Name="iIdUsuario" />
@@ -577,9 +667,23 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblDireccion_tblCat_Usuario">
+          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="VerkoopDBModel.tblDireccion" Role="tblDireccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Usuario">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="tblDireccion">
+              <PropertyRef Name="iIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblInicioSesion_iIdUsuario">
-          <End Role="tblCat_Usuario" Type="Self.tblCat_Usuario" Multiplicity="1" />
-          <End Role="tblInicioSesion" Type="Self.tblInicioSesion" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblInicioSesion" Role="tblInicioSesion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Usuario">
               <PropertyRef Name="iIdUsuario" />
@@ -590,8 +694,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblTarjeta_iIdUsuario">
-          <End Role="tblCat_Usuario" Type="Self.tblCat_Usuario" Multiplicity="1" />
-          <End Role="tblTarjeta" Type="Self.tblTarjeta" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblTarjeta" Role="tblTarjeta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCat_Usuario">
               <PropertyRef Name="iIdUsuario" />
@@ -602,8 +706,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCompra_iIdTarjeta">
-          <End Role="tblTarjeta" Type="Self.tblTarjeta" Multiplicity="1" />
-          <End Role="tblCompra" Type="Self.tblCompra" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblTarjeta" Role="tblTarjeta" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblTarjeta">
               <PropertyRef Name="iIdTarjeta" />
@@ -614,8 +718,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblProductoComprado_iIdCompra">
-          <End Role="tblCompra" Type="Self.tblCompra" Multiplicity="1" />
-          <End Role="tblProductoComprado" Type="Self.tblProductoComprado" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblProductoComprado" Role="tblProductoComprado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCompra">
               <PropertyRef Name="iIdCompra" />
@@ -626,8 +730,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblEstado_iIdPais">
-          <End Role="tblPais" Type="Self.tblPais" Multiplicity="1" />
-          <End Role="tblEstado" Type="Self.tblEstado" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblPais" Role="tblPais" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblEstado" Role="tblEstado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblPais">
               <PropertyRef Name="iIdPais" />
@@ -638,8 +742,8 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblMunicipio_iIdEstado">
-          <End Role="tblEstado" Type="Self.tblEstado" Multiplicity="1" />
-          <End Role="tblMunicipio" Type="Self.tblMunicipio" Multiplicity="*" />
+          <End Type="VerkoopDBModel.tblEstado" Role="tblEstado" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblMunicipio" Role="tblMunicipio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblEstado">
               <PropertyRef Name="iIdEstado" />
@@ -649,207 +753,156 @@ advertencia 6002: La tabla o vista 'VerkoopDB.dbo.tblDireccion' no tiene definid
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="VerkoopDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblCarrito" EntityType="Self.tblCarrito" />
-          <EntitySet Name="tblCat_Categoria" EntityType="Self.tblCat_Categoria" />
-          <EntitySet Name="tblCat_Producto" EntityType="Self.tblCat_Producto" />
-          <EntitySet Name="tblCat_Usuario" EntityType="Self.tblCat_Usuario" />
-          <EntitySet Name="tblCompra" EntityType="Self.tblCompra" />
-          <EntitySet Name="tblEstado" EntityType="Self.tblEstado" />
-          <EntitySet Name="tblInicioSesion" EntityType="Self.tblInicioSesion" />
-          <EntitySet Name="tblMunicipio" EntityType="Self.tblMunicipio" />
-          <EntitySet Name="tblPais" EntityType="Self.tblPais" />
-          <EntitySet Name="tblProductoComprado" EntityType="Self.tblProductoComprado" />
-          <EntitySet Name="tblTarjeta" EntityType="Self.tblTarjeta" />
-          <EntitySet Name="tblDireccion" EntityType="Self.tblDireccion" />
-          <AssociationSet Name="FK_tblCarrito_iIdProducto" Association="Self.FK_tblCarrito_iIdProducto">
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-            <End Role="tblCarrito" EntitySet="tblCarrito" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCarrito_iIdUsuario" Association="Self.FK_tblCarrito_iIdUsuario">
-            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
-            <End Role="tblCarrito" EntitySet="tblCarrito" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCat_Producto_iIdCategoria" Association="Self.FK_tblCat_Producto_iIdCategoria">
-            <End Role="tblCat_Categoria" EntitySet="tblCat_Categoria" />
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCompra_iIdProducto" Association="Self.FK_tblCompra_iIdProducto">
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-            <End Role="tblCompra" EntitySet="tblCompra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProductoComprado_iIdProducto" Association="Self.FK_tblProductoComprado_iIdProducto">
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-            <End Role="tblProductoComprado" EntitySet="tblProductoComprado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCompra_iIdUsuario" Association="Self.FK_tblCompra_iIdUsuario">
-            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
-            <End Role="tblCompra" EntitySet="tblCompra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInicioSesion_iIdUsuario" Association="Self.FK_tblInicioSesion_iIdUsuario">
-            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
-            <End Role="tblInicioSesion" EntitySet="tblInicioSesion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTarjeta_iIdUsuario" Association="Self.FK_tblTarjeta_iIdUsuario">
-            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
-            <End Role="tblTarjeta" EntitySet="tblTarjeta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCompra_iIdTarjeta" Association="Self.FK_tblCompra_iIdTarjeta">
-            <End Role="tblTarjeta" EntitySet="tblTarjeta" />
-            <End Role="tblCompra" EntitySet="tblCompra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProductoComprado_iIdCompra" Association="Self.FK_tblProductoComprado_iIdCompra">
-            <End Role="tblCompra" EntitySet="tblCompra" />
-            <End Role="tblProductoComprado" EntitySet="tblProductoComprado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblEstado_iIdPais" Association="Self.FK_tblEstado_iIdPais">
-            <End Role="tblPais" EntitySet="tblPais" />
-            <End Role="tblEstado" EntitySet="tblEstado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblMunicipio_iIdEstado" Association="Self.FK_tblMunicipio_iIdEstado">
-            <End Role="tblEstado" EntitySet="tblEstado" />
-            <End Role="tblMunicipio" EntitySet="tblMunicipio" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="VerkoopDBModelStoreContainer" CdmEntityContainer="VerkoopDBEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="VerkoopDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblCarrito">
             <EntityTypeMapping TypeName="VerkoopDBModel.tblCarrito">
               <MappingFragment StoreEntitySet="tblCarrito">
-                <ScalarProperty Name="iIdCarrito" ColumnName="iIdCarrito" />
-                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
-                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
-                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
                 <ScalarProperty Name="dtFechaSeleccion" ColumnName="dtFechaSeleccion" />
+                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
+                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
+                <ScalarProperty Name="iIdCarrito" ColumnName="iIdCarrito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Categoria">
             <EntityTypeMapping TypeName="VerkoopDBModel.tblCat_Categoria">
               <MappingFragment StoreEntitySet="tblCat_Categoria">
-                <ScalarProperty Name="iIdCategoria" ColumnName="iIdCategoria" />
                 <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iIdCategoria" ColumnName="iIdCategoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Producto">
             <EntityTypeMapping TypeName="VerkoopDBModel.tblCat_Producto">
               <MappingFragment StoreEntitySet="tblCat_Producto">
-                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
-                <ScalarProperty Name="iIdCategoria" ColumnName="iIdCategoria" />
-                <ScalarProperty Name="iCantidad" ColumnName="iCantidad" />
-                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
-                <ScalarProperty Name="cDescripcion" ColumnName="cDescripcion" />
-                <ScalarProperty Name="cImagen" ColumnName="cImagen" />
-                <ScalarProperty Name="dPrecio" ColumnName="dPrecio" />
-                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
-                <ScalarProperty Name="dtFechaAlta" ColumnName="dtFechaAlta" />
-                <ScalarProperty Name="dtFechaBaja" ColumnName="dtFechaBaja" />
                 <ScalarProperty Name="dtFechaModificacion" ColumnName="dtFechaModificacion" />
+                <ScalarProperty Name="dtFechaBaja" ColumnName="dtFechaBaja" />
+                <ScalarProperty Name="dtFechaAlta" ColumnName="dtFechaAlta" />
+                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
+                <ScalarProperty Name="dPrecio" ColumnName="dPrecio" />
+                <ScalarProperty Name="cImagen" ColumnName="cImagen" />
+                <ScalarProperty Name="cDescripcion" ColumnName="cDescripcion" />
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iCantidad" ColumnName="iCantidad" />
+                <ScalarProperty Name="iIdCategoria" ColumnName="iIdCategoria" />
+                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCat_Usuario">
             <EntityTypeMapping TypeName="VerkoopDBModel.tblCat_Usuario">
               <MappingFragment StoreEntitySet="tblCat_Usuario">
-                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
-                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
-                <ScalarProperty Name="cApellidoPaterno" ColumnName="cApellidoPaterno" />
-                <ScalarProperty Name="cApellidoMaterno" ColumnName="cApellidoMaterno" />
-                <ScalarProperty Name="cImagen" ColumnName="cImagen" />
-                <ScalarProperty Name="cTelefono" ColumnName="cTelefono" />
-                <ScalarProperty Name="lTipoUsuario" ColumnName="lTipoUsuario" />
-                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
-                <ScalarProperty Name="dtFechaIngreso" ColumnName="dtFechaIngreso" />
-                <ScalarProperty Name="dtFechaFinalizacion" ColumnName="dtFechaFinalizacion" />
                 <ScalarProperty Name="dtFechaBaja" ColumnName="dtFechaBaja" />
+                <ScalarProperty Name="dtFechaFinalizacion" ColumnName="dtFechaFinalizacion" />
+                <ScalarProperty Name="dtFechaIngreso" ColumnName="dtFechaIngreso" />
+                <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
+                <ScalarProperty Name="lTipoUsuario" ColumnName="lTipoUsuario" />
+                <ScalarProperty Name="cTelefono" ColumnName="cTelefono" />
+                <ScalarProperty Name="cImagen" ColumnName="cImagen" />
+                <ScalarProperty Name="cApellidoMaterno" ColumnName="cApellidoMaterno" />
+                <ScalarProperty Name="cApellidoPaterno" ColumnName="cApellidoPaterno" />
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblCompra">
             <EntityTypeMapping TypeName="VerkoopDBModel.tblCompra">
               <MappingFragment StoreEntitySet="tblCompra">
-                <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
-                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
-                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
-                <ScalarProperty Name="iIdTarjeta" ColumnName="iIdTarjeta" />
-                <ScalarProperty Name="dPrecioTotal" ColumnName="dPrecioTotal" />
                 <ScalarProperty Name="dtFecha" ColumnName="dtFecha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblEstado">
-            <EntityTypeMapping TypeName="VerkoopDBModel.tblEstado">
-              <MappingFragment StoreEntitySet="tblEstado">
-                <ScalarProperty Name="iIdEstado" ColumnName="iIdEstado" />
-                <ScalarProperty Name="iIdPais" ColumnName="iIdPais" />
-                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblInicioSesion">
-            <EntityTypeMapping TypeName="VerkoopDBModel.tblInicioSesion">
-              <MappingFragment StoreEntitySet="tblInicioSesion">
-                <ScalarProperty Name="iIdInicioSesion" ColumnName="iIdInicioSesion" />
-                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
-                <ScalarProperty Name="cCorreo" ColumnName="cCorreo" />
-                <ScalarProperty Name="cContraseña" ColumnName="cContraseña" />
-                <ScalarProperty Name="dtFechaActualizacion" ColumnName="dtFechaActualizacion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblMunicipio">
-            <EntityTypeMapping TypeName="VerkoopDBModel.tblMunicipio">
-              <MappingFragment StoreEntitySet="tblMunicipio">
-                <ScalarProperty Name="iIdMunicipio" ColumnName="iIdMunicipio" />
-                <ScalarProperty Name="iIdEstado" ColumnName="iIdEstado" />
-                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblPais">
-            <EntityTypeMapping TypeName="VerkoopDBModel.tblPais">
-              <MappingFragment StoreEntitySet="tblPais">
-                <ScalarProperty Name="iIdPais" ColumnName="iIdPais" />
-                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblProductoComprado">
-            <EntityTypeMapping TypeName="VerkoopDBModel.tblProductoComprado">
-              <MappingFragment StoreEntitySet="tblProductoComprado">
-                <ScalarProperty Name="iIdProductoComprado" ColumnName="iIdProductoComprado" />
-                <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
-                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
-                <ScalarProperty Name="iCantidad" ColumnName="iCantidad" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblTarjeta">
-            <EntityTypeMapping TypeName="VerkoopDBModel.tblTarjeta">
-              <MappingFragment StoreEntitySet="tblTarjeta">
+                <ScalarProperty Name="dPrecioTotal" ColumnName="dPrecioTotal" />
                 <ScalarProperty Name="iIdTarjeta" ColumnName="iIdTarjeta" />
+                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
                 <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
-                <ScalarProperty Name="cNumeroTarjeta" ColumnName="cNumeroTarjeta" />
-                <ScalarProperty Name="cMesVigencia" ColumnName="cMesVigencia" />
-                <ScalarProperty Name="cAñoVigencia" ColumnName="cAñoVigencia" />
-                <ScalarProperty Name="lDefault" ColumnName="lDefault" />
+                <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblDireccion">
             <EntityTypeMapping TypeName="VerkoopDBModel.tblDireccion">
               <MappingFragment StoreEntitySet="tblDireccion">
-                <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
-                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
-                <ScalarProperty Name="iIdMunicipio" ColumnName="iIdMunicipio" />
-                <ScalarProperty Name="cDireccion" ColumnName="cDireccion" />
-                <ScalarProperty Name="cCodigoPostal" ColumnName="cCodigoPostal" />
                 <ScalarProperty Name="lDefault" ColumnName="lDefault" />
+                <ScalarProperty Name="cCodigoPostal" ColumnName="cCodigoPostal" />
+                <ScalarProperty Name="cDireccion" ColumnName="cDireccion" />
+                <ScalarProperty Name="iIdMunicipio" ColumnName="iIdMunicipio" />
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
+                <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEstado">
+            <EntityTypeMapping TypeName="VerkoopDBModel.tblEstado">
+              <MappingFragment StoreEntitySet="tblEstado">
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iIdPais" ColumnName="iIdPais" />
+                <ScalarProperty Name="iIdEstado" ColumnName="iIdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblInicioSesion">
+            <EntityTypeMapping TypeName="VerkoopDBModel.tblInicioSesion">
+              <MappingFragment StoreEntitySet="tblInicioSesion">
+                <ScalarProperty Name="dtFechaActualizacion" ColumnName="dtFechaActualizacion" />
+                <ScalarProperty Name="cContrasenia" ColumnName="cContrasenia" />
+                <ScalarProperty Name="cCorreo" ColumnName="cCorreo" />
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
+                <ScalarProperty Name="iIdInicioSesion" ColumnName="iIdInicioSesion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMunicipio">
+            <EntityTypeMapping TypeName="VerkoopDBModel.tblMunicipio">
+              <MappingFragment StoreEntitySet="tblMunicipio">
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iIdEstado" ColumnName="iIdEstado" />
+                <ScalarProperty Name="iIdMunicipio" ColumnName="iIdMunicipio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPais">
+            <EntityTypeMapping TypeName="VerkoopDBModel.tblPais">
+              <MappingFragment StoreEntitySet="tblPais">
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="iIdPais" ColumnName="iIdPais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductoComprado">
+            <EntityTypeMapping TypeName="VerkoopDBModel.tblProductoComprado">
+              <MappingFragment StoreEntitySet="tblProductoComprado">
+                <ScalarProperty Name="iCantidad" ColumnName="iCantidad" />
+                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
+                <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
+                <ScalarProperty Name="iIdProductoComprado" ColumnName="iIdProductoComprado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTarjeta">
+            <EntityTypeMapping TypeName="VerkoopDBModel.tblTarjeta">
+              <MappingFragment StoreEntitySet="tblTarjeta">
+                <ScalarProperty Name="lDefault" ColumnName="lDefault" />
+                <ScalarProperty Name="cAñoVigencia" ColumnName="cAñoVigencia" />
+                <ScalarProperty Name="cMesVigencia" ColumnName="cMesVigencia" />
+                <ScalarProperty Name="cNumeroTarjeta" ColumnName="cNumeroTarjeta" />
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
+                <ScalarProperty Name="iIdTarjeta" ColumnName="iIdTarjeta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

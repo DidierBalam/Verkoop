@@ -19,6 +19,7 @@ namespace Verkoop.CapaDatos
         {
             this.tblCarrito = new HashSet<tblCarrito>();
             this.tblCompra = new HashSet<tblCompra>();
+            this.tblDireccion = new HashSet<tblDireccion>();
             this.tblInicioSesion = new HashSet<tblInicioSesion>();
             this.tblTarjeta = new HashSet<tblTarjeta>();
         }
@@ -39,6 +40,8 @@ namespace Verkoop.CapaDatos
         public virtual ICollection<tblCarrito> tblCarrito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCompra> tblCompra { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDireccion> tblDireccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblInicioSesion> tblInicioSesion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
