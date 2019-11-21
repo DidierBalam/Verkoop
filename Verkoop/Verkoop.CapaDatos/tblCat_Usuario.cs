@@ -19,7 +19,8 @@ namespace Verkoop.CapaDatos
         {
             this.tblCarrito = new HashSet<tblCarrito>();
             this.tblCompra = new HashSet<tblCompra>();
-            this.tblInicioSesion = new HashSet<tblInicioSesion>();
+            this.tblDireccion = new HashSet<tblDireccion>();
+            this.tblSesion = new HashSet<tblSesion>();
             this.tblTarjeta = new HashSet<tblTarjeta>();
         }
     
@@ -29,10 +30,10 @@ namespace Verkoop.CapaDatos
         public string cApellidoMaterno { get; set; }
         public string cImagen { get; set; }
         public string cTelefono { get; set; }
-        public bool lTipoUsuario { get; set; }
-        public bool lEstatus { get; set; }
+        public bool iTipoUsuario { get; set; }
+        public bool iEstatus { get; set; }
         public System.DateTime dtFechaIngreso { get; set; }
-        public Nullable<System.DateTime> dtFechaFinalizacion { get; set; }
+        public Nullable<System.DateTime> dtFechaModificacion { get; set; }
         public Nullable<System.DateTime> dtFechaBaja { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -40,7 +41,9 @@ namespace Verkoop.CapaDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCompra> tblCompra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblInicioSesion> tblInicioSesion { get; set; }
+        public virtual ICollection<tblDireccion> tblDireccion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSesion> tblSesion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTarjeta> tblTarjeta { get; set; }
     }

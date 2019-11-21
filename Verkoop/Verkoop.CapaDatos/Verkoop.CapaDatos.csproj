@@ -95,9 +95,6 @@
     <Compile Include="tblEstado.cs">
       <DependentUpon>VerkoopDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="tblInicioSesion.cs">
-      <DependentUpon>VerkoopDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="tblMunicipio.cs">
       <DependentUpon>VerkoopDB.tt</DependentUpon>
     </Compile>
@@ -105,6 +102,9 @@
       <DependentUpon>VerkoopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="tblProductoComprado.cs">
+      <DependentUpon>VerkoopDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSesion.cs">
       <DependentUpon>VerkoopDB.tt</DependentUpon>
     </Compile>
     <Compile Include="tblTarjeta.cs">

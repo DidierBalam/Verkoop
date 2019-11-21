@@ -1,13 +1,13 @@
 ﻿using System;
-
+using System.Collections.Generic;
 namespace Verkoop.CapaDatos.DTO
 {
     public class CompraDeClienteDTO
     {
-        private string cImagen { get; set; }
-        private string cNombreCompra { get; set; }
-        private decimal dPrecio { get; set; }
-        private DateTime dtFecha { get; set; }
-        private int iIdCompra { get; set; }
+        public decimal dPrecio { get; set; }
+        public string dtFecha { get; set; }
+        public int iIdCompra { get; set; }
+
+        public List<ProductoCompradoDTO> ProductoComprado { get; set; }
     }
 }

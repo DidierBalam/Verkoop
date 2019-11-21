@@ -24,7 +24,7 @@ namespace Verkoop.CapaDatos
         public int iIdUsuario { get; set; }
         public string cNumeroTarjeta { get; set; }
         public string cMesVigencia { get; set; }
-        public string cAñoVigencia { get; set; }
+        public string cAnioVigencia { get; set; }
         public bool lDefault { get; set; }
     
         public virtual tblCat_Usuario tblCat_Usuario { get; set; }
