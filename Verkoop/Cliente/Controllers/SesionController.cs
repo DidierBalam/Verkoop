@@ -1,36 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Verkoop.Business;
+using Verkoop.CapaDatos.DTO;
 
 namespace Cliente.Controllers
 {
     public class SesionController : Controller
     {
-        // GET: Sesión
+        UsuarioBusiness UsuarioBusiness = new UsuarioBusiness();
+
+        // GET: Sesion
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Usuario()//Recibe datos vía get
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult IniciarSesion(SesionBusiness _SesionBusiness)// Método sincrónico, recibe datos vía post
-        {
-            if (ModelState.IsValid)
-            {
-                return View();
-            }
-            else
-            {
-                return View("Index");
-            }
-        }
 
+        /// <summary>
+        /// Método que conecta al método RegistrarUsuario() del UsuarioBusiness
+        /// </summary>
+        /// <param name="_objDatos">Recibe los datos del usuario</param>
+        /// <returns>Devuelve el estado de la operación y el mensaje de respuesta</returns>
+        [HttpPost]
+        public JsonResult RegistrarUsuario(RegistrarUsuarioDTO _objDatosUsuario)
+        {           
+             object _objResultado = UsuarioBusiness.RegistrarUsuario(_objDatosUsuario);
+
+            return Json(_objResultado);
+        }
     }
 }
