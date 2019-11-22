@@ -69,7 +69,7 @@ namespace Verkoop.Business
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<VistaPreviaProductoClienteDTO> ObtenerProductoRecientes()
+        public List<VistaPreviaProductoClienteDTO> ObtenerProductosRecientes()
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
@@ -94,7 +94,7 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_iIdCategoria"></param>
         /// <returns></returns>
-        public List<VistaPreviaProductoClienteDTO> ObtenerProductoRecientesPorCategoria(int _iIdCategoria)
+        public List<VistaPreviaProductoClienteDTO> ObtenerProductosRecientesPorCategoria(int _iIdCategoria)
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {

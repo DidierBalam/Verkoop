@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Verkoop.CapaDatos.DTO;
 using Verkoop.CapaDatos;
-
+using System.Linq;
 namespace Verkoop.Business
 {
     public class CompraBusiness
@@ -75,11 +75,5 @@ namespace Verkoop.Business
             return null;
         }
 
-
-        public List<DetallesCompraClienteDTO> VisualizarDetallesCompraCliente(int _iIdCompra)
-        {
-
-            return null;
-        }
     }
 }

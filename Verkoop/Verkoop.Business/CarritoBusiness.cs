@@ -65,6 +65,7 @@ namespace Verkoop.Business
         public List<ProductoEnCarritoDTO> ObtenerProductosDeUsuario(int _iIdUsuario)
         {
             List<ProductoEnCarritoDTO> _lstProductos = new List<ProductoEnCarritoDTO>();
+            
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 _lstProductos = (from Carrito in _ctx.tblCarrito
@@ -78,6 +79,7 @@ namespace Verkoop.Business
                                  cNombreproducto = Producto.cNombre,
                                  dPrecioProducto = Producto.dPrecio,
                                  iCantidad = Carrito.iCantidad
+                            
                              }).ToList();
             }
             return _lstProductos.ToList();

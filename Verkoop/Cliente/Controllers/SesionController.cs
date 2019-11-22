@@ -21,8 +21,8 @@ namespace Cliente.Controllers
         /// <returns>Devuelve el estado de la operación y el mensaje de respuesta</returns>
         [HttpPost]
         public JsonResult RegistrarUsuario(RegistrarUsuarioDTO _objDatosUsuario)
-        {           
-             object _objResultado = UsuarioBusiness.RegistrarUsuario(_objDatosUsuario);
+        {
+            object _objResultado = UsuarioBusiness.RegistrarUsuario(_objDatosUsuario);
 
             return Json(_objResultado);
         }

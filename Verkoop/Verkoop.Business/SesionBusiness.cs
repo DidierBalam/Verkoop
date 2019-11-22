@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-
+using System.Linq;
+using Verkoop.CapaDatos;
 
 namespace Verkoop.Business
 {
@@ -45,7 +46,7 @@ namespace Verkoop.Business
 
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
-                _bCoincidencia = _ctx.tblInicioSesion.Any(x => x.cCorreo == _cCorreo);
+                _bCoincidencia = _ctx.tblSesion.Any(x => x.cCorreo == _cCorreo);
             }
       
             return _bCoincidencia;

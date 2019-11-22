@@ -5,9 +5,6 @@ using Verkoop.CapaDatos;
 using System.Linq;
 using System.Web;
 
-
-
-
 namespace Verkoop.Business
 {
     public class UsuarioBusiness
@@ -56,7 +53,7 @@ namespace Verkoop.Business
             catch (Exception)
             {
                 _bEstadoOperacion = false;
-                _cMensaje = "Wow, Algo falló al actualizar los datos";
+                _cMensaje = "Woow, Algo falló al actualizar los datos";
             }
 
             return (new { _bEstadoOperacion, _cMensaje });
@@ -183,7 +180,7 @@ namespace Verkoop.Business
                                 cTelefono = _objDatosUsuario.cTelefono,
                                 dtFechaIngreso = DateTime.Today,
                                 lEstatus = true,
-                                lTipoUsuario = false
+                                iTipoUsuario = 2
                             };
 
                             List<tblDireccion> _lstTablaDireccion = new List<tblDireccion>
@@ -197,9 +194,9 @@ namespace Verkoop.Business
                         }
                     };
 
-                            List<tblInicioSesion> _lstTablaSesion = new List<tblInicioSesion>()
+                            List<tblSesion> _lstTablaSesion = new List<tblSesion>()
                     {
-                       new tblInicioSesion()
+                       new tblSesion()
                         {
                             iIdUsuario = _TablaUsuario.iIdUsuario,
                             cCorreo = _objDatosUsuario.cCorreo,
@@ -207,7 +204,7 @@ namespace Verkoop.Business
                         }
                     };
 
-                            _TablaUsuario.tblInicioSesion = _lstTablaSesion;
+                            _TablaUsuario.tblSesion = _lstTablaSesion;
                             _TablaUsuario.tblDireccion = _lstTablaDireccion;
 
                             _ctx.tblCat_Usuario.Add(_TablaUsuario);
@@ -231,7 +228,7 @@ namespace Verkoop.Business
             catch (Exception)
             {
                 _bEstadoOperacion = false;
-                _cMensaje = "Wow, algo salió mal al momento de registrar la cuenta";
+                _cMensaje = "Woow, algo salió mal al momento de registrar la cuenta";
             }
 
             return (new { _bEstadoOperacion, _cMensaje });
@@ -242,7 +239,7 @@ namespace Verkoop.Business
         /// Método que comprueba si el teléfono existe en la base de datos.
         /// </summary>
         /// <param name="_cTelefono">Recibe el teléfono del usuario</param>
-        /// <returns>Retorna true si exiten coincidencias o false si no</returns>
+        /// <returns>Retorna true si existen coincidencias o false si no</returns>
         public bool VerificarExistenciaTelefonoEnRegistro(string _cTelefono)
         {
             bool _bCoincidencia = false;
@@ -260,7 +257,7 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_iIdUsuario">Recibe el id del usuario</param>
         /// /// <param name="_cTelefono">Recibe el teléfono del usuario</param>
-        /// <returns>Retorna true si exiten coincidencias o false si no</returns>
+        /// <returns>Retorna true si existen coincidencias o false si no</returns>
         public bool VerificarExistenciaTelefonoEnActualizar(int _iIdUsuario, string _cTelefono)
         {
             bool _bCoincidencia = false;
