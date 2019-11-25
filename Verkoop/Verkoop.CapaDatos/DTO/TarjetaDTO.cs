@@ -10,6 +10,5 @@ namespace Verkoop.CapaDatos.DTO
         public int iIdTarjeta { get; set; }
         public int iIdUsuario { get; set; }
 
-        //public RegistrarUsuarioDTO m_RegistrarUsuarioDTO;
     }
 }

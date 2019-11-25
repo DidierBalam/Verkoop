@@ -22,10 +22,11 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    
-                    tblCat_Categoria _TablaCategoria = new tblCat_Categoria();
 
-                    _TablaCategoria.cNombre = _cNombreCategoria;
+                    tblCat_Categoria _TablaCategoria = new tblCat_Categoria
+                    {
+                        cNombre = _cNombreCategoria
+                    };
                     _ctx.tblCat_Categoria.Add(_TablaCategoria);
                     _ctx.SaveChanges();
 
@@ -33,9 +34,9 @@ namespace Verkoop.Business
                     _bEstadoCategoria = true;
                 }
             }
-            catch (Exception e)
+            catch (Exception )
             {
-                _cMensaje = e.Message;
+                _cMensaje ="Algo falló, no se pudo agregar categoría, intente de nuevo.";
                 _bEstadoCategoria = false;
 
             }
@@ -56,11 +57,12 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    tblCat_Categoria _TablaCategoria = new tblCat_Categoria();
-
-                    _TablaCategoria.iIdCategoria = (from Categoria in _ctx.tblCat_Categoria
-                                                    where Categoria.iIdCategoria == _iIdCategoria
-                                                    select Categoria.iIdCategoria).First();
+                    tblCat_Categoria _TablaCategoria = new tblCat_Categoria
+                    {
+                        iIdCategoria = (from Categoria in _ctx.tblCat_Categoria
+                                        where Categoria.iIdCategoria == _iIdCategoria
+                                        select Categoria.iIdCategoria).First()
+                    };
 
                     _ctx.tblCat_Categoria.Remove(_TablaCategoria);
                     _ctx.SaveChanges();

@@ -12,7 +12,7 @@ namespace Cliente.Controllers
         /// <summary>
         /// Instancia de la lógica de negocios de DireccionBusiness.
         /// </summary>
-        DireccionBusiness DireccionBusiness = new DireccionBusiness();
+        readonly DireccionBusiness DireccionBusiness = new DireccionBusiness();
 
 
         /// <summary>

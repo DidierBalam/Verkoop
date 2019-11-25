@@ -12,7 +12,20 @@ namespace Cliente.Controllers
         /// <summary>
         /// Instancia de la lógica de negocios TarjetaBusiness.
         /// </summary>
-        TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
+        readonly TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
+
+        /// <summary>
+        /// Método que se conecta con GuardarPrimeraTarjeta de la clase TarjetaBusiness.
+        /// </summary>
+        /// <param name="_objTarjeta">Recibe los datos  de la tarjeta a guardar.</param>
+        /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
+        [HttpPost]
+        public JsonResult GuardarPrimeraTarjeta(tblTarjeta _objTarjeta)
+        {
+            _objResultado = TarjetaBusiness.GuardarTarjeta(_objTarjeta);//Se guardan las propiedades de la tarjeta en un objeto llamado _objResultado.
+
+            return Json(_objResultado);///Regresa un Json con los datos que este en la variable _objResultado.
+        }
 
         /// <summary>
         /// Método que se conecta a GuardarTarjeta() de la clase TarjetaBusiness.
@@ -25,20 +38,7 @@ namespace Cliente.Controllers
              _objResultado = TarjetaBusiness.GuardarTarjeta(_objTarjeta);///Se guardan las propiedades de la tarjeta en un objeto llamado _objResultado.
             
             return  Json(_objResultado);///Regresa un Json con los datos que este en la variable _objResultado.
-        }
-
-        /// <summary>
-        /// Método que se conecta con GuardarPrimeraTarjeta de la clase TarjetaBusiness.
-        /// </summary>
-        /// <param name="_objTarjeta">Recibe los datos  de la tarjeta a guardar.</param>
-        /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
-        [HttpPost]
-        public JsonResult GuardarPrimeraTarjeta(tblTarjeta _objTarjeta)
-        {            
-             _objResultado = TarjetaBusiness.GuardarTarjeta(_objTarjeta);//Se guardan las propiedades de la tarjeta en un objeto llamado _objResultado.
-
-            return Json(_objResultado);///Regresa un Json con los datos que este en la variable _objResultado.
-        }
+        }        
 
         /// <summary>
         /// Método que conecta con EliminarTarjeta() de la TarjetaBusiness.

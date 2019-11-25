@@ -66,11 +66,12 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    tblDireccion _tabladireccion = new tblDireccion();
-
-                    _tabladireccion.iIdDireccion = (from Direccion in _ctx.tblDireccion
-                                                    where Direccion.iIdDireccion == _iIdDireccion
-                                                    select Direccion.iIdDireccion).First();
+                    tblDireccion _tabladireccion = new tblDireccion
+                    {
+                        iIdDireccion = (from Direccion in _ctx.tblDireccion
+                                        where Direccion.iIdDireccion == _iIdDireccion
+                                        select Direccion.iIdDireccion).First()
+                    };
 
                     _ctx.tblDireccion.Remove(_tabladireccion);
                     _ctx.SaveChanges();
