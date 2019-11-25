@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Verkoop.CapaDatos.DTO
+namespace Verkoop.Business
 {
     public class DetallesCompraClienteDTO
     {
-        private string cDireccion { get; set; }
-        private string cNombreCliente { get; set; }
-        private decimal dPrecio { get; set; }
-        private DateTime dtFecha { get; set; }
-        private int iTotalProductos { get; set; }
-        private List<DetalleProductoCompradoClienteDTO> objProductoComprado { get; set; }
-
-        public DetalleProductoCompradoClienteDTO m_DetalleProductoCompradoClienteDTO;
+        public string cDireccion { get; set; }
+        public string cNombreCliente { get; set; }
+        public decimal dPrecio { get; set; }
+        public DateTime dtFecha { get; set; }
+        public int iTotalProductos { get; set; }
+        
     }
 }
