@@ -12,12 +12,12 @@ namespace Verkoop.CapaDatos
     using System;
     using System.Collections.Generic;
     
-    public partial class tblInicioSesion
+    public partial class tblSesion
     {
-        public int iIdInicioSesion { get; set; }
+        public int iIdSesion { get; set; }
         public int iIdUsuario { get; set; }
         public string cCorreo { get; set; }
-        public string cContraseña { get; set; }
+        public string cContrasenia { get; set; }
         public Nullable<System.DateTime> dtFechaActualizacion { get; set; }
     
         public virtual tblCat_Usuario tblCat_Usuario { get; set; }

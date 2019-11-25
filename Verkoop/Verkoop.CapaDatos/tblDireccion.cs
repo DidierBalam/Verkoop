@@ -14,11 +14,22 @@ namespace Verkoop.CapaDatos
     
     public partial class tblDireccion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblDireccion()
+        {
+            this.tblCompra = new HashSet<tblCompra>();
+        }
+    
         public int iIdDireccion { get; set; }
         public int iIdUsuario { get; set; }
         public int iIdMunicipio { get; set; }
         public string cDireccion { get; set; }
         public string cCodigoPostal { get; set; }
         public bool lDefault { get; set; }
+    
+        public virtual tblCat_Usuario tblCat_Usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCompra> tblCompra { get; set; }
+        public virtual tblMunicipio tblMunicipio { get; set; }
     }
 }

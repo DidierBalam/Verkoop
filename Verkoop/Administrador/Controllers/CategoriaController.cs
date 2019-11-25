@@ -1,28 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Verkoop.Business;
+using Verkoop.CapaDatos.DTO;
+
+
+
 
 namespace Administrador.Controllers
 {
     public class CategoriaController : Controller
     {
-        CategoriaBusiness ClaseBusiness = new CategoriaBusiness();
+        object _objResultado;
 
-        // GET: Categoria
+        CategoriaBusiness CategoriaBusiness = new CategoriaBusiness();
+
+        // GET: Categoría
         public ActionResult Index()
         {
             return View();
         }
 
-        [HttpGet]
-        public bool GuardarCategoria(string _cNombreCategoria)
+        /// <summary>
+        /// Método para conectar con GuardarCategoria().
+        /// </summary>
+        /// <param name="_cNombreCategoria">Contiene el nombre de la categoría.</param>
+        /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
+        [HttpPost]
+        public JsonResult GuardarCategoria(string _cNombreCategoria)
         {
-            bool _bResultado = ClaseBusiness.AgregarCategoria(_cNombreCategoria);
-           
-            return _bResultado;
+             _objResultado = CategoriaBusiness.GuardarCategoria(_cNombreCategoria);
+
+            return Json(_objResultado);
         }
+
+        /// <summary>
+        /// Método que conecta con EliminarCategoria().
+        /// </summary>
+        /// <param name="_iIdCategoria">Contiene el id de la categoría.</param>
+        /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
+        [HttpPost]
+        public JsonResult EliminarCategoria(int _iIdCategoria)
+        {
+            _objResultado = CategoriaBusiness.EliminarCategoria(_iIdCategoria);
+
+            return Json(_objResultado);
+        }
+
+        /// <summary>
+        /// Método para conectar con ObtenerCategorias().
+        /// </summary>
+        /// <param name="_iIdUsuario">Contiene el id del usuario.</param>
+        /// <returns>Retorna la lista de la consulta.</returns>
+        [HttpPost]
+        public JsonResult ObtenerCategorias()
+        {
+            List<CategoriaDTO> _lstCategorias = CategoriaBusiness.ObtenerCategorias();
+
+            return Json(_lstCategorias);
+        }
+
+
+
+
     }
 }

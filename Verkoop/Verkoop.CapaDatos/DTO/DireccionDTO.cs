@@ -4,10 +4,11 @@ namespace Verkoop.CapaDatos.DTO
 {
     public class DireccionDTO
     {
-        private string cCodigoPostal { get; set; }
-        private string cDireccion { get; set; }
-        private int iIdMunicipio { get; set; }
-        private int iIdUsuario { get; set; }
+        public int iIdDireccion { get; set; }
+        public string cCodigoPostal { get; set; }
+        public string cDireccion { get; set; }
+        public int iIdMunicipio { get; set; }
+        public int iIdUsuario { get; set; }
 
         public RegistrarUsuarioDTO m_RegistrarUsuarioDTO;
     }

@@ -3,8 +3,8 @@ namespace Verkoop.CapaDatos.DTO
 {
     public class CategoriaDTO
     {
-        private string cNombre { get; set; }
-        private int iIdCategoria { get; set; }
+        public string cNombre { get; set; }
+        public int iIdCategoria { get; set; }
 
     }
 }
