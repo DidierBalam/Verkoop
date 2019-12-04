@@ -4,12 +4,11 @@ namespace Verkoop.CapaDatos.DTO
 {
     public class TarjetaDTO
     {
-        private string cAnioVigencia { get; set; }
-        private string cMesVigencia { get; set; }
-        private string cNumeroTarjeta { get; set; }
-        private int iIdTarjeta { get; set; }
-        private int iIdUsuario { get; set; }
+        public string cAnioVigencia { get; set; }
+        public string cMesVigencia { get; set; }
+        public string cNumeroTarjeta { get; set; }
+        public int iIdTarjeta { get; set; }
+        public int iIdUsuario { get; set; }
 
-        public RegistrarUsuarioDTO m_RegistrarUsuarioDTO;
     }
 }
