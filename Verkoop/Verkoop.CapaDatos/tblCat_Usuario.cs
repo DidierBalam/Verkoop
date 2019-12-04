@@ -30,8 +30,8 @@ namespace Verkoop.CapaDatos
         public string cApellidoMaterno { get; set; }
         public string cImagen { get; set; }
         public string cTelefono { get; set; }
-        public bool iTipoUsuario { get; set; }
-        public bool iEstatus { get; set; }
+        public int iTipoUsuario { get; set; }
+        public bool lEstatus { get; set; }
         public System.DateTime dtFechaIngreso { get; set; }
         public Nullable<System.DateTime> dtFechaModificacion { get; set; }
         public Nullable<System.DateTime> dtFechaBaja { get; set; }

@@ -22,10 +22,10 @@ namespace Verkoop.CapaDatos
     
         public int iIdCompra { get; set; }
         public int iIdUsuario { get; set; }
+        public int iIdDireccion { get; set; }
         public int iIdTarjeta { get; set; }
         public decimal dPrecioTotal { get; set; }
         public Nullable<System.DateTime> dtFecha { get; set; }
-        public int iIdDireccion { get; set; }
     
         public virtual tblCat_Usuario tblCat_Usuario { get; set; }
         public virtual tblDireccion tblDireccion { get; set; }

@@ -25,7 +25,6 @@ namespace Verkoop.CapaDatos
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tblCarrito> tblCarrito { get; set; }
         public virtual DbSet<tblCat_Categoria> tblCat_Categoria { get; set; }
         public virtual DbSet<tblCat_Producto> tblCat_Producto { get; set; }
