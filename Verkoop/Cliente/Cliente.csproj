@@ -171,6 +171,7 @@
     <Content Include="Assets\img\bg-img\cart1.jpg" />
     <Content Include="Assets\img\bg-img\cart2.jpg" />
     <Content Include="Assets\img\bg-img\cart3.jpg" />
+    <Content Include="Assets\img\core-img\agregartarjeta.svg" />
     <Content Include="Assets\img\core-img\anadir.svg" />
     <Content Include="Assets\img\core-img\basura.svg" />
     <Content Include="Assets\img\core-img\cart.png" />
