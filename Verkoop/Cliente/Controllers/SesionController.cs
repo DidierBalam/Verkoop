@@ -26,5 +26,21 @@ namespace Cliente.Controllers
 
             return Json(_objResultado);
         }
+
+        /// <summary>
+        /// Método que llama al método CambiarContrasenia() de SesionBusiness
+        /// </summary>
+        /// <param name="_cContraseniaActual">Recibe la contraseña actual</param>
+        /// <param name="_cContraseniaNueva">Recibe la nueva contraseña </param>
+        /// <returns>Regresa el estado de la operación y el mensaje de respuesta</returns>
+        [HttpPost]
+        public JsonResult CambiarContrasenia(string _cContraseniaActual, string _cContraseniaNueva)
+        {
+            SesionBusiness SesionBusiness = new SesionBusiness();
+
+            object _objResultado = SesionBusiness.CambiarContrasenia(_cContraseniaActual, _cContraseniaNueva, 1);
+
+            return Json(_objResultado);
+        }
     }
 }

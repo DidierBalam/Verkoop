@@ -7,10 +7,69 @@ namespace Verkoop.Business
 {
     public class SesionBusiness
     {
-        public bool CambiarContrasenia(string _cContraseniaNueva)
+        /// <summary>
+        /// Método para cambiar la contraseña del usuario.
+        /// </summary>
+        /// <param name="_cContraseniaActual">Recibe la contraseña actual</param>
+        /// <param name="_cContraseniaNueva">Recibe la nueva contraseña</param>
+        /// <param name="_iIdUsuario">Recibe el id del usuario</param>
+        /// <returns></returns>
+        public object CambiarContrasenia(string _cContraseniaActual, string _cContraseniaNueva, int _iIdUsuario)
+        {
+            bool _bEstadoOperacion;
+            string _cMensaje;
+
+            try
+            {
+                using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+                {
+                    if (VerificarContrasenia(_cContraseniaActual, _ctx))
+                    {
+
+                        _ctx.Configuration.LazyLoadingEnabled = false;
+                        _ctx.Configuration.ProxyCreationEnabled = false;
+
+                        tblSesion _objSesion = _ctx.tblSesion.AsNoTracking().FirstOrDefault(x => x.iIdUsuario == _iIdUsuario);
+
+                        _objSesion.cContrasenia = _cContraseniaNueva;
+                        _objSesion.dtFechaActualizacion = DateTime.Today;
+
+                        _ctx.Entry(_objSesion).State = System.Data.Entity.EntityState.Modified;
+                        _ctx.SaveChanges();
+
+                        _bEstadoOperacion = true;
+                        _cMensaje = "La contraseña ha sido actualizada";
+
+                    }
+                    else {
+                        _bEstadoOperacion = false;
+                        _cMensaje = "La contraseña actual es incorrecta.";
+
+                    }
+                   
+                }
+            }
+            catch (Exception)
+            {
+                _bEstadoOperacion = false;
+                _cMensaje = "La contraseña no pudo ser actualizada";
+            }
+            return (new { _bEstadoOperacion, _cMensaje });
+        }
+
+
+        /// <summary>
+        /// Este método sirve para verificar la contraseña
+        /// </summary>
+        /// <param name="_cContraseniaActual">contiene la contraseña actual</param>
+        /// <param name="_ctx">Recibe el contexto de la DB</param>
+        /// <returns>Retorna el valor de la coincidencia (true/false) </returns>
+        public bool VerificarContrasenia(string _cContraseniaActual, VerkoopDBEntities _ctx)
         {
 
-            return true;
+            bool _bCoincidencia = _ctx.tblSesion.Any(x => x.cContrasenia == _cContraseniaActual);
+
+            return _bCoincidencia;
         }
 
         public bool CerrarSesion()
@@ -19,19 +78,20 @@ namespace Verkoop.Business
             return true;
         }
 
+
         public bool IniciarSesion(string _cCorreo, string _cContrasenia)
         {
-            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
-            {
-                
 
-               tblSesion _objSesion = (from Sesion in _ctx.tblSesion.AsNoTracking()
-                           where Sesion.cCorreo == _cCorreo 
-                           select Sesion).FirstOrDefault();
+            //{
 
-                
-            }
-                return true;
+
+            //    tblSesion _objSesion = (from Sesion in _ctx.tblSesion.AsNoTracking()
+            //                            where Sesion.cCorreo == _cCorreo
+            //                            select Sesion).FirstOrDefault();
+
+
+            //}
+            return true;
         }
 
         /// <summary>
@@ -47,10 +107,9 @@ namespace Verkoop.Business
             {
                 _bCoincidencia = _ctx.tblSesion.Any(x => x.cCorreo == _cCorreo);
             }
-      
+
             return _bCoincidencia;
         }
-
 
         /// <summary>
         /// Método para encriptar la contraseña del usuario con SHA256
