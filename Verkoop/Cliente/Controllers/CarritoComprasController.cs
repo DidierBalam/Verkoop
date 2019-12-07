@@ -14,7 +14,12 @@ namespace Cliente.Controllers
         TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
 
         // GET: CarritoCompras
-        public ActionResult Index()
+        public ActionResult CarritoCompras()
+        {
+            return View();
+        }
+
+        public ActionResult PagoConTarjeta()
         {
             return View();
         }

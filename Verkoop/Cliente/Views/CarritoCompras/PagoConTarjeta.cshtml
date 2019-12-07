@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "PagoConTarjeta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Opciones {
+    <a href="#" class="fav-nav -azul-cielo"><img src="~/Assets/img/core-img/icono-producto.svg" alt=""> Productos</a>
+    <a href="carrito.html" class="cart-nav">
+        <img src="~/Assets/img/core-img/icono-carrito-azul.svg" alt=""> Carrito<span>(0)</span>
+    </a>
+    <a href="compras.html" class="fav-nav"><img src="~/Assets/img/core-img/icono-compra.svg" alt="">Compras</a>
+    <a href="nuevoperfil.html" class=""><img src="~/Assets/img/core-img/icono-usuario.svg" alt=""> Perfil</a>
+}
+
+<div class="-width-35pst">
+    <div class="-fixed -height-100pst -ColorBarra -width-35pst">
+    </div>
+</div>
+
+<div class="-ContenedorSuperPadre">
+    <div class="-cardSuperPadre"> 
+        <div class="-cardDireccion">
+
+            <div class="-cardPadreDireccion1">
+                <div >
+                    <h2>Pago con tarjeta.</h2>
+                </div>
+
+            </div>
+
+            <div class="-cardDireciones1 ">
+                @*<div class="-cardPadre">*@
+                <div class="-cardDireccion">
+                    <form action="#" class="contact-form">
+
+                        <div class="-cardPadreDireccion1">
+                            <div class="w-75 -botonAgregarDireccionPago">
+                                <label class="-letranegrita">Dirección.</label>
+                                <input type="direccion" class="form-control " id="direccion" placeholder="19c #418 x 28f y 30 colonia">
+                            </div>
+
+                            <div>
+                                <button class=" w-25 -botonAgregarDireccionPago1 -BotonAgregarDireccion"><img class="-SeparacionIconoAgregar" src="~/Assets/img/core-img/ubicacion.svg" alt=""></button>
+                            </div>
+
+                            @*<div class="w-25 -botonAgregarDireccionPago1">
+                                <a href="#" class="btn -amado-btn -ml-1">Nueva</a>
+                            </div>*@
+
+                        </div>
+
+
+                        <div class="-cardPadreDireccion1">
+                            <div class="w-75 -botonAgregarDireccionPago">
+                                <label class="-letranegrita">Total a pagar.</label>
+                                <input type="precio" class="form-control " id="direccion" placeholder="$120.00">
+                            </div>
+
+                        </div>
+
+                        @*<div class="-cardPadreDireccion1">
+                            <label class="-letranegrita"> Tipos de tarjeta </label>
+                            <img class="-alinearimagenes" src="~/Assets/img/visa.png" alt="">
+                            <img class="-alinearimagenes2" src="~/Assets/img/master card.png" alt="">
+                        </div>*@
+
+                        <div class="-cardPadreDireccion1">
+                            <div class="w-75 -botonAgregarDireccionPago">
+                                <label class="-letranegrita">Tarjeta.</label>
+                                <input type="tarjeta" class="form-control " id="direccion" placeholder="XXXX-XXXX-XXXX-4653">
+                            </div>
+
+                            <div class="w-25 -botonAgregarDireccionPago1">
+                                <a href="#" class="btn -amado-btn -ml-1">Nueva</a>
+                            </div>
+
+                        </div>
+
+                        <div class="-cardPadreDireccion1">
+                            <div class="w-75 -botonAgregarDireccionPago">
+                                <label class="-letranegrita">Vigencia.</label>
+
+                                <div class="row">
+                                    <div class="col col-md-3">
+                                        <label class="-letranegrita">Mes</label>
+                                        <input type="text" class="form-control" placeholder="Enero">
+                                    </div>
+                                    <div class="col col-md-3">
+                                        <label class="-letranegrita">Año</label>
+                                        <input type="text" class="form-control" placeholder="2019">
+                                    </div>
+                                    <div class="col col-md-3">
+                                        <label class="-letranegrita">CCV</label>
+                                        <input type="text" class="form-control" placeholder="123">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <div class="-cardPadreDireccion1 justify-content-center  " >
+                        <div class="amado-btn-group mt-30 mb-100 -ml-1">
+                            <a href="#" class="btn amado-btn active">Cancelar</a>
+                        </div>
+
+                        <div class="-alinearimagenes3">
+                            <a href="#" class="btn amado-btn ml-30">Pagar</a>
+                        </div>                     
+
+                    </div>
+
+                    @*<div class="col-sm-7">
+                        <div class="amado-btn-group mt-30 mb-100 -ml-1">
+                            <a href="#" class="btn amado-btn active">Cancelar</a>
+
+                        </div>
+                        <div>
+                            <a href="#" class="btn amado-btn ml-30">Pagar</a>
+                        </div>
+                    </div>*@
+                    @*</div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

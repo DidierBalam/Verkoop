@@ -9,7 +9,7 @@ namespace Cliente.Controllers
     {
         CompraBusiness ClaseBusiness = new CompraBusiness();
         // GET: HistorialCompras
-        public ActionResult Index()
+        public ActionResult ComprasRealizadas()
         {
             return View();
         }
