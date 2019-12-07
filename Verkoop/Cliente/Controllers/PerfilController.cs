@@ -54,6 +54,19 @@ namespace Cliente.Controllers
             object _bResultado = UsuarioBusiness.CambiarFotoPerfil(_Imagen, 5/*iIdUsuario*/);
 
             return Json(_bResultado);
+
+        }
+
+        /// <summary>
+        /// Método para cancelar cuenta usuario.
+        /// </summary>
+        /// <returns>regresa el estado de la operación y su mensaje</returns>
+        [HttpPost]
+        public JsonResult CancelarCuenta()
+        {
+            object _objResultado = UsuarioBusiness.CambiarEstadoUsuario(1 , false);
+
+            return Json(_objResultado);
         }
     }
 }
