@@ -2,6 +2,11 @@
 using Verkoop.CapaDatos.DTO;
 using Verkoop.CapaDatos;
 using System.Linq;
+//using System.IO;
+//using iTextSharp.text;
+//using iTextSharp.text.pdf;
+//using System.Web;
+
 namespace Verkoop.Business
 {
     public class CompraBusiness
@@ -13,11 +18,26 @@ namespace Verkoop.Business
         }
 
 
-        public string GenerarTicketDeCompra(DetallesCompraClienteDTO _objDatos)
+        public bool ImprimirTicketDeCompra(DetallesCompraClienteDTO _objDatos)
         {
+          
 
-            return "";
+        //    Document doc = new Document(PageSize.LETTER);
+        //    // Indicamos donde vamos a guardar el documento
+        //    PdfWriter writer = PdfWriter.GetInstance(doc,
+        //                                new FileStream(@"C:\prueba.pdf", FileMode.Create));
+
+        //    // Le colocamos el título y el autor
+        //    // **Nota: Esto no será visible en el documento
+        //    doc.AddTitle("Mi primer PDF");
+        //    doc.AddCreator("Roberto Torres");
+
+        //    // Abrimos el archivo
+        //    //doc.Open();
+            
+            return true;
         }
+
         /// <summary>
         /// Método para Visualizar las compras del cliente
         /// </summary>
@@ -26,6 +46,7 @@ namespace Verkoop.Business
         public List<CompraDeClienteDTO> ObtenerComprasDeCliente(int _iIdUsuario)
         {
             List<CompraDeClienteDTO> _lstCompras = new List<CompraDeClienteDTO>();
+
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 _lstCompras = (from Compra in _ctx.tblCompra

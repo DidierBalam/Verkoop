@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "Direcciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Opciones{
+
+    <a href="#" class="fav-nav -azul-cielo"><img src="~/Assets/img/core-img/icono-producto.svg" alt=""> Productos</a>
+    <a href="carrito.html" class="cart-nav">
+        <img src="~/Assets/img/core-img/icono-carrito.svg" alt=""> Carrito<span>(0)</span>
+    </a>
+    <a href="compras.html" class="fav-nav"><img src="~/Assets/img/core-img/icono-compra.svg" alt="">Compras</a>
+    <a href="nuevoperfil.html" class=""><img src="~/Assets/img/core-img/icono-usuario-azul.svg" alt=""> Perfil</a>
+}
+
+<!-- Comienza area gris -->
+<div class="-width-35pst">
+
+    <div class="-fixed -height-100pst -ColorBarra -width-35pst">
+
+        <div class="widget catagory ">
+
+            <div>
+                <img class="-FotoPerfil" src="~/Assets/img/core-img/perfil1.jpg" alt="">
+            </div>
+
+
+            <div class="-width-100pst -text-center">
+                <h6> PamelaCastro@gmail.com </h6>
+            </div>
+
+        </div>
+
+        <div class="widget catagory -padding5pst -paddingEspacio">
+            <div class="catagories-menu -margin1">
+                <ul>
+                    <li><a href="nuevoperfil.html">Información personal</a></li>
+                    <br>
+                    <li><a href="CambiarContraseña.html">Cambiar contraseña</a></li>
+                    <br>
+                    <li class="active"><a href="Perfildirecciones.html">Direcciones</a></li>
+                    <br>
+                    <li><a href="Perfiltarjetas.html">Tarjetas</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="-ContenedorSuperPadre">
+
+    <div class="-cardSuperPadre">
+        <!-- Contenedor de dirección y botón de agregar nueva dirección-->
+        <div class="-cardPadreDireccion1">
+            <div>
+                <h2>Direcciones guardadas.</h2>
+            </div>
+
+            <div>
+                <button class="-BotonAgregarDireccion"><img class="-SeparacionIconoAgregar" src="~/Assets/img/core-img/anadir.svg" alt=""> Nueva </button>
+            </div>
+        </div>
+
+        <!-- Aqui se encierra los cards -->
+        <div class="-cardPadreDireccion2">
+            <div class="-cardPadre">
+                <div class="-cardDireccion">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <div class="-cardDireciones ">
+                                    <h6 class="-cardDireciones">
+                                        Colonia: <strong class="-TamCol">Emiliano Zapata</strong>
+                                    </h6>
+                                    <div class="-cardDireciones2">
+                                        <a href="">
+                                            <img class="-cardDireciones3"
+                                                 src="~/Assets/img/core-img/editar.svg" alt="">
+                                        </a>
+                                        <a href="">
+                                            <img class="-cardDireciones3"
+                                                 src="~/Assets/img/core-img/basura.svg" alt="">
+                                        </a>
+
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio1" name="customRadio"
+                                                   class="custom-control-input">
+                                            <label class="custom-control-label"
+                                                   for="customRadio1">Usar</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p class="-cardDireciones4">
+                                        CP: <strong class="-TamCol2">27000</strong>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p class="-cardDireciones4">
+                                        Calle: <strong class="-TamCol2">
+                                            19
+                                            x 6 y 8 S/N.
+                                        </strong>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="-cardPadre">
+                <div class="-cardDireccion">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <div class="-cardDireciones ">
+                                    <h6 class="-cardDireciones">
+                                        Colonia: <strong class="-TamCol">Emiliano Zapata</strong>
+                                    </h6>
+                                    <div class="-cardDireciones2">
+                                        <a href="">
+                                            <img class="-cardDireciones3"
+                                                 src="~/Assets/img/core-img/editar.svg" alt="">
+                                        </a>
+                                        <a href="">
+                                            <img class="-cardDireciones3"
+                                                 src="~/Assets/img/core-img/basura.svg" alt="">
+                                        </a>
+
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio2" name="customRadio"
+                                                   class="custom-control-input">
+                                            <label class="custom-control-label"
+                                                   for="customRadio2">Usar</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p class="-cardDireciones4">
+                                        CP: <strong class="-TamCol2">27000</strong>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p class="-cardDireciones4">
+                                        Calle: <strong class="-TamCol2">
+                                            19
+                                            x 6 y 8 S/N.
+                                        </strong>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
