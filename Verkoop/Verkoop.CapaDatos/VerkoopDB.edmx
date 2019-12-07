@@ -49,6 +49,7 @@
           <Property Name="cApellidoMaterno" Type="varchar" MaxLength="50" />
           <Property Name="cImagen" Type="varchar(max)" />
           <Property Name="cTelefono" Type="varchar" MaxLength="14" />
+          <Property Name="cCodigoVerificacion" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="iTipoUsuario" Type="int" Nullable="false" />
           <Property Name="lEstatus" Type="bit" Nullable="false" />
           <Property Name="dtFechaIngreso" Type="datetime" Nullable="false" />
@@ -492,6 +493,7 @@
           <Property Name="cApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cImagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="cTelefono" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="cCodigoVerificacion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="iTipoUsuario" Type="Int32" Nullable="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
@@ -814,6 +816,7 @@
                 <ScalarProperty Name="dtFechaIngreso" ColumnName="dtFechaIngreso" />
                 <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
                 <ScalarProperty Name="iTipoUsuario" ColumnName="iTipoUsuario" />
+                <ScalarProperty Name="cCodigoVerificacion" ColumnName="cCodigoVerificacion" />
                 <ScalarProperty Name="cTelefono" ColumnName="cTelefono" />
                 <ScalarProperty Name="cImagen" ColumnName="cImagen" />
                 <ScalarProperty Name="cApellidoMaterno" ColumnName="cApellidoMaterno" />

@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="DTO\ActualizarDatosUsuarioDTO.cs" />
     <Compile Include="DTO\BusquedaUsuarioPorEstadoDTO.cs" />
+    <Compile Include="DTO\CantidadProductoValidadoDTO.cs" />
     <Compile Include="DTO\CatalogoProductoAdministradorDTO.cs" />
     <Compile Include="DTO\CategoriaDTO.cs" />
     <Compile Include="DTO\CompraDeClienteDTO.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="DTO\ProductoCompradoDTO.cs" />
     <Compile Include="DTO\ProductoDTO.cs" />
     <Compile Include="DTO\ProductoEnCarritoDTO.cs" />
+    <Compile Include="DTO\ProductoEstadoDisponibleDTO.cs" />
     <Compile Include="DTO\ProductoMasCompradoDTO.cs" />
     <Compile Include="DTO\RealizarPagoDTO.cs" />
     <Compile Include="DTO\RegistrarUsuarioDTO.cs" />

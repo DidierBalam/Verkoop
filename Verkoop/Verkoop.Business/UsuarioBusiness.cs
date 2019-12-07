@@ -59,11 +59,41 @@ namespace Verkoop.Business
             return (new { _bEstadoOperacion, _cMensaje });
         }
 
-
-        public bool CambiarEstadoUsuario(bool _bEstado, int _iIdUsuario)
+        /// <summary>
+        /// Método para cambiar el estado de un usuario 
+        /// </summary>
+        /// <param name="_iIdUsuario">Recibe el ID del usuario.</param>
+        /// <param name="_bEstado">Recibe el nuevo estado del usuario.</param>
+        /// <returns>Retorna el estado de la operación y su mensaje.</returns>
+        public object CambiarEstadoUsuario(int _iIdUsuario, bool _bEstado)
         {
+            bool _bEstadoOperacion;
+            string _cMensaje;
 
-            return true;
+            try
+            {
+                using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+                {
+                    tblCat_Usuario _objUsuario = _ctx.tblCat_Usuario.AsNoTracking().FirstOrDefault(x => x.iIdUsuario == _iIdUsuario);
+
+                    _objUsuario.lEstatus = _bEstado;
+                    _objUsuario.dtFechaBaja = DateTime.Today;
+
+                    _ctx.Entry(_objUsuario).State = System.Data.Entity.EntityState.Modified;
+                    _ctx.SaveChanges();
+
+                    _bEstadoOperacion = true;
+                    _cMensaje = "Su cuenta ha sido cancelada.";
+                }
+            }
+            catch (Exception e)
+            {
+                _bEstadoOperacion = false;
+                _cMensaje = e.Message;//"Algo falló al momento de cancelar la cuenta.";
+            }
+
+            return (new { _bEstadoOperacion, _cMensaje});
+
         }
 
         /// <summary>
