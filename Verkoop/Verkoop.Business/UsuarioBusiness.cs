@@ -113,9 +113,9 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    string _cRuta = _CloudinaryBusiness.SubirFotoPerfilCloudinary(_Imagen, _iIdUsuario);
+                    string _cRuta = _CloudinaryBusiness.SubirFotoPerfil(_Imagen, _iIdUsuario);
 
-                    tblCat_Usuario _objUsuario = (from Usuario in _ctx.tblCat_Usuario.AsNoTracking()
+                    tblCat_Usuario _objUsuario = (from Usuario in _ctx.tblCat_Usuario
                                                   where Usuario.iIdUsuario == _iIdUsuario
                                                   select Usuario).SingleOrDefault();
 
@@ -142,7 +142,7 @@ namespace Verkoop.Business
         /// <param name="iIdUsuario">Recibe el id del usuario</param>
         /// <returns>Retorna los datos en un objeto con las propiedades del PerfilDatosUsuarioDTO</returns>
         public PerfilDatosUsuarioDTO ObtenerDatosDeUsuario(int _iIdUsuario)
-        {         
+        {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 PerfilDatosUsuarioDTO _objDatosUsuario = (from Usuario in _ctx.tblCat_Usuario.AsNoTracking()
@@ -154,6 +154,7 @@ namespace Verkoop.Business
                                                               cApellidoMaterno = Usuario.cApellidoMaterno,
                                                               cImagenPerfil = Usuario.cImagen,
                                                               cNumeroTelefonico = Usuario.cTelefono
+
                                                           }).SingleOrDefault();
 
                 return _objDatosUsuario;
@@ -187,6 +188,10 @@ namespace Verkoop.Business
         /// <returns>Retorna el estado de la operación y su mensaje</returns>
         public object RegistrarUsuario(RegistrarUsuarioDTO _objDatosUsuario)
         {
+            CorreoBusiness CorreoBusiness = new CorreoBusiness();
+
+            string _cCodigoVerificacion = GenerarCodigoVerificacion();
+
             bool _bEstadoOperacion;
             string _cMensaje = "";
 
@@ -209,8 +214,9 @@ namespace Verkoop.Business
                                 cApellidoMaterno = _objDatosUsuario.cApellidoMaterno,
                                 cTelefono = _objDatosUsuario.cTelefono,
                                 dtFechaIngreso = DateTime.Today,
-                                lEstatus = true,
+                                lEstatus = false,
                                 iTipoUsuario = 2
+                                //cCodigoVerifiacion=_cCodigoVerificacion
                             };
 
                             List<tblDireccion> _lstTablaDireccion = new List<tblDireccion>
@@ -241,7 +247,10 @@ namespace Verkoop.Business
                             _ctx.SaveChanges();
                         }
 
-                        _bEstadoOperacion = true;
+                        CorreoBusiness.EnviarCódigoVerificacion(_objDatosUsuario.cCorreo, _cCodigoVerificacion);
+
+                        _bEstadoOperacion = true;                       
+
                     }
                     else
                     {
@@ -300,5 +309,25 @@ namespace Verkoop.Business
 
             return _bCoincidencia;
         }
+
+        /// <summary>
+        /// Método para generar código de verificación
+        /// </summary>
+        /// <returns>Retorna el código generado</returns>
+        private string GenerarCodigoVerificacion()
+        {
+            
+            string _cCodigo = "VKR";
+
+            Random _Valor = new Random();
+
+            for (int _iContador = 0; _iContador < 6; _iContador++)
+            {
+                _cCodigo += _Valor.Next(0, 9);
+            }
+
+            return _cCodigo; 
+        }
     }
+
 }
