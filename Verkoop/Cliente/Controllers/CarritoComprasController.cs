@@ -12,7 +12,12 @@ namespace Cliente.Controllers
     {
         CarritoBusiness ClaseBusiness = new CarritoBusiness();
         // GET: CarritoCompras
-        public ActionResult Index()
+        public ActionResult CarritoCompras()
+        {
+            return View();
+        }
+
+        public ActionResult PagoConTarjeta()
         {
             return View();
         }

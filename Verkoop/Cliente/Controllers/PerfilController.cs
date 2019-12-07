@@ -12,11 +12,33 @@ namespace Cliente.Controllers
     {
         UsuarioBusiness UsuarioBusiness = new UsuarioBusiness();
 
-        public ActionResult Index()
+        #region Vistas
+        public ActionResult InformacionPersonal()
         {
             return View();
         }
 
+
+        public ActionResult CambiarContraseña()
+        {
+            return View();
+        }
+
+        public ActionResult Direcciones()
+        {
+            return View();
+        }
+
+
+        public ActionResult Tarjetas()
+        {
+            return View();
+        }
+
+
+        #endregion
+
+        #region Métodos
         /// <summary>
         /// 
         /// </summary>
@@ -55,5 +77,6 @@ namespace Cliente.Controllers
 
             return Json(_bResultado);
         }
+        #endregion
     }
 }
