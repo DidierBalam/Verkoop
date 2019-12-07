@@ -15,21 +15,25 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para disminuir la cantidad del producto al realizar el pago.
+        /// MÉTODO PARA DISMINUIR LA CANTIDAD DEL PRODUCTO AL REALIZAR EL PAGO.
         /// </summary>
         /// <param name="_ctx">Recibe el contexto de la  base de datos</param>
         /// <param name="_lstProducto">Recibe la lista de los productos a afectar(contiene el id  del producto y su cantidad de compra)</param>
-        public void DisminuirCantidadProducto(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
+        public List<tblCat_Producto> DisminuirCantidadProducto(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
         {
-          
 
-            List<tblCat_Producto> lstCarrito = _ctx.tblCat_Producto.Where(x => _lstProducto.Select(y => y.iIdProducto).Contains(x.iIdProducto)).ToList();
+            List<tblCat_Producto> _lstProductosAfectados = new List<tblCat_Producto>();
 
-            lstCarrito.ForEach(z =>
-            {
-                z.iCantidad -= Convert.ToInt32(_lstProducto.Where(a => a.iIdProducto == z.iIdProducto).Select(a => new { a.iCantidad }).First());
-            });
+            _lstProducto.ForEach(x =>
+                {
+                    tblCat_Producto _objProducto = _ctx.tblCat_Producto.Where(z => z.iIdProducto == x.iIdProducto).FirstOrDefault();
 
+                    _objProducto.iCantidad -= x.iCantidad;
+
+                    _lstProductosAfectados.Add(_objProducto);
+                });
+
+            return _lstProductosAfectados;
         }
 
 
@@ -77,7 +81,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para obtener los productos recien agregados
+        /// MÉTODO PARA OBTENER LOS PRODUCTOS RECIEN AGREGADOS.
         /// </summary>
         /// <param name="_iNumeroConsulta">Recibe el número de consultas realizadas</param>
         /// <returns>Retorna una lista con los productos</returns>
@@ -106,7 +110,7 @@ namespace Verkoop.Business
 
 
         /// <summary>
-        /// Método para obtener productos por categoría
+        /// MÉTODO PARA OBTENER PRODUCTOS POR CATEGORÍA.
         /// </summary>
         /// <param name="_iIdCategoria">Recibe el id de la categoría</param>
         /// <param name="_iNumeroConsulta ">Recibe el número de consultas realizadas</param>
@@ -136,7 +140,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para obtener los productos más comprados
+        /// MÉTODO PARA OBTENER LOS PRODUCTOS MÁS COMPRADOS.
         /// </summary>
         /// <param name="_iNumeroConsulta">Recibe el número de consultas realizadas</param>
         /// <returns>Retorna una lista con los productos</returns>
@@ -167,7 +171,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para buscar productos por nombre
+        /// MÉTODO PARA BUSCAR PRODUCTOS POR NOMBRE.
         /// </summary>
         /// <param name="_cNombre">Recibe el nombre del producto</param>
         /// <param name="_iNumeroConsulta">Recibe el núemero de consultas realzadas</param>
@@ -175,12 +179,12 @@ namespace Verkoop.Business
         public List<VistaPreviaProductoClienteDTO> BuscarProducto(string _cNombre, int _iNumeroConsulta)
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
-            {      
+            {
                 int _iProductosObtener = 20;
 
                 List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto
                                                                      where Producto.cNombre.ToUpper().Contains(_cNombre.ToUpper())
-                                                                     
+
                                                                      orderby Producto.dtFechaAlta descending
                                                                      select new VistaPreviaProductoClienteDTO
                                                                      {
@@ -197,7 +201,7 @@ namespace Verkoop.Business
             }
         }
 
-        
+
         public List<CatalogoProductoAdministradorDTO> ObtenerProductosPorEstado(bool _bEstado)
         {
 
@@ -213,7 +217,7 @@ namespace Verkoop.Business
 
 
         /// <summary>
-        /// Método para obtener los detalles del producto
+        /// MÉTODO PARA OBTENER LOS DETALLES DEL PRODUCTO.
         /// </summary>
         /// <param name="_iIdProducto">Recibe el id del producto</param>
         /// <returns>Retorna un objeto con los datos del producto</returns>
@@ -237,6 +241,53 @@ namespace Verkoop.Business
             }
         }
 
+        /// <summary>
+        /// MÉTODO PARA VALIDAR LA CANTIDAD DE LOS PRODUCTOS A COMPRAR.
+        /// </summary>
+        /// <param name="_ctx">Recibe el contexto de la base de datos</param>
+        /// <param name="_lstProducto">Recibe las listas de los productos a validar</param>
+        /// <returns>Retorna el estado general de la validación y el estado de cada producto con su mensaje</returns>
+        public CantidadProductoValidadoDTO ValidarCatidadCompraProducto(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
+        {
+
+            CantidadProductoValidadoDTO _lstCatidadValidad = new CantidadProductoValidadoDTO();
+           
+            _lstCatidadValidad.lstProducto = new List<ProductoEstadoDisponibleDTO>();
+            _lstCatidadValidad.bEstadoValidacion = true; //Inicializamos la validación a true, esperando un false en cualquier iteración.
+
+            _lstProducto.ForEach(x => //Recorre cada producto de la lista.
+            {
+                ProductoEstadoDisponibleDTO _objProductoValidado = new ProductoEstadoDisponibleDTO();
+
+                tblCat_Producto _objProducto = _ctx.tblCat_Producto.AsNoTracking().Where(y => y.iIdProducto == x.iIdProducto).SingleOrDefault();//Obtiene el nombre y la cantidad del producto en la DB.
+
+                if (_objProducto.iCantidad == 0) //Condición producto agotado.
+                {
+                    _lstCatidadValidad.bEstadoValidacion = false; //Estado validación general.
+                    _objProductoValidado.bEstado = false;//Estado validación producto individual.
+                    _objProductoValidado.cMensaje = "Lo sentimos, el producto " + _objProducto.cNombre + " se agotó";//Mensaje de la validación del producto.
+
+                }
+                else if (_objProducto.iCantidad > 0 && _objProducto.iCantidad < x.iCantidad) //Condición cantidad de pedido mayor a la disponibilidad del producto.
+                {
+                    _lstCatidadValidad.bEstadoValidacion = false;
+                    _objProductoValidado.bEstado = false;
+                    _objProductoValidado.cMensaje = "Lo sentimos, el producto " + _objProducto.cNombre + " solo cuenta con " + _objProducto.iCantidad + " piezas disponibles";
+
+                }
+                else
+                {
+                    _objProductoValidado.bEstado = true;
+                    _objProductoValidado.cMensaje = "";
+
+                }
+
+                _lstCatidadValidad.lstProducto.Add(_objProductoValidado);
+
+            });
+
+            return _lstCatidadValidad;
+        }
 
         public List<VisualizarDetallesProductoAdministradorDTO> VisualizarDetallesProductoAdministrador(int _iIdProducto)
         {
