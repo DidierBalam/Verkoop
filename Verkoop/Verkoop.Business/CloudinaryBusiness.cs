@@ -19,7 +19,7 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_Imagen">Recibe la imagen</param>
         /// <returns>Retorna un objeto Json que contiene la propiedad StatusCode de tipo System.Net.HttpStatusCode para manejar errores y la propiedad JsonObj de tipo Newtonsoft.Json.Linq.JToke</returns>
-        public string SubirFotoPerfil(HttpPostedFileBase _Imagen, int _iIdUsuario)
+        public string SubirFotoPerfilCloudinary(HttpPostedFileBase _Imagen, int _iIdUsuario)
         {
             string _cRuta = "Verkoop/Perfil/VrkFpUs" + _iIdUsuario + "";
 
@@ -34,7 +34,7 @@ namespace Verkoop.Business
         /// <param name="_Imagen">Recibe la imagen</param>
         /// <param name="_iIdProducto">Recibe el id del producto</param>
         /// <returns>Retorna un objeto Json que contiene la propiedad StatusCode de tipo System.Net.HttpStatusCode para manejar errores y la propiedad JsonObj de tipo Newtonsoft.Json.Linq.JToke</returns>
-        public string SubirImagenProducto(HttpPostedFileBase _Imagen, int _iIdProducto)
+        public string SubirImagenProductoCloudinary(HttpPostedFileBase _Imagen, int _iIdProducto)
         {
             string _cRuta = "Verkoop/Producto/VrkImgPd" + _iIdProducto + "";
 

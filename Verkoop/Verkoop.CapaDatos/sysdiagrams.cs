@@ -12,17 +12,12 @@ namespace Verkoop.CapaDatos
     using System;
     using System.Collections.Generic;
     
-    public partial class tblCarrito
+    public partial class sysdiagrams
     {
-        public int iIdCarrito { get; set; }
-        public int iIdUsuario { get; set; }
-        public int iIdProducto { get; set; }
-        public int iCantidad { get; set; }
-        public bool lEstatus { get; set; }
-        public System.DateTime dtFechaSeleccion { get; set; }
-       
-    
-        public virtual tblCat_Producto tblCat_Producto { get; set; }
-        public virtual tblCat_Usuario tblCat_Usuario { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

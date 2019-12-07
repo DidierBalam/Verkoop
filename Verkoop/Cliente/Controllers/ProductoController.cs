@@ -8,7 +8,7 @@ namespace Cliente.Controllers
         ProductoBusiness ProductoBusiness = new ProductoBusiness();
 
     
-        public ActionResult Principal()
+        public ActionResult Index()
         {
             return View();
         }

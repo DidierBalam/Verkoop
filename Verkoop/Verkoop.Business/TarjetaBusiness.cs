@@ -23,22 +23,13 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities()) ///Se crea contexto
                 {
-                    if (!VerificarExistenciaTarjeta(_ctx, _objDatosTarjeta))
-                    {
-                        _objDatosTarjeta.lDefault = true;///Permite guardar la primera tarjeta como default.
+                    _objDatosTarjeta.lDefault = true;///Permite guardar la primera tarjeta como default.
 
-                        _ctx.tblTarjeta.Add(_objDatosTarjeta);///Se inserta las propiedades del objeto  _objDatosTarjeta a la tabla tblTarjeta.
-                        _ctx.SaveChanges();///Se guardan cambios.
+                    _ctx.tblTarjeta.Add(_objDatosTarjeta);///Se inserta las propiedades del objeto  _objDatosTarjeta a la tabla tblTarjeta.
+                    _ctx.SaveChanges();///Se guardan cambios.
 
-                        _cMensaje = "Tarjeta guardada";///
-                        _bEstadoTarjeta = true;
-                    }
-                    else
-                    {
-                        _cMensaje = "La tarjeta ya se encuentra registrada.";
-                        _bEstadoTarjeta = false;
-
-                    }
+                    _cMensaje = "Tarjeta guardada";///
+                    _bEstadoTarjeta = true;
                 }
             }
             catch (Exception)
@@ -64,23 +55,13 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities()) ///Se crea contexto
                 {
-                    if (!VerificarExistenciaTarjeta(_ctx, _objDatosTarjeta))
-                    {
-                        _objDatosTarjeta.lDefault = false;  ///Permite guardar las tarjetas con valor default en falso.
+                    _objDatosTarjeta.lDefault = false;  ///Permite guardar las tarjetas con valor default en falso.
 
-                        _ctx.tblTarjeta.Add(_objDatosTarjeta);///Se inserta las propiedades del objeto  _objDatosTarjeta a la tabla tblTarjeta.
-                        _ctx.SaveChanges();///Se guardan cambios.
+                    _ctx.tblTarjeta.Add(_objDatosTarjeta);///Se inserta las propiedades del objeto  _objDatosTarjeta a la tabla tblTarjeta.
+                    _ctx.SaveChanges();///Se guardan cambios.
 
-                        _cMensaje = "¡Tarjeta guardada con éxito!";
-                        _bEstadoTarjeta = true;
-
-                    }
-                    else
-                    {
-                        _cMensaje = "La tarjeta ya se encuentra registrada.";
-                        _bEstadoTarjeta = false;
-
-                    }
+                    _cMensaje = "¡Tarjeta guardada con éxito!";
+                    _bEstadoTarjeta = true;
                 }
             }
             catch (Exception)
@@ -89,7 +70,7 @@ namespace Verkoop.Business
                 _bEstadoTarjeta = false;
             }
 
-            return (new { _bEstadoTarjeta, _cMensaje, _objDatosTarjeta });
+            return (new { _bEstadoTarjeta, _cMensaje });
         }
 
         /// <summary>
@@ -156,18 +137,6 @@ namespace Verkoop.Business
 
             }
 
-        }
-
-        /// <summary>
-        /// Método para verficar la existencia de la tarjeta en la base de datos.
-        /// </summary>
-        /// <param name="_objTargeta">Recibe los atributos de la tarjeta</param>
-        /// <returns>Retorna un valor booleano como bandera</returns>
-        public bool VerificarExistenciaTarjeta(VerkoopDBEntities _ctx, tblTarjeta _objTargeta)
-        {
-            bool _bCoincidencia = _ctx.tblTarjeta.Any(x => x.cNumeroTarjeta == _objTargeta.cNumeroTarjeta);
-
-            return _bCoincidencia;
         }
 
     }
