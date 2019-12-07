@@ -2,8 +2,7 @@
 using System.Net.Mail;
 using System.IO;
 using System;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+
 
 
 namespace Verkoop.Business
@@ -54,79 +53,23 @@ namespace Verkoop.Business
         }
 
 
-        public byte[] GenerarTicketCompra(/*DTO compra,  */)
-        {
-          
-            Document document = new Document(PageSize.A4, 88f, 88f, 10f, 10f);
-
-            //Font NormalFont = FontFactory.GetFont("Arial", 12, Font.NORMAL, Color.BLACK);
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-
-                PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
-
-                Phrase phrase = null;
-                PdfPCell cell = null;
-                PdfPTable table = null;
-                //Color color = null;
-
-                document.Open();
-                document.Add(new Chunk(""));
-                //Header Table
-                table = new PdfPTable(2);
-                table.TotalWidth = 500f;
-                table.LockedWidth = true;
-                table.SetWidths(new float[] { 0.3f, 0.7f });
-
-                document.Add(table);
-                document.Close();
-
-
-                byte[] bytes = memoryStream.ToArray();
-                memoryStream.Close();
-                return bytes;
-
-                //MailMessage Msg = new MailMessage();
-                //MailAddress fromMail = new MailAddress("frommailid");
-                //// Sender e-mail address.
-                //Msg.From = fromMail;
-                //// Recipient e-mail address.
-                //Msg.To.Add(new MailAddress("tomailid"));
-                //Msg.CC.Add(new MailAddress("ccmailid"));
-                //// Subject of e-mail
-                //Msg.Subject = "subject";
-                //Msg.Body = "Msg Body";
-
-                //Msg.Attachments.Add(new Attachment(new MemoryStream(bytes), "CC" + result + ".pdf"));
-                //Msg.IsBodyHtml = true;
-
-                //SmtpClient smtps = new SmtpClient("smtp.mailid.com", 2525);
-                //smtps.UseDefaultCredentials = false;
-                //smtps.Credentials = new NetworkCredential("username", "password");
-
-                //smtps.EnableSsl = true;
-                //smtps.Send(Msg);
-            }
-        }
-
         /// <summary>
-        /// 
+        /// MÉTODO PARA ENVIAR TICKET DE COMPRA POR CORREO.
         /// </summary>
-        /// <returns></returns>
-        public bool EnviarTicketCompra()
+        /// /// <param name="_cCorreo">Recibe el correo de destino</param>
+        /// <param name="Pdf">Recibe el pdf</param>
+        /// <returns>Retorna el estado de la operación</returns>
+        public bool EnviarTicketCompra(string _cCorreo, byte[] _Pdf)
         {
-            byte[] pdf = GenerarTicketCompra();
-
             bool bEstadoOperacion;
 
-            Attachment pdfAttachment = new Attachment(new MemoryStream(pdf), "tickect.pdf");
+            Attachment pdfAttachment = new Attachment(new MemoryStream(_Pdf), "TicketCompra.pdf");
             
             pdfAttachment.ContentType.MediaType = System.Net.Mime.MediaTypeNames.Application.Pdf;
 
-
             try
             {
-                MailAddress Usuario = new MailAddress("angel.15070027@itsmotul.edu.mx");
+                MailAddress Usuario = new MailAddress(_cCorreo);
 
                 string _cAsunto = "Ticket de compra";
 
