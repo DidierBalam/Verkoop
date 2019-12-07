@@ -72,9 +72,9 @@ namespace Cliente.Controllers
         {
             object _objRespuestaGuardarTarjeta;
 
-            if (Convert.ToInt32(_objPago.bGuardarTarjeta.GetType().GetProperty("iIdTarjeta").GetValue(_objPago)) == 0)
+            if (Convert.ToInt32(_objPago.objTarjeta.GetType().GetProperty("iIdTarjeta").GetValue(_objPago.objTarjeta)) == 0)
             {
-                _objPago.bGuardarTarjeta.GetType().GetProperty("iIdUsuario").SetValue(0, 1);
+                _objPago.objTarjeta.GetType().GetProperty("iIdUsuario").SetValue(0, 1);
 
                 _objRespuestaGuardarTarjeta = TarjetaBusiness.GuardarTarjeta(_objPago.objTarjeta);
 
