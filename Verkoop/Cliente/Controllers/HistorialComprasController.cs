@@ -9,7 +9,7 @@ namespace Cliente.Controllers
     {
         CompraBusiness ClaseBusiness = new CompraBusiness();
         // GET: HistorialCompras
-        public ActionResult Index()
+        public ActionResult ComprasRealizadas()
         {
             return View();
         }
@@ -22,7 +22,15 @@ namespace Cliente.Controllers
         public JsonResult ObtenerComprasDeCliente(int _iIdUsuario)
         {
             List<CompraDeClienteDTO> _lstResultado = ClaseBusiness.ObtenerComprasDeCliente(_iIdUsuario);
+
             return Json(_lstResultado);
         }
+
+        //public JsonResult ImprimirTicketDeCompra()
+        //{
+
+        //}
+
+       
     }
 }

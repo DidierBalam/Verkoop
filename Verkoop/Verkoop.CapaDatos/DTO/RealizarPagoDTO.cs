@@ -6,10 +6,10 @@ namespace Verkoop.CapaDatos.DTO
 {
     public class RealizarPagoDTO
     {
-        private int iIdCompra { get; set; }
-        private int iIdDireccion { get; set; }
-        private int iIdTarjeta { get; set; }
-        private int iIdUsuario { get; set; }
-        private List<ProductoCompradoDTO> objProductoComprado { get; set; }
+        public int iIdDireccion { get; set; }
+        public bool bGuardarTarjeta { get; set; }
+        public tblTarjeta objTarjeta { get; set; }
+        public List<tblProductoComprado> lstProductoComprado { get; set; }
+
     }
 }

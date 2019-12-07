@@ -3,8 +3,6 @@ using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
 using Verkoop.CapaDatos;
 using System.Web;
-using CloudinaryDotNet.Actions;
-using System.IO;
 
 namespace Cliente.Controllers
 {
@@ -12,11 +10,33 @@ namespace Cliente.Controllers
     {
         UsuarioBusiness UsuarioBusiness = new UsuarioBusiness();
 
-        public ActionResult Index()
+        #region Vistas
+        public ActionResult InformacionPersonal()
         {
             return View();
         }
 
+
+        public ActionResult CambiarContraseña()
+        {
+            return View();
+        }
+
+        public ActionResult Direcciones()
+        {
+            return View();
+        }
+
+
+        public ActionResult Tarjetas()
+        {
+            return View();
+        }
+
+
+        #endregion
+
+        #region Métodos
         /// <summary>
         /// 
         /// </summary>
@@ -51,9 +71,23 @@ namespace Cliente.Controllers
         public JsonResult CambiarFotoPerfil(HttpPostedFileBase _Imagen)
         {
 
-            object _bResultado = UsuarioBusiness.CambiarFotoPerfil(_Imagen, 5/*iIdUsuario*/);
+            object _bResultado = UsuarioBusiness.CambiarFotoPerfil(_Imagen, 1/*iIdUsuario*/);
 
             return Json(_bResultado);
+
         }
+
+        /// <summary>
+        /// Método para cancelar cuenta usuario.
+        /// </summary>
+        /// <returns>regresa el estado de la operación y su mensaje</returns>
+        [HttpPost]
+        public JsonResult CancelarCuenta()
+        {
+            object _objResultado = UsuarioBusiness.CambiarEstadoUsuario(1 , false);
+
+            return Json(_objResultado);
+        }
+        #endregion
     }
 }
