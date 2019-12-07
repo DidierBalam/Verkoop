@@ -22,7 +22,15 @@ namespace Cliente.Controllers
         public JsonResult ObtenerComprasDeCliente(int _iIdUsuario)
         {
             List<CompraDeClienteDTO> _lstResultado = ClaseBusiness.ObtenerComprasDeCliente(_iIdUsuario);
+
             return Json(_lstResultado);
         }
+
+        //public JsonResult ImprimirTicketDeCompra()
+        //{
+
+        //}
+
+       
     }
 }

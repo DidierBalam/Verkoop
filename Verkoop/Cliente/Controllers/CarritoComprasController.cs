@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
@@ -28,10 +25,9 @@ namespace Cliente.Controllers
         /// <param name="_objProducto">Contiene el idProducto y idUsuario</param>
         /// <returns>Retorna el estado de la consulta y la cantidad de productos agregados al carrito del usuario</returns>
         [HttpPost]
-        public JsonResult AgregarProductoCarrito(int _iIdProducto)
+        public JsonResult AgregarProductoCarrito(int _iIdProducto, int _iCantidad)
         {
-
-            object _objResultado = ClaseBusiness.AgregarProductoCarrito(_iIdProducto, 1);
+            object _objResultado = ClaseBusiness.AgregarProductoCarrito(_iIdProducto,1, _iCantidad);
 
             return Json(_objResultado);
         }
