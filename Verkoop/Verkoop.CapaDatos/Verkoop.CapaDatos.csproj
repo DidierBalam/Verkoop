@@ -65,6 +65,7 @@
     <Compile Include="DTO\CatalogoProductoAdministradorDTO.cs" />
     <Compile Include="DTO\CategoriaDTO.cs" />
     <Compile Include="DTO\CompraDeClienteDTO.cs" />
+    <Compile Include="DTO\DatosUsuarioTicketDTO.cs" />
     <Compile Include="DTO\DetalleProductoCompradoClienteDTO.cs" />
     <Compile Include="DTO\DetallesCompraClienteDTO.cs" />
     <Compile Include="DTO\DetallesProductoDTO.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="DTO\RealizarPagoDTO.cs" />
     <Compile Include="DTO\RegistrarUsuarioDTO.cs" />
     <Compile Include="DTO\TarjetaDTO.cs" />
+    <Compile Include="DTO\TicketCompraDTO.cs" />
     <Compile Include="DTO\VistaPreviaProductoClienteDTO.cs" />
     <Compile Include="DTO\VisualizarDetallesProductoAdministradorDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
