@@ -57,7 +57,7 @@
                 <input class="-input-busqueda -width-100pst" type="search" placeholder="Buscar">
                 <button class="-boton-icono"><img src="~/Assets/img/core-img/icono-buscar.svg" alt=""></button>
             </div>
-           
+
         </div>
     </div>
     <!-- Comienza el contenido de los productos. -->
@@ -85,7 +85,7 @@
                     <!-- Ratings & Cart -->
                     <div class="-text-right">
                         <div class="-padding-r4pst">
-                            <button class="-boton-estandar">Ver</button>
+                            <button id="btnVer" class="-boton-estandar">Ver</button>
                         </div>
                         <div class="cart -text-right -padding-t10pst">
                             <button class="-boton-icono">
@@ -271,6 +271,10 @@
             </div>
         </div>
     </div>
+    @section scripts{
+        <script src="~/Assets/js/utileriamodal.js"></script>
+        <script src="~/Assets/js/Producto.js"></script>
+    }
     <!-- Termina vista de productos. -->
 
 </div>

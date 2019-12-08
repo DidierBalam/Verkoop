@@ -133,12 +133,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CarritoComprasController.cs" />
     <Compile Include="Controllers\HistorialComprasController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\SesionController.cs" />
@@ -156,9 +152,14 @@
     <Content Include="Assets\css\jquery-ui.min.css" />
     <Content Include="Assets\css\libreria-verkoop.css" />
     <Content Include="Assets\css\magnific-popup.css" />
+    <Content Include="Assets\css\main.css" />
     <Content Include="Assets\css\nice-select.css" />
     <Content Include="Assets\css\owl.carousel.css" />
-    <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\css\style.css" />
+    <Content Include="Assets\css\sweetalert2.min.css" />
+    <Content Include="Assets\css\util.css" />
+    <Content Include="Assets\css\Verkoop.css" />
+    <Content Include="Assets\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\img\bg-img\1.jpg" />
     <Content Include="Assets\img\bg-img\2.jpg" />
     <Content Include="Assets\img\bg-img\3.jpg" />
@@ -218,52 +219,24 @@
     <Content Include="Assets\img\product-img\product6.jpg" />
     <Content Include="Assets\img\visa.png" />
     <Content Include="Assets\js\active.js" />
-    <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\classy-nav.min.js" />
+    <Content Include="Assets\js\main.js" />
     <Content Include="Assets\js\map-active.js" />
     <Content Include="Assets\js\plugins.js" />
     <Content Include="Assets\js\popper.min.js" />
-    <Content Include="Content\animate.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\classy-nav.min.css" />
-    <Content Include="Content\core-style.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\jquery-ui.min.css" />
-    <Content Include="Content\magnific-popup.css" />
-    <Content Include="Content\nice-select.css" />
-    <Content Include="Content\owl.carousel.css" />
+    <Content Include="Assets\js\Producto.js" />
+    <Content Include="Assets\js\utileriamodal.js" />
+    <Content Include="Assets\Librerias\Boostrap\bootstrap.min.js" />
+    <Content Include="Assets\Librerias\jQueryValidate\jquery.validate.min.js" />
+    <Content Include="Assets\Librerias\jQuery\jquery-3.3.1.min.js" />
+    <Content Include="Assets\Librerias\SweetAlert\sweetalert2.min.js" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\active.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\core-style.css.map" />
     <Content Include="Assets\css\core-style.css.map" />
-    <Content Include="Assets\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Assets\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Assets\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Assets\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\classy-nav.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\map-active.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\plugins.js" />
-    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\IniciarSesion.js" />
+    <Content Include="Scripts\tarjeta.js" />
     <Content Include="Scripts\utileria.js" />
+    <Content Include="Scripts\UtileriaVerkoop.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -275,9 +248,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\HistorialCompras\Index.cshtml" />
     <Content Include="Views\Producto\Principal.cshtml" />
     <Content Include="Views\Perfil\InformacionPersonal.cshtml" />
@@ -287,25 +257,30 @@
     <Content Include="Views\CarritoCompras\CarritoCompras.cshtml" />
     <Content Include="Views\HistorialCompras\ComprasRealizadas.cshtml" />
     <Content Include="Views\CarritoCompras\PagoConTarjeta.cshtml" />
-    <Content Include="Views\Shared\_Modal.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="Views\Sesion\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Assets\scss\style.scss" />
+    <Content Include="Assets\scss\_mixin.scss" />
+    <Content Include="Assets\scss\_responsive.scss" />
+    <Content Include="Assets\scss\_theme_color.scss" />
+    <Content Include="Assets\scss\_variables.scss" />
+    <Content Include="Assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\fonts\FontAwesome.otf" />
+    <Content Include="Assets\fonts\helveticaneue_medium-webfont.ttf" />
+    <Content Include="Assets\fonts\helveticaneue_medium-webfont.woff" />
+    <Content Include="Assets\fonts\helveticaneue_medium-webfont.woff2" />
+    <Content Include="Assets\fonts\helvetica_neu_bold-webfont.ttf" />
+    <Content Include="Assets\fonts\helvetica_neu_bold-webfont.woff" />
+    <Content Include="Assets\fonts\helvetica_neu_bold-webfont.woff2" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Views\Shared\_ModalDetalles.cshtml" />
+    <Content Include="Views\Producto\DetallesProductos.cshtml" />
+    <Content Include="Views\Sesion\RegistroUsuario.cshtml" />
+    <Content Include="Views\Sesion\Contrasenia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Verkoop.Business\Verkoop.Business.csproj">

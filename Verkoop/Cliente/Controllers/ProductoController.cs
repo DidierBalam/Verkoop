@@ -13,6 +13,11 @@ namespace Cliente.Controllers
             return View();
         }
 
+        public ActionResult DetallesProductos()
+        {
+            return View();
+        }
+
         /// <summary>
         /// Método para obtener detalles de producto
         /// </summary>
