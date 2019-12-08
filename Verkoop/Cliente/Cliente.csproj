@@ -133,6 +133,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CarritoComprasController.cs" />
     <Compile Include="Controllers\HistorialComprasController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
