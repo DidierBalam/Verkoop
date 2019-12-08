@@ -180,7 +180,8 @@ namespace Verkoop.Business
                                 cTelefono = _objDatosUsuario.cTelefono,
                                 dtFechaIngreso = DateTime.Today,
                                 lEstatus = true,
-                                iTipoUsuario = 2
+                                iTipoUsuario = 2,
+                                cCodigoVerificacion="hg"
                             };
 
                             List<tblDireccion> _lstTablaDireccion = new List<tblDireccion>
@@ -206,7 +207,6 @@ namespace Verkoop.Business
 
                             _TablaUsuario.tblSesion = _lstTablaSesion;
                             _TablaUsuario.tblDireccion = _lstTablaDireccion;
-
                             _ctx.tblCat_Usuario.Add(_TablaUsuario);
                             _ctx.SaveChanges();
                         }
@@ -225,10 +225,10 @@ namespace Verkoop.Business
                     _cMensaje = "El Correo ya se ha registrado con otra cuenta";
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 _bEstadoOperacion = false;
-                _cMensaje = "Woow, algo salió mal al momento de registrar la cuenta";
+                _cMensaje = e.Message /*"Woow, algo salió mal al momento de registrar la cuenta"*/;
             }
 
             return (new { _bEstadoOperacion, _cMensaje });

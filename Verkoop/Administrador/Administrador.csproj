@@ -141,6 +141,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\bootstrap.min.css" />
+    <Content Include="Assets\js\bootstrap.min.js" />
+    <Content Include="Assets\js\jquery-3.4.1.min.js" />
+    <Content Include="Assets\js\jquery.validate.min.js" />
+    <Content Include="Assets\css\main.css" />
+    <Content Include="Assets\js\popper.min.js" />
+    <Content Include="Assets\js\sweetalert.min.js" />
+    <Content Include="Assets\css\util.css" />
+    <Content Include="Assets\css\Verkoop.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -149,19 +158,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\IniciarSesion.js" />
+    <Content Include="Scripts\UtileriaVerkoop.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -179,7 +177,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\" />
     <Folder Include="Models\" />
     <Folder Include="Views\CarritoCompras\" />
     <Folder Include="Views\Categoria\" />
@@ -189,7 +186,6 @@
     <Folder Include="Views\Dashboard\" />
     <Folder Include="Views\Perfil\" />
     <Folder Include="Views\Producto\" />
-    <Folder Include="Views\Sesion\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -201,8 +197,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Views\Sesion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -211,6 +206,10 @@
     <ProjectReference Include="..\Verkoop.Business\Verkoop.Business.csproj">
       <Project>{4e9b72c4-9eab-4432-97f4-ab3b555c610a}</Project>
       <Name>Verkoop.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Verkoop.CapaDatos\Verkoop.CapaDatos.csproj">
+      <Project>{C1D1E42D-99D9-4284-A285-D692674387A3}</Project>
+      <Name>Verkoop.CapaDatos</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -22,12 +22,13 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    tblCarrito _objTablaCarrito = new tblCarrito();
-
-                    _objTablaCarrito.iIdProducto = _iIdProducto;
-                    _objTablaCarrito.iIdUsuario = _iIdUsuario;
-                    _objTablaCarrito.lEstatus = false;
-                    _objTablaCarrito.dtFechaSeleccion = DateTime.Today;
+                    tblCarrito _objTablaCarrito = new tblCarrito
+                    {
+                        iIdProducto = _iIdProducto,
+                        iIdUsuario = _iIdUsuario,
+                        lEstatus = false,
+                        dtFechaSeleccion = DateTime.Today
+                    };
 
                     _ctx.tblCarrito.Add(_objTablaCarrito);
                     _ctx.SaveChanges();
@@ -43,7 +44,7 @@ namespace Verkoop.Business
             {
                 _EstadoConsulta = false;
             }
-            return (new { EstadoConsulta = _EstadoConsulta, ProductosCarrito = _iProductosCarrito });
+            return (new { _EstadoConsulta, _iProductosCarrito });
         }
 
         public bool CambiarEstadoProductoCarrito(int _iIdCarrito, bool _bEstado)
@@ -109,7 +110,7 @@ namespace Verkoop.Business
                     _bEstadoOperacion = true;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 _cMensaje = "Ups, el producto no se pudo remover correctamente.";
                 _bEstadoOperacion = false;
