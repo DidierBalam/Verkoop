@@ -59,11 +59,41 @@ namespace Verkoop.Business
             return (new { _bEstadoOperacion, _cMensaje });
         }
 
-
-        public bool CambiarEstadoUsuario(bool _bEstado, int _iIdUsuario)
+        /// <summary>
+        /// Método para cambiar el estado de un usuario 
+        /// </summary>
+        /// <param name="_iIdUsuario">Recibe el ID del usuario.</param>
+        /// <param name="_bEstado">Recibe el nuevo estado del usuario.</param>
+        /// <returns>Retorna el estado de la operación y su mensaje.</returns>
+        public object CambiarEstadoUsuario(int _iIdUsuario, bool _bEstado)
         {
+            bool _bEstadoOperacion;
+            string _cMensaje;
 
-            return true;
+            try
+            {
+                using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+                {
+                    tblCat_Usuario _objUsuario = _ctx.tblCat_Usuario.AsNoTracking().FirstOrDefault(x => x.iIdUsuario == _iIdUsuario);
+
+                    _objUsuario.lEstatus = _bEstado;
+                    _objUsuario.dtFechaBaja = DateTime.Today;
+
+                    _ctx.Entry(_objUsuario).State = System.Data.Entity.EntityState.Modified;
+                    _ctx.SaveChanges();
+
+                    _bEstadoOperacion = true;
+                    _cMensaje = "Su cuenta ha sido cancelada.";
+                }
+            }
+            catch (Exception e)
+            {
+                _bEstadoOperacion = false;
+                _cMensaje = e.Message;//"Algo falló al momento de cancelar la cuenta.";
+            }
+
+            return (new { _bEstadoOperacion, _cMensaje});
+
         }
 
         /// <summary>
@@ -83,9 +113,9 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    string _cRuta = _CloudinaryBusiness.SubirFotoPerfilCloudinary(_Imagen, _iIdUsuario);
+                    string _cRuta = _CloudinaryBusiness.SubirFotoPerfil(_Imagen, _iIdUsuario);
 
-                    tblCat_Usuario _objUsuario = (from Usuario in _ctx.tblCat_Usuario.AsNoTracking()
+                    tblCat_Usuario _objUsuario = (from Usuario in _ctx.tblCat_Usuario
                                                   where Usuario.iIdUsuario == _iIdUsuario
                                                   select Usuario).SingleOrDefault();
 
@@ -112,7 +142,7 @@ namespace Verkoop.Business
         /// <param name="iIdUsuario">Recibe el id del usuario</param>
         /// <returns>Retorna los datos en un objeto con las propiedades del PerfilDatosUsuarioDTO</returns>
         public PerfilDatosUsuarioDTO ObtenerDatosDeUsuario(int _iIdUsuario)
-        {         
+        {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 PerfilDatosUsuarioDTO _objDatosUsuario = (from Usuario in _ctx.tblCat_Usuario.AsNoTracking()
@@ -124,6 +154,7 @@ namespace Verkoop.Business
                                                               cApellidoMaterno = Usuario.cApellidoMaterno,
                                                               cImagenPerfil = Usuario.cImagen,
                                                               cNumeroTelefonico = Usuario.cTelefono
+
                                                           }).SingleOrDefault();
 
                 return _objDatosUsuario;
@@ -157,6 +188,10 @@ namespace Verkoop.Business
         /// <returns>Retorna el estado de la operación y su mensaje</returns>
         public object RegistrarUsuario(RegistrarUsuarioDTO _objDatosUsuario)
         {
+            CorreoBusiness CorreoBusiness = new CorreoBusiness();
+
+            string _cCodigoVerificacion = GenerarCodigoVerificacion();
+
             bool _bEstadoOperacion;
             string _cMensaje = "";
 
@@ -179,9 +214,9 @@ namespace Verkoop.Business
                                 cApellidoMaterno = _objDatosUsuario.cApellidoMaterno,
                                 cTelefono = _objDatosUsuario.cTelefono,
                                 dtFechaIngreso = DateTime.Today,
-                                lEstatus = true,
-                                iTipoUsuario = 2,
-                                cCodigoVerificacion="hg"
+                                lEstatus = false,
+                                iTipoUsuario = 2
+                                //cCodigoVerifiacion=_cCodigoVerificacion
                             };
 
                             List<tblDireccion> _lstTablaDireccion = new List<tblDireccion>
@@ -207,11 +242,15 @@ namespace Verkoop.Business
 
                             _TablaUsuario.tblSesion = _lstTablaSesion;
                             _TablaUsuario.tblDireccion = _lstTablaDireccion;
+
                             _ctx.tblCat_Usuario.Add(_TablaUsuario);
                             _ctx.SaveChanges();
                         }
 
-                        _bEstadoOperacion = true;
+                        CorreoBusiness.EnviarCódigoVerificacion(_objDatosUsuario.cCorreo, _cCodigoVerificacion);
+
+                        _bEstadoOperacion = true;                       
+
                     }
                     else
                     {
@@ -225,10 +264,10 @@ namespace Verkoop.Business
                     _cMensaje = "El Correo ya se ha registrado con otra cuenta";
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 _bEstadoOperacion = false;
-                _cMensaje = e.Message /*"Woow, algo salió mal al momento de registrar la cuenta"*/;
+                _cMensaje = "Woow, algo salió mal al momento de registrar la cuenta";
             }
 
             return (new { _bEstadoOperacion, _cMensaje });
@@ -270,5 +309,25 @@ namespace Verkoop.Business
 
             return _bCoincidencia;
         }
+
+        /// <summary>
+        /// Método para generar código de verificación
+        /// </summary>
+        /// <returns>Retorna el código generado</returns>
+        private string GenerarCodigoVerificacion()
+        {
+            
+            string _cCodigo = "VKR";
+
+            Random _Valor = new Random();
+
+            for (int _iContador = 0; _iContador < 6; _iContador++)
+            {
+                _cCodigo += _Valor.Next(0, 9);
+            }
+
+            return _cCodigo; 
+        }
     }
+
 }

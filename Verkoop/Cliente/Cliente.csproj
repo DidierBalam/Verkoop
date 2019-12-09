@@ -55,6 +55,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\CloudinaryDotNet.1.9.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -130,11 +133,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -150,15 +148,81 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\animate.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
-    <Content Include="Assets\css\main.css" />
-    <Content Include="Assets\css\util.css" />
-    <Content Include="Assets\css\Verkoop.css" />
+    <Content Include="Assets\css\classy-nav.min.css" />
+    <Content Include="Assets\css\core-style.css" />
+    <Content Include="Assets\css\font-awesome.min.css" />
+    <Content Include="Assets\css\jquery-ui.min.css" />
+    <Content Include="Assets\css\libreria-verkoop.css" />
+    <Content Include="Assets\css\magnific-popup.css" />
+    <Content Include="Assets\css\nice-select.css" />
+    <Content Include="Assets\css\owl.carousel.css" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\img\bg-img\1.jpg" />
+    <Content Include="Assets\img\bg-img\2.jpg" />
+    <Content Include="Assets\img\bg-img\3.jpg" />
+    <Content Include="Assets\img\bg-img\4.jpg" />
+    <Content Include="Assets\img\bg-img\5.jpg" />
+    <Content Include="Assets\img\bg-img\6.jpg" />
+    <Content Include="Assets\img\bg-img\7.jpg" />
+    <Content Include="Assets\img\bg-img\8.jpg" />
+    <Content Include="Assets\img\bg-img\9.jpg" />
+    <Content Include="Assets\img\bg-img\cart1.jpg" />
+    <Content Include="Assets\img\bg-img\cart2.jpg" />
+    <Content Include="Assets\img\bg-img\cart3.jpg" />
+    <Content Include="Assets\img\core-img\agregartarjeta.svg" />
+    <Content Include="Assets\img\core-img\anadir.svg" />
+    <Content Include="Assets\img\core-img\basura.svg" />
+    <Content Include="Assets\img\core-img\cart.png" />
+    <Content Include="Assets\img\core-img\credit-card.svg" />
+    <Content Include="Assets\img\core-img\editar.svg" />
+    <Content Include="Assets\img\core-img\favicon.ico" />
+    <Content Include="Assets\img\core-img\favorites.png" />
+    <Content Include="Assets\img\core-img\icono-buscar.svg" />
+    <Content Include="Assets\img\core-img\icono-carrito-azul.svg" />
+    <Content Include="Assets\img\core-img\icono-carrito.svg" />
+    <Content Include="Assets\img\core-img\icono-compra-azul.svg" />
+    <Content Include="Assets\img\core-img\icono-compra.svg" />
+    <Content Include="Assets\img\core-img\icono-eliminar.svg" />
+    <Content Include="Assets\img\core-img\icono-producto-azul.svg" />
+    <Content Include="Assets\img\core-img\icono-producto.svg" />
+    <Content Include="Assets\img\core-img\icono-salir.svg" />
+    <Content Include="Assets\img\core-img\icono-usuario-azul.svg" />
+    <Content Include="Assets\img\core-img\icono-usuario.svg" />
+    <Content Include="Assets\img\core-img\logo.png" />
+    <Content Include="Assets\img\core-img\logo2.png" />
+    <Content Include="Assets\img\core-img\logo3.png" />
+    <Content Include="Assets\img\core-img\logo4.png" />
+    <Content Include="Assets\img\core-img\logo5.png" />
+    <Content Include="Assets\img\core-img\logo5.svg" />
+    <Content Include="Assets\img\core-img\logopagina.png" />
+    <Content Include="Assets\img\core-img\logoVerkoop.jpg" />
+    <Content Include="Assets\img\core-img\logoVerkoop.png" />
+    <Content Include="Assets\img\core-img\paypal.png" />
+    <Content Include="Assets\img\core-img\paypal.svg" />
+    <Content Include="Assets\img\core-img\perfil1.jpg" />
+    <Content Include="Assets\img\core-img\search.png" />
+    <Content Include="Assets\img\core-img\tarjeta.svg" />
+    <Content Include="Assets\img\core-img\ubicacion.svg" />
+    <Content Include="Assets\img\master card.png" />
+    <Content Include="Assets\img\product-img\pro-big-1.jpg" />
+    <Content Include="Assets\img\product-img\pro-big-2.jpg" />
+    <Content Include="Assets\img\product-img\pro-big-3.jpg" />
+    <Content Include="Assets\img\product-img\pro-big-4.jpg" />
+    <Content Include="Assets\img\product-img\product1.jpg" />
+    <Content Include="Assets\img\product-img\product2.jpg" />
+    <Content Include="Assets\img\product-img\product3.jpg" />
+    <Content Include="Assets\img\product-img\product4.jpg" />
+    <Content Include="Assets\img\product-img\product5.jpg" />
+    <Content Include="Assets\img\product-img\product6.jpg" />
+    <Content Include="Assets\img\visa.png" />
+    <Content Include="Assets\js\active.js" />
     <Content Include="Assets\js\bootstrap.min.js" />
-    <Content Include="Assets\js\jquery-3.4.1.min.js" />
-    <Content Include="Assets\js\jquery.validate.min.js" />
+    <Content Include="Assets\js\classy-nav.min.js" />
+    <Content Include="Assets\js\map-active.js" />
+    <Content Include="Assets\js\plugins.js" />
     <Content Include="Assets\js\popper.min.js" />
-    <Content Include="Assets\js\sweetalert.min.js" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -177,8 +241,27 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\core-style.css.map" />
-    <Content Include="Scripts\IniciarSesion.js" />
-    <Content Include="Scripts\UtileriaVerkoop.js" />
+    <Content Include="Assets\css\core-style.css.map" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\classy-nav.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\map-active.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\plugins.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\utileria.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -191,14 +274,20 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HistorialCompras\Index.cshtml" />
+    <Content Include="Views\Producto\Principal.cshtml" />
+    <Content Include="Views\Perfil\InformacionPersonal.cshtml" />
+    <Content Include="Views\Perfil\CambiarContraseña.cshtml" />
+    <Content Include="Views\Perfil\Direcciones.cshtml" />
+    <Content Include="Views\Perfil\Tarjetas.cshtml" />
+    <Content Include="Views\CarritoCompras\CarritoCompras.cshtml" />
+    <Content Include="Views\HistorialCompras\ComprasRealizadas.cshtml" />
+    <Content Include="Views\CarritoCompras\PagoConTarjeta.cshtml" />
+    <Content Include="Views\Shared\_Modal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\CarritoCompras\" />
-    <Folder Include="Views\Home\" />
-    <Folder Include="Views\Perfil\" />
-    <Folder Include="Views\Producto\" />
+    <Folder Include="Views\Sesion\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
