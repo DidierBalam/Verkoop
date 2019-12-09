@@ -9,9 +9,10 @@ namespace Cliente.Controllers
     {
         ProductoBusiness ProductoBusiness = new ProductoBusiness();
 
-    
-        public ActionResult Principal(List<VistaPreviaProductoClienteDTO> _lstProducto)
-        {          
+        [HttpGet]
+        public ActionResult Principal()
+        {
+            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductosRecientes();
 
             return View(_lstProducto);
         }
@@ -33,15 +34,15 @@ namespace Cliente.Controllers
             return Json(_objProducto);
         }
 
-        [HttpGet]
-        public ActionResult ProductosRecientes()
+        
+        public List<VistaPreviaProductoClienteDTO> ProductosRecientes()
         {
             List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosRecientes(20);
 
-           return RedirectToAction("Principal",_lstProducto);
+           return _lstProducto;
         }
 
-        [HttpGet]
+        
         public List<VistaPreviaProductoClienteDTO> ProductosMasVendidos()
         {
             List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosRecientes(20);
