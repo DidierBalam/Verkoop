@@ -79,27 +79,62 @@ namespace Verkoop.Business
             return true;
         }
 
-
-        public bool IniciarSesion(string _cCorreo, string _cContrasenia)
+        /// <summary>
+        /// Método para iniciar sesión haciendo una consulta en la tabla sesion y se comprar si el correo y la contraseña coinciden
+        /// </summary>
+        /// <param name="_cCorreo">recibe el correo electronico del usuario</param>
+        /// <param name="_cContrasenia">Recibe la contraseña del usuario</param>
+        /// <returns>Retorna el estado de la operación, un mensaje y la variable sesión</returns>
+        public object IniciarSesion(string _cCorreo, string _cContrasenia)
         {
+            bool _bEstadoOperacio;
+            string _cVariableSesion = "";
+            string _cMensaje = "";
 
-            //{
+            try { 
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                tblSesion _objSesion = (from Sesion in _ctx.tblSesion // se hace la consulta para tener el registro que contiene ese correo
+                                        where Sesion.cCorreo == _cCorreo
+                                        select Sesion).SingleOrDefault(); 
 
+                if (_objSesion != null)
+                {
+                    string _cContraseniaEncriptada = EncriptarContrasenia(_cContrasenia); //se envia la contraseña y se toma el metodo EncriptarContraseña para compararlo en la base de datos
 
-            //    tblSesion _objSesion = (from Sesion in _ctx.tblSesion.AsNoTracking()
-            //                            where Sesion.cCorreo == _cCorreo
-            //                            select Sesion).FirstOrDefault();
+                    if (_objSesion.cContrasenia.Equals(_cContraseniaEncriptada)) // se comprueba si la contraseña es igual a la ingresada
+                    {
+                        _cVariableSesion = _objSesion.iIdUsuario.ToString();
+                        _bEstadoOperacio = true;
+                        _cMensaje = "ok";
+                    }
+                    else
+                    {
+                        _cMensaje = "La contraseña es incorrecta";
+                        _bEstadoOperacio = false;
+                    }
+                }
 
-
-            //}
-            return true;
+                else
+                {
+                    _cMensaje = "No se encuentra el correo";
+                    _bEstadoOperacio = false;
+                }
+            }
+            }
+            catch (Exception)
+            {
+                _bEstadoOperacio = false;
+                _cMensaje = "Algo falló al iniciar sesión";
+            }
+            return (new { EstadoOperacion = _bEstadoOperacio, Mensaje = _cMensaje, VariableSesion = _cVariableSesion });
         }
 
         /// <summary>
         /// Método que comprueba si el correo existe en la base de datos.
         /// </summary>
         /// <param name="_cCorreo">Recibe el correo del usuario</param>
-        /// <returns>Retorna true si exiten coincidencias o false si no</returns>
+        /// <returns>Retorna true si existen coincidencias o false si no</returns>
         public bool VerificarExistenciaCorreo(string _cCorreo)
         {
             bool _bCoincidencia = false;

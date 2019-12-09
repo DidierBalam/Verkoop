@@ -5,13 +5,13 @@ namespace Verkoop.CapaDatos.DTO
     public class CatalogoProductoAdministradorDTO
     {
 
-        private string cNombre { get; set; }
-        private string cNombreCategoria { get; set; }
-        private decimal dPrecio { get; set; }
-        private DateTime dtFechaAlta { get; set; }
-        private DateTime dtFechaBaja { get; set; }
-        private DateTime dtFechaModificacion { get; set; }
-        private int iCantidad { get; set; }
-        private int iIdProducto { get; set; }
+        public string cNombre { get; set; }
+        public string cNombreCategoria { get; set; }
+        public decimal dPrecio { get; set; }
+        public DateTime? dtFechaAlta { get; set; }
+        public DateTime? dtFechaBaja { get; set; }
+        public DateTime? dtFechaModificacion { get; set; }
+        public int iCantidad { get; set; }
+        public int iIdProducto { get; set; }
     }
 }
