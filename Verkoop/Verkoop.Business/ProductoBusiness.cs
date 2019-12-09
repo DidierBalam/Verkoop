@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using Verkoop.CapaDatos.DTO;
 using Verkoop.CapaDatos;
 using System.Linq;
+using System.Data.Entity;
 
 namespace Verkoop.Business
 {
     public class ProductoBusiness
     {
+        private string _cMensaje = string.Empty;
+        private string _EstadoConsulta = string.Empty;
+
         public bool ActualizarDatosProducto(ProductoDTO _objDatosProducto)
         {
 
@@ -15,32 +19,52 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// MÉTODO PARA DISMINUIR LA CANTIDAD DEL PRODUCTO AL REALIZAR EL PAGO.
+        /// Método para disminuir la cantidad del producto al realizar el pago.
         /// </summary>
         /// <param name="_ctx">Recibe el contexto de la  base de datos</param>
         /// <param name="_lstProducto">Recibe la lista de los productos a afectar(contiene el id  del producto y su cantidad de compra)</param>
-        public List<tblCat_Producto> DisminuirCantidadProducto(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
+        public void DisminuirCantidadProducto(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
         {
 
-            List<tblCat_Producto> _lstProductosAfectados = new List<tblCat_Producto>();
 
-            _lstProducto.ForEach(x =>
-                {
-                    tblCat_Producto _objProducto = _ctx.tblCat_Producto.Where(z => z.iIdProducto == x.iIdProducto).FirstOrDefault();
+            List<tblCat_Producto> lstCarrito = _ctx.tblCat_Producto.Where(x => _lstProducto.Select(y => y.iIdProducto).Contains(x.iIdProducto)).ToList();
 
-                    _objProducto.iCantidad -= x.iCantidad;
+            lstCarrito.ForEach(z =>
+            {
+                z.iCantidad -= Convert.ToInt32(_lstProducto.Where(a => a.iIdProducto == z.iIdProducto).Select(a => new { a.iCantidad }).First());
+            });
 
-                    _lstProductosAfectados.Add(_objProducto);
-                });
-
-            return _lstProductosAfectados;
         }
 
 
-        public bool CambiarEstadoProducto(bool _bEstado, int _iIdProducto)
+        public object CambiarEstadoProducto(bool _bEstado, int _iIdProducto)
         {
+            
+            try
+            {
+                
+                using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+                {
+                    tblCat_Producto _objProductos;
+                    _objProductos = _ctx.tblCat_Producto.Where(m => m.iIdProducto == _iIdProducto).FirstOrDefault();
+                    _objProductos.lEstatus = false;
+                    _objProductos.dtFechaBaja = DateTime.Now;
 
-            return true;
+                    _ctx.Entry(_objProductos).State = EntityState.Modified;
+                    _ctx.SaveChanges();
+
+                    _EstadoConsulta = "success";
+                    _cMensaje = "Producto deshabilitado Correctamente";
+                }
+            }
+            catch (Exception)
+            {
+                _EstadoConsulta = "error";
+                _cMensaje = "Algo falló al deshabilitar el producto";
+            }
+
+            return (new { EstadoConsulta = _EstadoConsulta, Mensaje = _cMensaje });
+
         }
 
 
@@ -74,14 +98,22 @@ namespace Verkoop.Business
             return null;
         }
 
+        /// <summary>
+        /// Método para obtener la cantidad de productos agregados
+        /// </summary>
+        /// <returns>la cantidad de registros</returns>
         public int ObtenerNumeroTotalProductos()
         {
-
-            return 0;
+            int _iDato = 0;
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                _iDato = _ctx.tblCat_Producto.Count();
+            }
+            return _iDato;
         }
 
         /// <summary>
-        /// MÉTODO PARA OBTENER LOS PRODUCTOS RECIEN AGREGADOS.
+        /// Método para obtener los productos recien agregados
         /// </summary>
         /// <param name="_iNumeroConsulta">Recibe el número de consultas realizadas</param>
         /// <returns>Retorna una lista con los productos</returns>
@@ -110,7 +142,7 @@ namespace Verkoop.Business
 
 
         /// <summary>
-        /// MÉTODO PARA OBTENER PRODUCTOS POR CATEGORÍA.
+        /// Método para obtener productos por categoría
         /// </summary>
         /// <param name="_iIdCategoria">Recibe el id de la categoría</param>
         /// <param name="_iNumeroConsulta ">Recibe el número de consultas realizadas</param>
@@ -140,7 +172,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// MÉTODO PARA OBTENER LOS PRODUCTOS MÁS COMPRADOS.
+        /// Método para obtener los productos más comprados
         /// </summary>
         /// <param name="_iNumeroConsulta">Recibe el número de consultas realizadas</param>
         /// <returns>Retorna una lista con los productos</returns>
@@ -171,7 +203,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// MÉTODO PARA BUSCAR PRODUCTOS POR NOMBRE.
+        /// Método para buscar productos por nombre
         /// </summary>
         /// <param name="_cNombre">Recibe el nombre del producto</param>
         /// <param name="_iNumeroConsulta">Recibe el núemero de consultas realzadas</param>
@@ -204,8 +236,25 @@ namespace Verkoop.Business
 
         public List<CatalogoProductoAdministradorDTO> ObtenerProductosPorEstado(bool _bEstado)
         {
+            List<CatalogoProductoAdministradorDTO> lstUsuarios;
+            using (VerkoopDBEntities ctx = new VerkoopDBEntities())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                ctx.Configuration.ProxyCreationEnabled = false;
+                lstUsuarios = (from Producto in ctx.tblCat_Producto.AsNoTracking()
+                               where (Producto.lEstatus == _bEstado)
+                               select new CatalogoProductoAdministradorDTO()
+                               {
+                                   iIdProducto = Producto.iIdProducto,
+                                   cNombre = Producto.cNombre,
+                                   iCantidad = Producto.iCantidad,
+                                   dPrecio = Producto.dPrecio,
+                                   dtFechaAlta = Producto.dtFechaAlta,
+                                   dtFechaModificacion = Producto.dtFechaModificacion
+                               }).ToList();
 
-            return null;
+            }
+            return lstUsuarios;
         }
 
 
@@ -217,7 +266,7 @@ namespace Verkoop.Business
 
 
         /// <summary>
-        /// MÉTODO PARA OBTENER LOS DETALLES DEL PRODUCTO.
+        /// Método para obtener los detalles del producto
         /// </summary>
         /// <param name="_iIdProducto">Recibe el id del producto</param>
         /// <returns>Retorna un objeto con los datos del producto</returns>
@@ -251,7 +300,7 @@ namespace Verkoop.Business
         {
 
             CantidadProductoValidadoDTO _lstCatidadValidad = new CantidadProductoValidadoDTO();
-           
+
             _lstCatidadValidad.lstProducto = new List<ProductoEstadoDisponibleDTO>();
             _lstCatidadValidad.bEstadoValidacion = true; //Inicializamos la validación a true, esperando un false en cualquier iteración.
 
@@ -289,10 +338,27 @@ namespace Verkoop.Business
             return _lstCatidadValidad;
         }
 
-        public List<VisualizarDetallesProductoAdministradorDTO> VisualizarDetallesProductoAdministrador(int _iIdProducto)
-        {
 
-            return null;
+        public VisualizarDetallesProductoAdministradorDTO VisualizarDetallesProductoAdministrador(int _iIdProducto)
+        {
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                VisualizarDetallesProductoAdministradorDTO _objProducto = (from Producto in _ctx.tblCat_Producto.AsNoTracking()
+                                                                           where Producto.iIdProducto == _iIdProducto
+                                                                           select new VisualizarDetallesProductoAdministradorDTO
+                                                                           {
+                                                                               iIdProducto = Producto.iIdProducto,
+                                                                               cNombreProducto = Producto.cNombre,
+                                                                               cDescripcion = Producto.cDescripcion,
+                                                                               dPrecio = Producto.dPrecio,
+                                                                               cImagen = Producto.cImagen,
+                                                                               iCantidad = Producto.iCantidad,
+                                                                               dtFechaAlta = Producto.dtFechaAlta,
+                                                                               dtFechaModificacion = Producto.dtFechaModificacion
+
+                                                                           }).SingleOrDefault();
+                return _objProducto;
+            }
         }
     }
 }
