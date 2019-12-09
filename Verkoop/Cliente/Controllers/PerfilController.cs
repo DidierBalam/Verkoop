@@ -33,6 +33,16 @@ namespace Cliente.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Método que regresa a la vista NuevaTarjeta.
+        /// </summary>
+        /// <returns>Regresa a la vista a NuevaTarjeta.</returns>
+        [HttpPost]
+        public ActionResult NuevaTarjeta()
+        {
+            return View();
+        }
+
 
         #endregion
 

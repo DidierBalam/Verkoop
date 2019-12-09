@@ -381,6 +381,14 @@ button{
              
      }
 
+.-BotonAgregarTarjeta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+}
+
 .-FotoPerfil{
     display: flex;
     border-radius: 50%;

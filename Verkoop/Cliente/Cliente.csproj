@@ -220,9 +220,12 @@
     <Content Include="Assets\js\active.js" />
     <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\classy-nav.min.js" />
+    <Content Include="Assets\js\jquery.validate.min.js" />
     <Content Include="Assets\js\map-active.js" />
     <Content Include="Assets\js\plugins.js" />
     <Content Include="Assets\js\popper.min.js" />
+    <Content Include="Scripts\tarjeta.js" />
+    <Content Include="Assets\js\utileriamodal.js" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -263,7 +266,6 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\plugins.js" />
     <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\utileria.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -288,6 +290,7 @@
     <Content Include="Views\HistorialCompras\ComprasRealizadas.cshtml" />
     <Content Include="Views\CarritoCompras\PagoConTarjeta.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
+    <Content Include="Views\Perfil\NuevaTarjeta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

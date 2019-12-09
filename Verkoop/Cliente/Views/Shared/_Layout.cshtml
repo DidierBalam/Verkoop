@@ -58,16 +58,19 @@
                 <!-- Amado Nav -->
                 <!-- Cart Menu -->
                 <div class="cart-fav-search mb-100">
-                    @RenderSection("Opciones")                 
+                    @RenderSection("Opciones")
                     <a href="#" class=""><img src="~/Assets/img/core-img/icono-salir.svg" alt=""> Salir</a>
                 </div>
             </div>
         </header>
-
-        @RenderBody()       
+        <div> </div>
+        @RenderBody()
     </div>
+    <div id="ModalPrincipal" class="modal" role="dialog"></div>
+
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+<script src="~/Assets/js/jquery.validate.min.js"></script>
+<script src="~/Assets/js/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

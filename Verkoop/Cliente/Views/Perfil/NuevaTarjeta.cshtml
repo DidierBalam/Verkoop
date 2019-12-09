@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@section  Titulo{
+    <h2>Nueva tarjeta</h2> 
+}
+
+
+<form id="FormularioTarjeta">
+    <div class="form-group row">
+        <div class="col-9">
+            <label for="exampleFormControlInput1">Número de Tarjeta</label>
+            <input type="text" name="NumeroTarjeta" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" pattern="\\d*" minlength="16" maxlength="16" required="">
+        </div>
+    </div>
+    <label for="exampleFormControlInput1">Fecha de Expiración</label>
+    <div class="form-group row">
+        <div class="col-4">
+
+            <input type="text" name="Mes" class="form-control" placeholder="MM" pattern="\\d*" minlength="2" maxlength="2" required="">
+        </div>
+
+        <div class="col-4">
+            <input type="text" name="Año" class="form-control" placeholder="YYYY" pattern="\\d*" minlength="4" maxlength="4" required="">
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-3">
+            <label>CCV</label>
+            <input type="text" name="Ccv" class="form-control" placeholder="CCV" pattern="\\d*" minlength="3" maxlength="3" required="">
+        </div>
+    </div>
+
+</form>
+
+
+@section Pie{
+    <button id="btnGuardarTarjeta" type="button" class="btn btn-outline-dark">Guardar</button>
+}
+
+
