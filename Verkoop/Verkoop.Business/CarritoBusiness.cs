@@ -226,5 +226,10 @@ namespace Verkoop.Business
                 _objProductosEstado
             });
         }
+
+        public object RealizarPagoPaypal()
+        {
+            return null;
+        }
     }
 }
