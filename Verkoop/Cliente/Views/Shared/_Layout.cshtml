@@ -8,9 +8,11 @@
 
     <title>Verkoop | Inicio</title>
 
+
+    <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Assets/css/core-style.css" rel="stylesheet" />
     <link href="~/Assets/css/libreria-verkoop.css" rel="stylesheet" />
-
+    <link href="~/Assets/css/style.css" rel="stylesheet" />
 
     @*@Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")*@
@@ -58,16 +60,23 @@
                 <!-- Amado Nav -->
                 <!-- Cart Menu -->
                 <div class="cart-fav-search mb-100">
-                    @RenderSection("Opciones")                 
+                    @RenderSection("Opciones")
                     <a href="#" class=""><img src="~/Assets/img/core-img/icono-salir.svg" alt=""> Salir</a>
                 </div>
             </div>
         </header>
 
-        @RenderBody()       
+        @RenderBody()
     </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <div id="ModalPrincipal" class="modal" role="dialog"></div>
+    <div id="ModalDetalles" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"></div>
+
+    <script src="~/Assets/Librerias/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="~/Assets/Librerias/jQueryValidate/jquery.validate.min.js"></script>
+    <script src="~/Assets/Librerias/Boostrap/bootstrap.min.js"></script>
+    <script src="~/Assets/Librerias/SweetAlert/sweetalert2.min.js"></script>
+
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
