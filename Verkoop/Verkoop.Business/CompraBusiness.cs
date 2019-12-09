@@ -89,15 +89,15 @@ namespace Verkoop.Business
             return dato;
         }
 
-        public decimal ObtenerNumeroTotalIngresoVentas()
-        {
-            decimal dato = 0;
-            using (VerkoopDBEntities ctx = new VerkoopDBEntities())
-            {
-                dato = ctx.tblCompra.Select(i => i.dPrecioTotal).Sum();
-            }
-            return dato;
-        }
+        //public decimal ObtenerNumeroTotalIngresoVentas()
+        //{
+        //    decimal dato = 0;
+        //    using (VerkoopDBEntities ctx = new VerkoopDBEntities())
+        //    {
+        //        dato = ctx.tblCompra.Select(i => i.).Sum();
+        //    }
+        //    return dato;
+        //}
 
         public List<ListaCompraClienteDTO> ObtenerTodasLasCompras()
         {
