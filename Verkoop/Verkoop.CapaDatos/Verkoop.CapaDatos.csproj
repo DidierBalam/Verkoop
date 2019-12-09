@@ -139,11 +139,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
     <EntityDeploy Include="VerkoopDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>VerkoopDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="packages.config" />
     <None Include="VerkoopDB.edmx.diagram">
       <DependentUpon>VerkoopDB.edmx</DependentUpon>
     </None>

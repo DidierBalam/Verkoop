@@ -23,26 +23,34 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_ctx">Recibe el contexto de la  base de datos</param>
         /// <param name="_lstProducto">Recibe la lista de los productos a afectar(contiene el id  del producto y su cantidad de compra)</param>
-        public void DisminuirCantidadProducto(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
+        public List<tblCat_Producto> DisminuirCantidadProducto(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
         {
+            List<tblCat_Producto> _lstProductoAfectado = new List<tblCat_Producto>();
 
-
-            List<tblCat_Producto> lstCarrito = _ctx.tblCat_Producto.Where(x => _lstProducto.Select(y => y.iIdProducto).Contains(x.iIdProducto)).ToList();
-
-            lstCarrito.ForEach(z =>
+            _lstProducto.ForEach(x =>
             {
-                z.iCantidad -= Convert.ToInt32(_lstProducto.Where(a => a.iIdProducto == z.iIdProducto).Select(a => new { a.iCantidad }).First());
+                tblCat_Producto _objCarrito = _ctx.tblCat_Producto.Where(z => z.iIdProducto == x.iIdProducto).FirstOrDefault();
+
+                _objCarrito.iCantidad -= x.iCantidad;
+
+                _lstProductoAfectado.Add(_objCarrito);
+
             });
 
+            return _lstProductoAfectado;       
         }
 
-
+        /// <summary>
+        /// Método para cambiar el estado del producto.
+        /// </summary>
+        /// <param name="_bEstado">Recibe el nuevo estado del producto</param>
+        /// <param name="_iIdProducto">Recibe el id del produto</param>
+        /// <returns>Retorna el estado de la operación y su mensaje</returns>
         public object CambiarEstadoProducto(bool _bEstado, int _iIdProducto)
         {
             
             try
-            {
-                
+            {             
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
                     tblCat_Producto _objProductos;
@@ -233,7 +241,11 @@ namespace Verkoop.Business
             }
         }
 
-
+        /// <summary>
+        /// MÉTODO PARA OBTENER PRODUCTOS POR ESTADO.
+        /// </summary>
+        /// <param name="_bEstado"></param>
+        /// <returns></returns>
         public List<CatalogoProductoAdministradorDTO> ObtenerProductosPorEstado(bool _bEstado)
         {
             List<CatalogoProductoAdministradorDTO> lstUsuarios;
@@ -266,7 +278,7 @@ namespace Verkoop.Business
 
 
         /// <summary>
-        /// Método para obtener los detalles del producto
+        /// MÉTODO PARA OBTENER LOS DETALLES DEL PRODUCTO
         /// </summary>
         /// <param name="_iIdProducto">Recibe el id del producto</param>
         /// <returns>Retorna un objeto con los datos del producto</returns>
@@ -338,7 +350,11 @@ namespace Verkoop.Business
             return _lstCatidadValidad;
         }
 
-
+        /// <summary>
+        /// MÉTODO PARA VISUALIZAR LOS DETALLES DEL PRODUCTO.
+        /// </summary>
+        /// <param name="_iIdProducto"></param>
+        /// <returns></returns>
         public VisualizarDetallesProductoAdministradorDTO VisualizarDetallesProductoAdministrador(int _iIdProducto)
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
