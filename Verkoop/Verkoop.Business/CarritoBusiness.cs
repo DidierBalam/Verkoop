@@ -6,7 +6,7 @@ using Verkoop.CapaDatos;
 
 namespace Verkoop.Business
 {
-    
+
     public class CarritoBusiness
     {
         ProductoBusiness ProductoBusiness = new ProductoBusiness();
@@ -19,7 +19,6 @@ namespace Verkoop.Business
         public object AgregarProductoCarrito(int _iIdProducto, int _iIdUsuario, int _iCantidad)
         {
             bool _EstadoConsulta;
-            int _iProductosCarrito = 0;
             string _cMensaje;
 
             try
@@ -38,22 +37,16 @@ namespace Verkoop.Business
                     _ctx.tblCarrito.Add(_objTablaCarrito);
                     _ctx.SaveChanges();
 
-                    _iProductosCarrito = (from carrito in _ctx.tblCarrito.AsNoTracking()
-                                          where carrito.iIdUsuario == _iIdUsuario
-                                          && carrito.lEstatus == false
-                                          select carrito.iIdUsuario).Count();
-
                     _EstadoConsulta = true;
                     _cMensaje = "Producto agregado al carrito";
                 }
             }
             catch (Exception)
             {
-                _iProductosCarrito = 0;
                 _EstadoConsulta = false;
                 _cMensaje = "Algo falló al agregar el producto al carrito";
             }
-            return (new { EstadoConsulta = _EstadoConsulta, Mensaje = _cMensaje, ProductosAgregados = _iProductosCarrito });
+            return (new { EstadoConsulta = _EstadoConsulta, Mensaje = _cMensaje });
         }
 
         /// <summary>
@@ -61,22 +54,37 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_ctx">Recibe el contexto de la base de datos</param>
         /// <param name="_lstProducto">Recibe la lista de los productos a afectar</param>
-        public void CambiarEstadoProductoCarrito(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
+        public List<tblCarrito> CambiarEstadoProductoCarrito(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
         {
+            List<tblCarrito> _lstCarritoAfectado = new List<tblCarrito>();
 
-            List<tblCarrito> lstCarrito = _ctx.tblCarrito.Where(x => _lstProducto.Select(y => y.iIdProducto).Contains(x.iIdProducto)).ToList();
-
-            lstCarrito.ForEach(z =>
+            _lstProducto.ForEach(x =>
             {
-                z.lEstatus = false;
+                tblCarrito _objCarrito = _ctx.tblCarrito.Where(z => z.iIdProducto == x.iIdProducto).FirstOrDefault();
+
+                _objCarrito.lEstatus = true;
+
+                _lstCarritoAfectado.Add(_objCarrito);
+
             });
-           
+
+            return _lstCarritoAfectado;
         }
 
-        public int ObtenerNumeroTotalProductosDeUsuario(int _iIdUsuario)
+        /// <summary>
+        /// Método para obtener los productos agregados del cliente.
+        /// </summary>
+        /// <param name="_ctx">Recibe el contexto de la base de datos</param>
+        /// <param name="_iIdUsuario">Recibe el id del usuario</param>
+        /// <returns>Retorna el valor entero de los productos agregados al carrito</returns>
+        public int ObtenerNumeroTotalProductosDeUsuario(VerkoopDBEntities _ctx, int _iIdUsuario)
         {
+            int _iProductosCarrito = (from carrito in _ctx.tblCarrito.AsNoTracking()
+                                      where carrito.iIdUsuario == _iIdUsuario
+                                      && carrito.lEstatus == false
+                                      select carrito.iIdUsuario).Count();
 
-            return 0;
+            return _iIdUsuario;
         }
 
         /// <summary>
@@ -107,7 +115,7 @@ namespace Verkoop.Business
             }
             return _lstProductos.ToList();
         }
-       
+
         /// <summary>
         /// Método para quitar producto del carrito
         /// </summary>
@@ -144,63 +152,79 @@ namespace Verkoop.Business
         /// <summary>
         /// Método para realizar el pago de los productos agregados al carrito.
         /// </summary>
-        /// <param name="_iIdUsuario">Recibe el id del del cliente</param>
-        /// <param name="_iIdDireccion">Recibe el id de la dirección</param>
-        /// <param name="_iIdTarjeta">Recibe el id de la tarjeta</param>
-        /// <returns>Retorna el estado de la operación y su mensaje</returns>
-        public object RealizarPago(int _iIdUsuario, int _iIdDireccion, tblTarjeta _objTargeta)
+        /// <param name="_objPago">Recibe el id del usuario</param>
+        public object RealizarPago(int _iIdUsuario, RealizarPagoDTO _objPago)
         {
-            bool bEstadoOperacion;
-            string cMensaje;
+            bool _bEstadoOperacion;
+            string _cMensaje;
+            object _objProductosEstado;
+
+            List<tblProductoComprado> _TablaProductoComprado = new List<tblProductoComprado>();
 
             try
             {
-                
-
-                using (VerkoopDBEntities ctx = new VerkoopDBEntities())
+                using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    tblCompra TablaCompra = new tblCompra
+                    CantidadProductoValidadoDTO _objResultadoValidarCantidad = ProductoBusiness.ValidarCatidadCompraProducto(_ctx, _objPago.lstProductoComprado);//Valida la cantidad de la compra del producto.
+
+                    if (_objResultadoValidarCantidad.bEstadoValidacion)
                     {
-                        iIdUsuario = _iIdUsuario,
-                        iIdDireccion = _iIdDireccion,
-                        //iIdTarjeta = _iIdTarjeta,
-                        dtFecha = DateTime.Today
+                        tblCompra _TablaCompra = new tblCompra
+                        {
+                            iIdUsuario = _iIdUsuario,
+                            iIdDireccion = _objPago.iIdDireccion,
+                            iIdTarjeta = _objPago.objTarjeta.iIdTarjeta,
+                            dtFecha = DateTime.Today
+                        };
 
-                    };
+                        _objPago.lstProductoComprado.ForEach(x => {
 
-                    List<tblProductoComprado> lstProducto = (from Carrito in ctx.tblCarrito
-                                                             where Carrito.iIdUsuario == _iIdUsuario
-                                                             || Carrito.lEstatus == false
-                                                             select new tblProductoComprado
-                                                             {
-                                                                 iIdCompra = TablaCompra.iIdCompra,
-                                                                 iIdProducto = Carrito.iIdProducto,
-                                                                 iCantidad = Carrito.iCantidad
+                            tblProductoComprado _objProducto = new tblProductoComprado
+                            {
+                                iIdCompra = _TablaCompra.iIdCompra,
+                                iIdProducto = x.iIdProducto,
+                                iCantidad = x.iCantidad
+                            };
 
-                                                             }).ToList();
+                            _TablaProductoComprado.Add(_objProducto);
+                        });    
 
-                    TablaCompra.tblProductoComprado = lstProducto;
-                    ctx.tblCompra.Add(TablaCompra);                    
+                        _TablaCompra.tblProductoComprado = _TablaProductoComprado;
+                        _ctx.tblCompra.Add(_TablaCompra);
 
-                    CambiarEstadoProductoCarrito(ctx, lstProducto);
+                        List<tblCarrito> _lstCarritoAfectado = CambiarEstadoProductoCarrito(_ctx, _objPago.lstProductoComprado);//Cambia estado del producto a true indicando que el producto se ha comprado.
+                        List<tblCat_Producto> _lstProductoAfectado = ProductoBusiness.DisminuirCantidadProducto(_ctx, _objPago.lstProductoComprado); //Resta a la cantidad disponible del producto la cantidad asignada en la compra.
 
-                    ProductoBusiness.DisminuirCantidadProducto(ctx, lstProducto);
+                        _ctx.SaveChanges();
 
-                    ctx.SaveChanges();
+                        _bEstadoOperacion = true;
+                        _cMensaje = "Pago realizado exitosamente";
+                        _objProductosEstado = null;
+                    }
 
-                    bEstadoOperacion = true;
-                    cMensaje = "Pago realizado exitosamente";
+                    else
+                    {
+                        _bEstadoOperacion = false;
+                        _cMensaje = "La compra no se puede realizar";
+                        _objProductosEstado = _objResultadoValidarCantidad.lstProducto;
+                    }
 
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                bEstadoOperacion = false;
-                cMensaje = "Algo falló al realizar el pago";
+                _bEstadoOperacion = false;
+                _cMensaje = e.Message/*"Algo falló al realizar el pago"*/;
+                _objProductosEstado = null;
             }
 
-            return (new { bEstadoOperacion , cMensaje});
+            return (new
+            {
+                _bEstadoOperacion,
+                _cMensaje,
+                _objProductosEstado
+            });
         }
     }
 }

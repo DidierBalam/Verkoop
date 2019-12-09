@@ -49,6 +49,7 @@
           <Property Name="cApellidoMaterno" Type="varchar" MaxLength="50" />
           <Property Name="cImagen" Type="varchar(max)" />
           <Property Name="cTelefono" Type="varchar" MaxLength="14" />
+          <Property Name="cCodigoVerificacion" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="iTipoUsuario" Type="int" Nullable="false" />
           <Property Name="lEstatus" Type="bit" Nullable="false" />
           <Property Name="dtFechaIngreso" Type="datetime" Nullable="false" />
@@ -63,7 +64,6 @@
           <Property Name="iIdUsuario" Type="int" Nullable="false" />
           <Property Name="iIdDireccion" Type="int" Nullable="false" />
           <Property Name="iIdTarjeta" Type="int" Nullable="false" />
-          <Property Name="dPrecioTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="dtFecha" Type="datetime" />
         </EntityType>
         <EntityType Name="tblDireccion">
@@ -492,6 +492,7 @@
           <Property Name="cApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cImagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="cTelefono" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="cCodigoVerificacion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="iTipoUsuario" Type="Int32" Nullable="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
@@ -511,7 +512,6 @@
           <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
           <Property Name="iIdDireccion" Type="Int32" Nullable="false" />
           <Property Name="iIdTarjeta" Type="Int32" Nullable="false" />
-          <Property Name="dPrecioTotal" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="dtFecha" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblCompra_iIdUsuario" FromRole="tblCompra" ToRole="tblCat_Usuario" />
           <NavigationProperty Name="tblDireccion" Relationship="VerkoopDBModel.FK_tblCompra_iIdDireccion" FromRole="tblCompra" ToRole="tblDireccion" />
@@ -814,6 +814,7 @@
                 <ScalarProperty Name="dtFechaIngreso" ColumnName="dtFechaIngreso" />
                 <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
                 <ScalarProperty Name="iTipoUsuario" ColumnName="iTipoUsuario" />
+                <ScalarProperty Name="cCodigoVerificacion" ColumnName="cCodigoVerificacion" />
                 <ScalarProperty Name="cTelefono" ColumnName="cTelefono" />
                 <ScalarProperty Name="cImagen" ColumnName="cImagen" />
                 <ScalarProperty Name="cApellidoMaterno" ColumnName="cApellidoMaterno" />
@@ -827,7 +828,6 @@
             <EntityTypeMapping TypeName="VerkoopDBModel.tblCompra">
               <MappingFragment StoreEntitySet="tblCompra">
                 <ScalarProperty Name="dtFecha" ColumnName="dtFecha" />
-                <ScalarProperty Name="dPrecioTotal" ColumnName="dPrecioTotal" />
                 <ScalarProperty Name="iIdTarjeta" ColumnName="iIdTarjeta" />
                 <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
                 <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />

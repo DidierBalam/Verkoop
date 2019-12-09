@@ -2,14 +2,24 @@
 using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
+using Verkoop.CapaDatos;
+using System.Reflection;
+using System;
 
 namespace Cliente.Controllers
 {
     public class CarritoComprasController : Controller
     {
-        CarritoBusiness ClaseBusiness = new CarritoBusiness();
+        CarritoBusiness CarritoBusiness = new CarritoBusiness();
+        TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
+
         // GET: CarritoCompras
-        public ActionResult Index()
+        public ActionResult CarritoCompras()
+        {
+            return View();
+        }
+
+        public ActionResult PagoConTarjeta()
         {
             return View();
         }
@@ -22,10 +32,11 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult AgregarProductoCarrito(int _iIdProducto, int _iCantidad)
         {
-            object _objResultado = ClaseBusiness.AgregarProductoCarrito(_iIdProducto,1, _iCantidad);
+            object _objResultado = CarritoBusiness.AgregarProductoCarrito(_iIdProducto, 1, _iCantidad);
 
             return Json(_objResultado);
         }
+
         /// <summary>
         /// Método que conecta a QuitarProductoCarrito() de CarritoBusiness
         /// </summary>
@@ -34,10 +45,11 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult QuitarProductoCarrito(int _iIdCarrito)
         {
-            object _objResultado = ClaseBusiness.QuitarProductoCarrito(_iIdCarrito);
+            object _objResultado = CarritoBusiness.QuitarProductoCarrito(_iIdCarrito);
 
             return Json(_objResultado);
         }
+
         /// <summary>
         /// Método que conecta a ObtenerProductosDeUsuario() de CarritoBusiness
         /// </summary>
@@ -46,9 +58,33 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult ObtenerProductosDeUsuario(int _iIdUsuario)
         {
-            List<ProductoEnCarritoDTO> _lstResultado = ClaseBusiness.ObtenerProductosDeUsuario(_iIdUsuario);
+            List<ProductoEnCarritoDTO> _lstResultado = CarritoBusiness.ObtenerProductosDeUsuario(_iIdUsuario);
 
             return Json(_lstResultado);
+        }
+
+        /// <summary>
+        /// Método para realizar un pago.
+        /// </summary>
+        /// <param name="_objPago">REcibe el objeto con el id de la dirección usuario, los atributos de la tarjeta y los productos a comprar</param>
+        /// <returns></returns>
+        public JsonResult RealizarPago(RealizarPagoDTO _objPago)
+        {
+            object _objRespuestaGuardarTarjeta;
+
+            if (Convert.ToInt32(_objPago.objTarjeta.GetType().GetProperty("iIdTarjeta").GetValue(_objPago.objTarjeta)) == 0)
+            {
+                _objPago.objTarjeta.GetType().GetProperty("iIdUsuario").SetValue(0, 1);
+
+                _objRespuestaGuardarTarjeta = TarjetaBusiness.GuardarTarjeta(_objPago.objTarjeta);
+
+                _objPago.objTarjeta.iIdTarjeta = Convert.ToInt32(_objRespuestaGuardarTarjeta.GetType().GetProperty("_objDatosTarjeta.iIdTarjeta").GetValue(_objRespuestaGuardarTarjeta));
+
+            }
+            
+            object _objRespuestaPago = CarritoBusiness.RealizarPago(1, _objPago);
+
+            return Json(_objRespuestaPago);
         }
     }
 }
