@@ -3,6 +3,8 @@
     ViewBag.Title = "Principal";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 @section Opciones{
 
     <a href="#" class="fav-nav -azul-cielo"><img src="~/Assets/img/core-img/icono-producto-azul.svg" alt=""> Productos</a>
@@ -18,7 +20,7 @@
 <div class="-width-35pst">
 
     <div class="-fixed -height-100pst -ColorBarra -width-35pst">
-        
+
         <div class="widget catagory -padding5pst ">
 
             <h5 class="-paddingEspacio2">Filtros</h5>
@@ -57,219 +59,15 @@
                 <input class="-input-busqueda -width-100pst" type="search" placeholder="Buscar">
                 <button class="-boton-icono"><img src="~/Assets/img/core-img/icono-buscar.svg" alt=""></button>
             </div>
-           
+
         </div>
     </div>
     <!-- Comienza el contenido de los productos. -->
     <div class="row -padding15pst">
 
-        <!-- area de  los productos-->
-        <div class="col-12 col-sm-6 col-md-12 col-xl-4">
-            <div class="single-product-wrapper">
-                <!-- Imagen del producto -->
-                <div class="product-img">
-                    <img src="~/Assets/img/product-img/product1.jpg" alt="">
-                    <!-- Hover Thumb -->
-                    <img class="hover-img" src="~/Assets/img/product-img/product2.jpg" alt="">
-                </div>
-                <!-- Descripción del producto -->
-                <div class="product-description -flex-between">
-                    <!-- Product Meta Data -->
-                    <div class="product-meta-data">
-                        <div class="line"></div>
-                        <p class="product-price">$180</p>
-                        <a href="product-details.html">
-                            <h6>Silla moderna</h6>
-                        </a>
-                    </div>
-                    <!-- Ratings & Cart -->
-                    <div class="-text-right">
-                        <div class="-padding-r4pst">
-                            <button class="-boton-estandar">Ver</button>
-                        </div>
-                        <div class="cart -text-right -padding-t10pst">
-                            <button class="-boton-icono">
-                                <img src="~/Assets/img/core-img/icono-carrito.svg"
-                                     alt="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-md-12 col-xl-4">
-            <div class="single-product-wrapper">
-                <!-- Product Image -->
-                <div class="product-img">
-                    <img src="~/Assets/img/product-img/product2.jpg" alt="">
-                    <!-- Hover Thumb -->
-                    <img class="hover-img" src="~/Assets/img/product-img/product3.jpg" alt="">
-                </div>
-                <!-- Product Description -->
-                <div class="product-description -flex-between">
-                    <!-- Product Meta Data -->
-                    <div class="product-meta-data">
-                        <div class="line"></div>
-                        <p class="product-price">$180</p>
-                        <a href="product-details.html">
-                            <h6>maceta decorada</h6>
-                        </a>
-                    </div>
-                    <!-- Ratings & Cart -->
-                    <div class="-text-right">
-                        <div class="-padding-r4pst">
-                            <button class="-boton-estandar">Ver</button>
-                        </div>
-                        <div class="cart -text-right -padding-t10pst">
-                            <button class="-boton-icono">
-                                <img src="~/Assets/img/core-img/icono-carrito.svg"
-                                     alt="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-md-12 col-xl-4">
-            <div class="single-product-wrapper">
-                <!-- Product Image -->
-                <div class="product-img">
-                    <img src="~/Assets/img/product-img/product3.jpg" alt="">
-                    <!-- Hover Thumb -->
-                    <img class="hover-img" src="~/Assets/img/product-img/product4.jpg" alt="">
-                </div>
+        @Html.Partial("_Producto")
 
-                <!-- Product Description -->
-                <div class="product-description -flex-between">
-                    <!-- Product Meta Data -->
-                    <div class="product-meta-data">
-                        <div class="line"></div>
-                        <p class="product-price">$180</p>
-                        <a href="product-details.html">
-                            <h6>Banca vintage</h6>
-                        </a>
-                    </div>
-                    <!-- Ratings & Cart -->
-                    <div class="-text-right">
-                        <div class="-padding-r4pst">
-                            <button class="-boton-estandar">Ver</button>
-                        </div>
-                        <div class="cart -text-right -padding-t10pst">
-                            <button class="-boton-icono">
-                                <img src="~/Assets/img/core-img/icono-carrito.svg"
-                                     alt="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-md-12 col-xl-4">
-            <div class="single-product-wrapper">
-                <!-- Product Image -->
-                <div class="product-img">
-                    <img src="~/Assets/img/product-img/product4.jpg" alt="">
-                    <!-- Hover Thumb -->
-                    <img class="hover-img" src="~/Assets/img/product-img/product5.jpg" alt="">
-                </div>
-                <!-- Product Description -->
-                <div class="product-description -flex-between">
-                    <!-- Product Meta Data -->
-                    <div class="product-meta-data">
-                        <div class="line"></div>
-                        <p class="product-price">$180</p>
-                        <a href="product-details.html">
-                            <h6>Modern Chair</h6>
-                        </a>
-                    </div>
-                    <!-- Ratings & Cart -->
-                    <div class="-text-right">
-                        <div class="-padding-r4pst">
-                            <button class="-boton-estandar">Ver</button>
-                        </div>
-                        <div class="cart -text-right -padding-t10pst">
-                            <button class="-boton-icono">
-                                <img src="~/Assets/img/core-img/icono-carrito.svg"
-                                     alt="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-md-12 col-xl-4">
-            <div class="single-product-wrapper">
-                <!-- Product Image -->
-                <div class="product-img">
-                    <img src="~/Assets/img/product-img/product5.jpg" alt="">
-                    <!-- Hover Thumb -->
-                    <img class="hover-img" src="~/Assets/img/product-img/product6.jpg" alt="">
-                </div>
-                <!-- Product Description -->
-                <div class="product-description -flex-between">
-                    <!-- Product Meta Data -->
-                    <div class="product-meta-data">
-                        <div class="line"></div>
-                        <p class="product-price">$180</p>
-                        <a href="product-details.html">
-                            <h6>Modern Chair</h6>
-                        </a>
-                    </div>
-                    <!-- Ratings & Cart -->
-                    <div class="-text-right">
-                        <div class="-padding-r4pst">
-                            <button class="-boton-estandar">Ver</button>
-                        </div>
-                        <div class="cart -text-right -padding-t10pst">
-                            <button class="-boton-icono">
-                                <img src="~/Assets/img/core-img/icono-carrito.svg"
-                                     alt="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Single Product Area -->
-        <div class="col-12 col-sm-6 col-md-12 col-xl-4">
-            <div class="single-product-wrapper">
-                <!-- Product Image -->
-                <div class="product-img">
-                    <img src="~/Assets/img/product-img/product6.jpg" alt="">
-                    <!-- Hover Thumb -->
-                    <img class="hover-img" src="~/Assets/img/product-img/product1.jpg" alt="">
-                </div>
-
-                <!-- Product Description -->
-                <div class="product-description -flex-between">
-                    <!-- Product Meta Data -->
-                    <div class="product-meta-data">
-                        <div class="line"></div>
-                        <p class="product-price">$180</p>
-                        <a href="product-details.html">
-                            <h6>Modern Chair</h6>
-                        </a>
-                    </div>
-                    <!-- Ratings & Cart -->
-                    <div class="-text-right">
-                        <div class="-padding-r4pst">
-                            <button class="-boton-estandar">Ver</button>
-                        </div>
-                        <div class="cart -text-right -padding-t10pst">
-                            <button class="-boton-icono">
-                                <img src="~/Assets/img/core-img/icono-carrito.svg"
-                                     alt="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- Termina vista de productos. -->
 

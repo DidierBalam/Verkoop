@@ -92,7 +92,7 @@ namespace Verkoop.Business
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto
-                                                                     orderby Producto.dtFechaAlta descending
+                                                                     //orderby Producto.cNombre descending
                                                                      select new VistaPreviaProductoClienteDTO
                                                                      {
                                                                          iIdProducto = Producto.iIdProducto,
@@ -101,8 +101,8 @@ namespace Verkoop.Business
                                                                          dPrecioProducto = Producto.dPrecio.ToString(),
                                                                          iCantidad = Producto.iCantidad
 
-                                                                     }).Skip(_iNumeroConsulta * _iProductosObtener)
-                                                                     .Take(_iProductosObtener)
+                                                                     })/*.Skip(_iNumeroConsulta * _iProductosObtener)*/
+                                                                     //.Take(_iProductosObtener)
                                                                      .ToList();
                 return _lstProductos;
             }

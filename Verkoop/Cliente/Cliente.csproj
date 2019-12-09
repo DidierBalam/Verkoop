@@ -288,6 +288,7 @@
     <Content Include="Views\HistorialCompras\ComprasRealizadas.cshtml" />
     <Content Include="Views\CarritoCompras\PagoConTarjeta.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
+    <Content Include="Views\Shared\_Producto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
