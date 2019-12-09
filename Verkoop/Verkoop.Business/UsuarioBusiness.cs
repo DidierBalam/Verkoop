@@ -124,7 +124,6 @@ namespace Verkoop.Business
                                                               cApellidoMaterno = Usuario.cApellidoMaterno,
                                                               cImagenPerfil = Usuario.cImagen,
                                                               cNumeroTelefonico = Usuario.cTelefono
-
                                                           }).SingleOrDefault();
 
                 return _objDatosUsuario;
@@ -140,15 +139,34 @@ namespace Verkoop.Business
 
         public int ObtenerNumeroTotalUsuariosClientes()
         {
-
-            return 0;
+            int dato = 0;
+            using (VerkoopDBEntities ctx = new VerkoopDBEntities())
+            {
+                dato = ctx.tblCat_Usuario.Count();
+            }
+            return dato;
         }
 
 
-        public List<BusquedaUsuarioPorEstadoDTO> ObtenerUsuarioClientePorEstado(bool _bEstado)
+        public List<BusquedaUsuarioPorEstadoDTO> ObtenerUsuarioClientePorEstado()
         {
+            List<BusquedaUsuarioPorEstadoDTO> lstUsuarios;
+            using (VerkoopDBEntities ctx = new VerkoopDBEntities())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                ctx.Configuration.ProxyCreationEnabled = false;
+                lstUsuarios = (from user in ctx.tblCat_Usuario.AsNoTracking()
+                               select new BusquedaUsuarioPorEstadoDTO()
+                               {
+                                   iIdUsuario = user.iIdUsuario,
+                                   cNombre = user.cApellidoPaterno + " " + user.cApellidoMaterno + " " + user.cNombre,
+                                   cTelefono = user.cTelefono,
+                                   dtFechaIngreso = user.dtFechaIngreso
 
-            return null;
+                               }).ToList();
+
+            }
+            return lstUsuarios;
         }
 
         /// <summary>
