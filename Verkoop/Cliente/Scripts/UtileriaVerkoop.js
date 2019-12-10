@@ -9,6 +9,13 @@
     });
 }
 
+function EliminarTarjeta(iIdTarjeta) {
+    ObtenerMetodoControlador("POST", "/Tarjeta/EliminarTarjeta", { idTarjeta: iIdTarjeta }).then((objRespuesta) => {
+
+    });
+
+}
+
 /**
 * FUNCIÓN AJAX QUE CONECTA A LOS MÉTODOS DEL CONTROLADOR
 * @param {any} cMetodo Recibe la url del método.
