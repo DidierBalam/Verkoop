@@ -55,7 +55,7 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_objDatosTarjeta">Objeto que contiene los datos de la tarjeta.</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
-        public object GuardarTarjeta(tblTarjeta _objDatosTarjeta)
+        public object GuardarTarjeta(int _iIdUsuario ,tblTarjeta _objDatosTarjeta)
         {
             string _cMensaje;///Se crea variable tipo string.
             bool _bEstadoTarjeta;///Se crea variable tipo booleano.
@@ -64,9 +64,20 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities()) ///Se crea contexto
                 {
+                    _ctx.Configuration.LazyLoadingEnabled = false;
+                    _ctx.Configuration.ProxyCreationEnabled = false;
+
                     if (!VerificarExistenciaTarjeta(_ctx, _objDatosTarjeta))
                     {
+                        _objDatosTarjeta.iIdUsuario = _iIdUsuario;
                         _objDatosTarjeta.lDefault = false;  ///Permite guardar las tarjetas con valor default en falso.
+                        //tblTarjeta _objDatos = new tblTarjeta
+                        //{
+                        //    cNumeroTarjeta = _objDatosTarjeta.cNumeroTarjeta,
+                        //    cMesVigencia = _objDatosTarjeta.cMesVigencia,
+                        //    cAnioVigencia = _objDatosTarjeta.cAnioVigencia
+
+                        //};
 
                         _ctx.tblTarjeta.Add(_objDatosTarjeta);///Se inserta las propiedades del objeto  _objDatosTarjeta a la tabla tblTarjeta.
                         _ctx.SaveChanges();///Se guardan cambios.
@@ -110,7 +121,7 @@ namespace Verkoop.Business
                 {
                     tblTarjeta _TablaTarjeta = new tblTarjeta /// Se crea una instancia de la tabla tblTarjeta.
                     {
-                        iIdTarjeta = (from Tarjeta in _ctx.tblTarjeta///Se usa linq para buscar el id de la tarjeta a eliminar.
+                        iIdTarjeta = (from Tarjeta in _ctx.tblTarjeta.AsNoTracking()///Se usa linq para buscar el id de la tarjeta a eliminar.
                                       where Tarjeta.iIdTarjeta == _iIdTarjeta/// Cuando el id de la tarjeta de la base de datos sea igual al id que se quiere eliminar se selecciona.
                                       select Tarjeta.iIdTarjeta).First()///Se selecciona el campo que contiene el id a eliminar.
                     };
@@ -143,8 +154,10 @@ namespace Verkoop.Business
 
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
+                _ctx.Configuration.LazyLoadingEnabled = false;
+                _ctx.Configuration.ProxyCreationEnabled = false;
 
-                List<TarjetaDTO> _lstTarjetas = (from Tarjeta in _ctx.tblTarjeta
+                List<TarjetaDTO> _lstTarjetas = (from Tarjeta in _ctx.tblTarjeta.AsNoTracking()
                                                  where Tarjeta.iIdUsuario == _iIdUsuario
                                                  select new TarjetaDTO
                                                  {

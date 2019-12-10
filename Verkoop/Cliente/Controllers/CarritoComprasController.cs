@@ -74,9 +74,8 @@ namespace Cliente.Controllers
 
             if (_objPago.objTarjeta.iIdTarjeta == 0) //Verifica si no se está recibiendo el id de alguna tarjeta seleccionada
             {
-                _objPago.objTarjeta.iIdUsuario = 1/*Varible de sesión*/;//asigna el id del usuario al objeto tarjeta para guardar.
 
-                _objRespuestaGuardarTarjeta = TarjetaBusiness.GuardarTarjeta(_objPago.objTarjeta); //Guarda la tarjeta y recibe el estado de la operación y la tarjeta guardada.
+                _objRespuestaGuardarTarjeta = TarjetaBusiness.GuardarTarjeta(1,_objPago.objTarjeta); //Guarda la tarjeta y recibe el estado de la operación y la tarjeta guardada.
 
                 _objPago.objTarjeta.iIdTarjeta = Convert.ToInt32(_objRespuestaGuardarTarjeta.GetType().GetProperty("_objDatosTarjeta.iIdTarjeta").GetValue(_objRespuestaGuardarTarjeta));//Obtiene el id de la tarjeta y se lo asigna al objeto tarjeta que pertenece al objeto pago.
 

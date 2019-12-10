@@ -5,12 +5,15 @@ using Verkoop.CapaDatos;
 using System.Web;
 using CloudinaryDotNet.Actions;
 using System;
+using System.Collections.Generic;
 
 namespace Cliente.Controllers
 {
     public class PerfilController : Controller
     {
         UsuarioBusiness UsuarioBusiness = new UsuarioBusiness();
+
+        TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
 
         #region Vistas
         public ActionResult InformacionPersonal()
@@ -29,8 +32,23 @@ namespace Cliente.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Método que devuelve la vista tarjetas con la lista de tarjetas
+        /// </summary>  
+        /// <returns>retorna la vista de tarjetas con la lista </returns>
         public ActionResult Tarjetas()
+        {
+            List<TarjetaDTO> _lstTarjetas = TarjetaBusiness.ObtenerTodasTarjetas(1);
+
+            return View(_lstTarjetas);
+        }
+
+        /// <summary>
+        /// Método que regresa a la vista NuevaTarjeta.
+        /// </summary>
+        /// <returns>Regresa a la vista a NuevaTarjeta.</returns>
+        [HttpPost]
+        public ActionResult NuevaTarjeta()
         {
             return View();
         }

@@ -16,7 +16,7 @@ function ObtenerVista(cTipo, cUrl, Data, Funcion) {
             $("#ModalPrincipal").html(response);    //id del modal      
             $("#ModalPrincipal").modal({
                 show: true,                        //abrir modal
-                //backdrop: "static"
+                backdrop: "static"
             });
 
             if (Funcion) {
@@ -71,7 +71,7 @@ function LlamarMetodo(cTipo, cUrl, Data, Funcion) {
         dataType: "JSON",
         success: function (response) {
             $("#ModalPrincipal").modal('hide');
-            alert(response.cMensaje);
+            alert(response._cMensaje);
             //imprime un mensaje de la respuesta del servicio web que estoy llamando 
             if (Funcion) {
                 window[Funcion]();
@@ -80,3 +80,4 @@ function LlamarMetodo(cTipo, cUrl, Data, Funcion) {
         }
     });
 }
+
