@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Verkoop.CapaDatos.DTO;
 using Verkoop.CapaDatos;
+using System.Data.Entity;
 
 namespace Verkoop.Business
 {
     public class CategoriaBusiness
     {
+        private string _cMensaje = string.Empty;
+        private string _EstadoConsulta = string.Empty;
+        private bool _bEstadoCategoria;
+
         /// <summary>
         /// Método para agregar una categoría.
         /// </summary>
@@ -15,32 +20,30 @@ namespace Verkoop.Business
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
         public object GuardarCategoria(string _cNombreCategoria)
         {
-            string _cMensaje;
-            bool _bEstadoCategoria;
-
+            tblCat_Categoria _TablaCategoria = new tblCat_Categoria();
             try
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
 
-                    tblCat_Categoria _TablaCategoria = new tblCat_Categoria
-                    {
-                        cNombre = _cNombreCategoria
-                    };
-                    _ctx.tblCat_Categoria.Add(_TablaCategoria);
+                    _TablaCategoria.cNombre = _cNombreCategoria;
+
+                    _ctx.Entry(_TablaCategoria).State = EntityState.Added;
                     _ctx.SaveChanges();
 
                     _cMensaje = "Categoría agregada con éxito!";
+                    _EstadoConsulta = "success";
                     _bEstadoCategoria = true;
                 }
             }
             catch (Exception )
             {
-                _cMensaje ="Algo falló, no se pudo agregar categoría, intente de nuevo.";
+                _cMensaje = "Algo falló, no se pudo agregar categoría, intente de nuevo.";
+                _EstadoConsulta = "error";
                 _bEstadoCategoria = false;
 
             }
-            return (new { _cMensaje, _bEstadoCategoria });
+            return (new { EstadoConsulta = _EstadoConsulta, Mensaje = _cMensaje, tarjeta = _TablaCategoria });
         }
 
         /// <summary>
