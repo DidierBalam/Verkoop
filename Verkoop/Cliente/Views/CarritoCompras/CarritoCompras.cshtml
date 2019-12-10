@@ -46,21 +46,24 @@
                                     <div class="qty-btn d-flex">
 
                                         <div class="quantity">
+
                                             <span class="qty-minus"
-                                                  onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp) &amp; qty &gt; 1 ; effect.value--;return false;">
+                                                  onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </span>
-                                            <input type="number" class="qty-text" id="qty" step="1" min="1"
+
+                                            <input type="number" class="qty-text -CentrarTexto" id="qty" step="1" min="1"
                                                    max="300" name="quantity" value="1">
+
                                             <span class="qty-plus"
                                                   onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                             </span>
                                         </div>
+
                                         <div class="-padding-l4px">
                                             <a href="" class="btnEliminar" id="btnEliminar"><img src="~/Assets/img/core-img/icono-eliminar.svg"></a>
                                         </div>
-
                                     </div>
                                 </td>
 
@@ -72,7 +75,7 @@
                                     <a href="#"><img src="~/Assets/img/bg-img/cart2.jpg" alt="Product"></a>
                                 </td>
                                 <td class="cart_product_desc">
-                                    <h5>Minimal Plant Pot</h5>
+                                    <h5>Planta minimalista.</h5>
                                 </td>
                                 <td class="price">
                                     <span>$10</span>
@@ -81,10 +84,13 @@
                                     <div class="qty-btn d-flex">
 
                                         <div class="quantity">
+
                                             <span class="qty-minus"
-                                                  onclick="var effect = document.getElementById('qty2'); var qty = effect.value; if( !isNaN( qty ) &amp) ;&amp; qty &gt; 1 ; effect.value--;return false;">
+                                                  onclick="var effect = document.getElementById('qty2'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </span>
+
+                                            
                                             <input type="number" class="qty-text" id="qty2" step="1" min="1"
                                                    max="300" name="quantity" value="1">
                                             <span class="qty-plus"
@@ -113,11 +119,14 @@
 
                                         <div class="quantity">
                                             <span class="qty-minus"
-                                                  onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty ) &amp)&amp; qty &gt; 1 ; effect.value--;return false;">
+                                                  onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </span>
+
+
                                             <input type="number" class="qty-text" id="qty3" step="1" min="1"
                                                    max="300" name="quantity" value="1">
+
                                             <span class="qty-plus"
                                                   onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>

@@ -79,6 +79,7 @@ namespace Verkoop.Business
                     {
                         _cMensaje = "La tarjeta ya se encuentra registrada.";
                         _bEstadoTarjeta = false;
+                        _objDatosTarjeta = null;
 
                     }
                 }
@@ -87,6 +88,7 @@ namespace Verkoop.Business
             {
                 _cMensaje = "Ocurrió un error al momento de guardar la tarjeta.";
                 _bEstadoTarjeta = false;
+                _objDatosTarjeta = null;
             }
 
             return (new { _bEstadoTarjeta, _cMensaje, _objDatosTarjeta });

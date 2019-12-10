@@ -1,4 +1,19 @@
-﻿/**
+﻿
+/*Sirve para abrir una vista del tab de registro.*/
+$('#cContinuar').click(function (e) {
+    e.preventDefault();    
+    $('#myTab a[href="#cContrasenia"]').tab('show');
+})
+
+/*Sirve para abrir una vista del tab de registro.*/
+$('#cAtras').click(function (e) {
+    e.preventDefault();
+    console.log("Si funciona")
+    $('#myTab a[href="#cRegistro"]').tab('show');
+})
+
+
+/**
  * Función para iniciar sesión por medio de Json
  * @param {any} cCorreo Recibe el correo electrónico
  * @param {any} cContrasenia Recibe la contraseña

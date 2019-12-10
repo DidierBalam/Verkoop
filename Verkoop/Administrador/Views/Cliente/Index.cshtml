@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Estilos{
+    <link href="~/Assets/css/datatables.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/sweetalert2.min.css" rel="stylesheet" />
+}
+
+@section Pagina{
+    <h1 class="text-white pb-2 fw-bold">Clientes |</h1>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-head-row">
+                    <div class="card-tools">
+                        <a class="btn btn-outline-info btn-rounded btn-fix" href="#" id="btnVisualizarCliente"><i class="fas fa-eye"></i> Visualizar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="tblClientes" class="table table-hover" style="width:100%"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Assets/js/datatables.min.js"></script>
+    <script src="~/Assets/js/sweetalert2.min.js"></script>
+    <script src="~/Assets/js/date.format.js"></script>
+    <script src="~/Scripts/clientes.js"></script>
+}

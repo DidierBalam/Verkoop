@@ -22,6 +22,18 @@ namespace Cliente.Controllers
         }
        
 
+        public ActionResult RegistroUsuario()
+        {
+            return View();
+        }
+
+        public ActionResult VerificarContrasenia()
+        {
+            return View();
+        }
+
+
+
         /// <summary>
         /// Método que conecta al método RegistrarUsuario() del UsuarioBusiness
         /// </summary>

@@ -1,0 +1,73 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Estilos{
+    <link href="~/Assets/css/datatables.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/bootstrap4-toggle.min.css" rel="stylesheet" />
+    <style>
+        .toggle.ios, .toggle-on.ios, .toggle-off.ios {
+            border-radius: 20rem;
+        }
+
+            .toggle.ios .toggle-handle {
+                border-radius: 20rem;
+            }
+    </style>  
+}
+
+@section Pagina{
+    <h1 class="text-white pb-2 fw-bold">Productos |</h1>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-head-row">
+                    <div class="card-title">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary btn-rounded btn-fix dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Herramentas</button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#"><i class="fas fa-download"></i> Descargar plantilla</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Importar Plantilla</a>
+                                <a class="dropdown-item" onclick="tableToExcel('tblProductos','W3C Example Table')"><i class="far fa-file-excel"></i> Exportar a Excel</a>
+                                <a class="dropdown-item" href="#"><i class="far fa-file-pdf"></i> Exportar a PDF</a>
+                                <a class="dropdown-item" href="Categoria">Categorías </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-tools">
+                        <input id="toggle-event" type="checkbox" checked data-toggle="toggle" data-style="ios" data-on="Activos" data-off="deshabilitados">
+                    </div>
+                    <div class="card-tools">
+                        <a class="btn btn-outline-success btn-rounded btn-fix" href="~/Almacen/NuevoProducto" id="btnNuevoProducto"><i class="fas fa-plus"></i> Nuevo</a>
+                        <a class="btn btn-outline-warning btn-rounded btn-fix" href="#" id="btnEditarProducto"><i class="far fa-edit"></i> Editar</a>
+                        <a class="btn btn-outline-info btn-rounded btn-fix" href="#" id="btnVisualizarProduco"><i class="fas fa-eye"></i> Visualizar</a>
+                        <a class="btn btn-outline-danger btn-rounded btn-fix" href="#" id="btnEliminarProducto"><i class="far fa-trash-alt"></i> Inactivar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="tblProductos" class="table table-hover" style="width:100%"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        
+    </script>
+    <script src="~/Assets/js/datatables.min.js"></script>
+    <script src="~/Assets/js/sweetalert2.min.js"></script>
+    <script src="~/Assets/js/date.format.js"></script>
+    <script src="~/Assets/js/bootstrap4-toggle.min.js"></script>
+
+    <script src="~/Scripts/productos.js"></script>
+}
