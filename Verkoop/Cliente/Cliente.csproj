@@ -166,6 +166,7 @@
     <Content Include="Assets\img\core-img\agregartarjeta.svg" />
     <Content Include="Assets\img\core-img\anadir.svg" />
     <Content Include="Assets\img\core-img\basura.svg" />
+    <Content Include="Assets\img\core-img\candado.svg" />
     <Content Include="Assets\img\core-img\cart.png" />
     <Content Include="Assets\img\core-img\credit-card.svg" />
     <Content Include="Assets\img\core-img\editar.svg" />
@@ -194,6 +195,7 @@
     <Content Include="Assets\img\core-img\paypal.png" />
     <Content Include="Assets\img\core-img\paypal.svg" />
     <Content Include="Assets\img\core-img\perfil1.jpg" />
+    <Content Include="Assets\img\core-img\recargar.svg" />
     <Content Include="Assets\img\core-img\search.png" />
     <Content Include="Assets\img\core-img\tarjeta.svg" />
     <Content Include="Assets\img\core-img\ubicacion.svg" />
@@ -251,6 +253,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\Shared\_SesionLayout.cshtml" />
+    <Content Include="Views\Sesion\RegistroUsuario.cshtml" />
+    <Content Include="Views\Sesion\VerificarContrasenia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\scss\style.scss" />
@@ -271,8 +276,6 @@
     <Content Include="Assets\fonts\helvetica_neu_bold-webfont.woff2" />
     <Content Include="Views\Shared\_ModalDetalles.cshtml" />
     <Content Include="Views\Producto\DetallesProductos.cshtml" />
-    <Content Include="Views\Sesion\RegistroUsuario.cshtml" />
-    <Content Include="Views\Sesion\Contrasenia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Verkoop.Business\Verkoop.Business.csproj">
