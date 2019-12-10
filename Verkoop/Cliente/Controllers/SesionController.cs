@@ -27,7 +27,7 @@ namespace Cliente.Controllers
             return View();
         }
 
-        public ActionResult Contrasenia()
+        public ActionResult VerificarContrasenia()
         {
             return View();
         }

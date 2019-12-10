@@ -74,7 +74,6 @@
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\CloudinaryDotNet.1.9.1\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\CloudinaryDotNet.1.9.1\lib\net45\System.Text.Encodings.Web.dll</HintPath>
@@ -167,6 +166,7 @@
     <Content Include="Assets\img\core-img\agregartarjeta.svg" />
     <Content Include="Assets\img\core-img\anadir.svg" />
     <Content Include="Assets\img\core-img\basura.svg" />
+    <Content Include="Assets\img\core-img\candado.svg" />
     <Content Include="Assets\img\core-img\cart.png" />
     <Content Include="Assets\img\core-img\credit-card.svg" />
     <Content Include="Assets\img\core-img\editar.svg" />
@@ -195,6 +195,7 @@
     <Content Include="Assets\img\core-img\paypal.png" />
     <Content Include="Assets\img\core-img\paypal.svg" />
     <Content Include="Assets\img\core-img\perfil1.jpg" />
+    <Content Include="Assets\img\core-img\recargar.svg" />
     <Content Include="Assets\img\core-img\search.png" />
     <Content Include="Assets\img\core-img\tarjeta.svg" />
     <Content Include="Assets\img\core-img\ubicacion.svg" />
@@ -216,8 +217,8 @@
     <Content Include="Assets\js\map-active.js" />
     <Content Include="Assets\js\plugins.js" />
     <Content Include="Assets\js\popper.min.js" />
-    <Content Include="Assets\js\Producto.js" />
-    <Content Include="Assets\js\utileriamodal.js" />
+    <Content Include="Scripts\Producto.js" />
+    <Content Include="Scripts\utileriamodal.js" />
     <Content Include="Assets\Librerias\Boostrap\bootstrap.min.js" />
     <Content Include="Assets\Librerias\jQueryValidate\jquery.validate.min.js" />
     <Content Include="Assets\Librerias\jQuery\jquery-3.3.1.min.js" />
@@ -251,6 +252,12 @@
     <Content Include="Views\CarritoCompras\PagoConTarjeta.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Views\Shared\_SesionLayout.cshtml" />
+    <Content Include="Views\Sesion\RegistroUsuario.cshtml" />
+    <Content Include="Views\Sesion\VerificarContrasenia.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Assets\scss\style.scss" />
     <Content Include="Assets\scss\_mixin.scss" />
     <Content Include="Assets\scss\_responsive.scss" />
@@ -269,8 +276,6 @@
     <Content Include="Assets\fonts\helvetica_neu_bold-webfont.woff2" />
     <Content Include="Views\Shared\_ModalDetalles.cshtml" />
     <Content Include="Views\Producto\DetallesProductos.cshtml" />
-    <Content Include="Views\Sesion\RegistroUsuario.cshtml" />
-    <Content Include="Views\Sesion\Contrasenia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Verkoop.Business\Verkoop.Business.csproj">
@@ -281,9 +286,6 @@
       <Project>{c1d1e42d-99d9-4284-a285-d692674387a3}</Project>
       <Name>Verkoop.CapaDatos</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,16 +1,20 @@
 ﻿using System.Web.Mvc;
 using Verkoop.CapaDatos.DTO;
 using Verkoop.Business;
+using System.Collections.Generic;
+
 namespace Cliente.Controllers
 {
     public class ProductoController : Controller
     {
         ProductoBusiness ProductoBusiness = new ProductoBusiness();
 
-    
+        [HttpGet]
         public ActionResult Principal()
         {
-            return View();
+            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductosRecientes();
+
+            return View(_lstProducto);
         }
 
         public ActionResult DetallesProductos()
@@ -28,6 +32,22 @@ namespace Cliente.Controllers
             DetallesProductoDTO _objProducto = ProductoBusiness.VisualizarDetallesDeProductoCliente(_iIdProducto);
 
             return Json(_objProducto);
+        }
+
+        
+        public List<VistaPreviaProductoClienteDTO> ProductosRecientes()
+        {
+            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosRecientes(20);
+
+           return _lstProducto;
+        }
+
+        
+        public List<VistaPreviaProductoClienteDTO> ProductosMasVendidos()
+        {
+            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosRecientes(20);
+
+            return _lstProducto;
         }
     }
 }

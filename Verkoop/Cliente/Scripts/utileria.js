@@ -52,3 +52,4 @@ function LlamarMetodo(cTipo, cUrl, Data, Funcion) {
         }
     });
 }
+

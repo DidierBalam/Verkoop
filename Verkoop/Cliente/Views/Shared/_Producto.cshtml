@@ -1,0 +1,54 @@
+﻿@model List<Verkoop.CapaDatos.DTO.VistaPreviaProductoClienteDTO>
+
+@if (Model.Count() > 0)
+{
+    foreach(var i in Model)
+    {
+    <!-- area de  los productos-->
+        <div class="col-12 col-sm-6 col-md-12 col-xl-4">
+            <div class="single-product-wrapper">
+                <!-- Imagen del producto -->
+                <div class="product-img">
+                    <img src="~/Assets/img/product-img/product1.jpg" alt="">
+                    <!-- Hover Thumb -->
+                    <img class="hover-img" src="~/Assets/img/product-img/product2.jpg" alt="">
+                </div>
+                <!-- Descripción del producto -->
+                <div class="product-description -flex-between">
+                    <!-- Product Meta Data -->
+                    <div class="product-meta-data">
+                        <div class="line"></div>
+                        <p class="product-price">@i.dPrecioProducto</p>
+                        <a href="product-details.html">
+                            <h6>@i.cNombreProducto</h6>
+                        </a>
+                    </div>
+                    <!-- Ratings & Cart -->
+                    <div class="-text-right">
+                        <div class="-padding-r4pst">
+                            @if (Convert.ToInt32(i.iCantidad) > 1)
+                            {
+                                <button class="-boton-estandar">Ver</button>
+                            }
+                            else
+                            {
+                                <p>Agotado</p>
+                            }
+                        </div>
+                        <div class="cart -text-right -padding-t10pst">
+                            <button class="-boton-icono">
+                                <img src="~/Assets/img/core-img/icono-carrito.svg"
+                                     alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+else
+{
+    <h3>No se encuentran productos disponibles</h3>
+}

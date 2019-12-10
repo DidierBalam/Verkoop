@@ -14,7 +14,7 @@ namespace Administrador.Controllers
             ViewData["TClientes"] = objUsuario.ObtenerNumeroTotalUsuariosClientes();
             ViewData["TProducto"] = objProducto.ObtenerNumeroTotalProductos();
             ViewData["TVentas"] = objCompra.ObtenerNumeroTotalCompras();
-            ViewData["TIngresos"] = objCompra.ObtenerNumeroTotalIngresoVentas();
+            //ViewData["TIngresos"] = objCompra.ObtenerNumeroTotalIngresoVentas();
             return View();
         }
     }

@@ -10,7 +10,6 @@ namespace Cliente.Controllers
     {
         CompraBusiness CompraBusiness = new CompraBusiness();
 
-        // GET: HistorialCompras
         public ActionResult ComprasRealizadas()
         {
             return View();
@@ -42,8 +41,8 @@ namespace Cliente.Controllers
             byte[] _bPDF = CompraBusiness.ImprimirTicketDeCompra(2);
 
             Response.Clear();
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename=" + "PDFfile.pdf");
+            Response.ContentType = "Application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=" + "VerkoopCompra.pdf");
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.BinaryWrite(_bPDF);
             Response.End();

@@ -3,7 +3,7 @@
 
 });
 
-/**función para iniciar sesión  */
+/**Función para iniciar sesión  */
 function Boton() {
     let lFormularioValido = false;
 
@@ -25,7 +25,7 @@ function Boton() {
 
 }
 
-/**función para validar los campos de inicio de sesión */
+/**Función para validar los campos de inicio de sesión */
 function ValidarInicioSesion() {
     let oFormulario = $("#FormInicioSesion");
     oFormulario.validate({
@@ -50,7 +50,7 @@ function ValidarInicioSesion() {
 }
 
 /**
- * función para mostrar una alerta para los campos requeridos
+ * Función para mostrar una alerta para los campos requeridos
  * @param {any} input recibe el imput
  */
 function showValidate(input) {
@@ -60,7 +60,7 @@ function showValidate(input) {
 }
 
 /**
- * función para mostrar una alerta para los campos requeridos
+ * Función para mostrar una alerta para los campos requeridos
  * @param {any} input recibe el imput
  */
 function hideValidate(input) {
