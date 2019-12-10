@@ -46,7 +46,7 @@ namespace Verkoop.Business
                 _EstadoConsulta = false;
                 _cMensaje = "Algo falló al agregar el producto al carrito";
             }
-            return (new { EstadoConsulta = _EstadoConsulta, ProductosCarrito = _iProductosCarrito });
+            return (new { EstadoConsulta = _EstadoConsulta, _cMensaje});
         }
 
         /// <summary>
