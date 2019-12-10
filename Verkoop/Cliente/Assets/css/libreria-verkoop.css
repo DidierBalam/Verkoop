@@ -19,6 +19,20 @@ button{
     font-size: 15px !important;
     font-weight:lighter !important;
 }
+
+.-boton-{
+    width: 20px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    color: rgb(133, 133, 133);
+    border: solid 1px rgb(185, 185, 185);
+    font-size: 15px !important;
+    font-weight:lighter !important;
+}
+
 .-boton-chido{
     width: 150px;
     padding-top: 7%;

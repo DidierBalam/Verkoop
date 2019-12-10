@@ -308,7 +308,7 @@ namespace Verkoop.Business
         /// <param name="_ctx">Recibe el contexto de la base de datos</param>
         /// <param name="_lstProducto">Recibe las listas de los productos a validar</param>
         /// <returns>Retorna el estado general de la validación y el estado de cada producto con su mensaje</returns>
-        public CantidadProductoValidadoDTO ValidarCatidadCompraProducto(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
+        public CantidadProductoValidadoDTO ValidarCantidadCompraProducto(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
         {
 
             CantidadProductoValidadoDTO _lstCatidadValidad = new CantidadProductoValidadoDTO();

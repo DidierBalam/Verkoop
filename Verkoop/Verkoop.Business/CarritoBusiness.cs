@@ -165,7 +165,7 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    CantidadProductoValidadoDTO _objResultadoValidarCantidad = ProductoBusiness.ValidarCatidadCompraProducto(_ctx, _objPago.lstProductoComprado);//Valida la cantidad de la compra del producto.
+                    CantidadProductoValidadoDTO _objResultadoValidarCantidad = ProductoBusiness.ValidarCantidadCompraProducto(_ctx, _objPago.lstProductoComprado);//Valida la cantidad de la compra del producto.
 
                     if (_objResultadoValidarCantidad.bEstadoValidacion)
                     {
