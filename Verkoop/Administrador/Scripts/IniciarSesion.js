@@ -1,8 +1,10 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
     Boton();
 
 });
 
+/**Función para iniciar sesión al hacer click en el botón */
 function Boton() {
     let lFormularioValido = false;
 
@@ -14,16 +16,14 @@ function Boton() {
         if (lFormularioValido === true) {
 
             IniciarSesion($("#cCorreo").val(), $("#cContrasenia").val());
-            
-        }
-        else {
-            Swal.fire("Alerta", "Verifique el formulario", "warning")
+
         }
 
     });
 
 }
 
+/**Función para validar los campos de iniciar sesión */
 function ValidarInicioSesion() {
     let oFormulario = $("#FormInicioSesion");
     oFormulario.validate({
@@ -36,23 +36,34 @@ function ValidarInicioSesion() {
         },
         messages: {
             cCorreo: {
-                required: function () { showValidate(cCorreo) }},
+                required: function () { showValidate(cCorreo) }
+            },
             cContrasenia: {
-                required: function () { showValidate(cContrasenia) } }
+                required: function () { showValidate(cContrasenia) }
+            }
         }
     });
 
     return oFormulario.valid();
 }
 
+/**
+ * Función para mandar una alerta de la validación
+ * @param {any} input Recibe el imput
+ */
 function showValidate(input) {
     var thisAlert = $(input).parent();
 
     $(thisAlert).addClass('alert-validate');
 }
 
+/**
+ * Función para mandar una alerta de la validación
+ * @param {any} input Recibe el imput
+ */
 function hideValidate(input) {
     var thisAlert = $(input).parent();
 
     $(thisAlert).removeClass('alert-validate');
 }
+
