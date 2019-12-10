@@ -1,0 +1,38 @@
+﻿@model Verkoop.CapaDatos.DTO.PerfilDatosUsuarioDTO
+@{
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <img src="~/Assets/img/mlane.jpg" />
+    </div>
+    <div class="col-md-9">
+        <div class="row ">
+            <div class="col-3">
+                Apellido Paterno:<h4 style="color:black">@Html.DisplayFor(model => model.cApellidoPaterno)</h4>
+            </div>
+            <div class="col-3">
+                Apellido Materno:<h4 style="color:black">@Html.DisplayFor(model => model.cApellidoMaterno)</h4>
+            </div>
+            <div class="col-3">
+                Nombre´s:<h4 style="color:black">@Html.DisplayFor(model => model.cNombre)</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-9">
+                Domicilio: <h4 style="color:black"> C 55 X 16 y 18 Fracc. Juan Bablo ll 97246</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                Teléfono: <h4 style="color:black">@Html.DisplayFor(model => model.cNumeroTelefonico)</h4>
+            </div>
+            <div class="col-3">
+
+            </div>
+        </div>
+    </div>
+</div>

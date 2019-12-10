@@ -3,6 +3,8 @@ using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
 using Verkoop.CapaDatos;
 using System.Web;
+using CloudinaryDotNet.Actions;
+using System;
 
 namespace Cliente.Controllers
 {
@@ -54,7 +56,7 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult ObtenerDatosDeUsuario()
         {
-            PerfilDatosUsuarioDTO _objDatosUsuario = UsuarioBusiness.ObtenerDatosDeUsuario(5/*iIdUsuario*/);
+            PerfilDatosUsuarioDTO _objDatosUsuario = UsuarioBusiness.ObtenerDatosDeUsuario(Convert.ToInt32(Session["iIdUsuario"])/*iIdUsuario*/);
 
             return Json(_objDatosUsuario);
         }

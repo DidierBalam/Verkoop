@@ -1,0 +1,24 @@
+﻿@model Verkoop.CapaDatos.DTO.VisualizarDetallesProductoAdministradorDTO
+@{
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/img/v.png" />
+    </div>
+    <div class="col-md-8">
+        <h1 style="color:black">@Html.DisplayFor(model => model.cNombreProducto)</h1>
+        <h4 style="color:dimgrey">@Html.DisplayFor(model => model.cDescripcion)</h4>
+        <div class="row">
+            <div class="col-md-8">
+                Precio:<h4 style="color:forestgreen"> $ @Html.DisplayFor(model => model.dPrecio)</h4>
+                Stock: <h4 style="color:mediumblue"> @Html.DisplayFor(model => model.iCantidad)</h4>
+
+                <h4>Fecha de Registro: @Html.DisplayFor(model => model.dtFechaAlta)</h4>
+                <h4>Fecha de Modificado: @Html.DisplayFor(model => model.dtFechaModificacion)</h4>
+            </div>
+        </div>
+    </div>
+</div>

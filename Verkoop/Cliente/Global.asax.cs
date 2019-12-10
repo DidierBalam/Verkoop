@@ -8,10 +8,9 @@ namespace Cliente
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            AreaRegistration.RegisterAllAreas();           
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
         }
     }
 }

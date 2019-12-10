@@ -64,7 +64,6 @@
           <Property Name="iIdUsuario" Type="int" Nullable="false" />
           <Property Name="iIdDireccion" Type="int" Nullable="false" />
           <Property Name="iIdTarjeta" Type="int" Nullable="false" />
-          <Property Name="dPrecioTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="dtFecha" Type="datetime" />
         </EntityType>
         <EntityType Name="tblDireccion">
@@ -513,7 +512,6 @@
           <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
           <Property Name="iIdDireccion" Type="Int32" Nullable="false" />
           <Property Name="iIdTarjeta" Type="Int32" Nullable="false" />
-          <Property Name="dPrecioTotal" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="dtFecha" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblCompra_iIdUsuario" FromRole="tblCompra" ToRole="tblCat_Usuario" />
           <NavigationProperty Name="tblDireccion" Relationship="VerkoopDBModel.FK_tblCompra_iIdDireccion" FromRole="tblCompra" ToRole="tblDireccion" />
@@ -830,7 +828,6 @@
             <EntityTypeMapping TypeName="VerkoopDBModel.tblCompra">
               <MappingFragment StoreEntitySet="tblCompra">
                 <ScalarProperty Name="dtFecha" ColumnName="dtFecha" />
-                <ScalarProperty Name="dPrecioTotal" ColumnName="dPrecioTotal" />
                 <ScalarProperty Name="iIdTarjeta" ColumnName="iIdTarjeta" />
                 <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
                 <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
