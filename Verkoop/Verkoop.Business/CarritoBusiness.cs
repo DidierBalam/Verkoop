@@ -114,6 +114,7 @@ namespace Verkoop.Business
                                  on Carrito.iIdProducto equals Producto.iIdProducto
                                  select new ProductoEnCarritoDTO
                                  {
+                                     iIdProducto = Producto.iIdProducto,
                                      iIdCarrito = Carrito.iIdCarrito,
                                      cImagenCarrito = Producto.cImagen,
                                      cNombreproducto = Producto.cNombre,

@@ -22,7 +22,7 @@ namespace Cliente.Controllers
             /// <returns>Retorna la lista de los productos en carrito</returns>
         public ActionResult CarritoCompras()
         {
-            List<ProductoEnCarritoDTO> _lstProducto = ObtenerProductosDeUsuario(5/* Variable sesión*/);
+            List<ProductoEnCarritoDTO> _lstProducto = ObtenerProductosDeUsuario(1/* Variable sesión*/);
 
             return View(_lstProducto);
         }

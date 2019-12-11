@@ -229,6 +229,7 @@
     <Content Include="Assets\js\map-active.js" />
     <Content Include="Assets\js\plugins.js" />
     <Content Include="Assets\js\popper.min.js" />
+    <Content Include="Scripts\CarritoHerramientas.js" />
     <Content Include="Scripts\DireccionHerramientas.js" />
     <Content Include="Assets\Librerias\SweetAlert\sweetalert2.all.min.js" />
     <Content Include="Scripts\Producto.js" />
