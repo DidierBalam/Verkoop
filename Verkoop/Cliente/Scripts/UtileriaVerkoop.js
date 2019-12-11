@@ -7,7 +7,6 @@ $('#cContinuar').click(function (e) {
 /*Sirve para abrir una vista del tab de registro.*/
 $('#cAtras').click(function (e) {
     e.preventDefault();
-    console.log("Si funciona")
     $('#myTab a[href="#cRegistro"]').tab('show');
 })
 
@@ -71,15 +70,13 @@ function AgregarProductoCarrito(iIdProducto) {
 
 /**
  * Función para eliminar una dirección.
- * @param {any} iIdDirecion Recibe el id de la dirección.
+ * @param {any} iIdDireccion Recibe el id de la dirección.
  */
-function EliminarDireccion(iIdDirecion) {
-
-    let Data = {};
-
-    Data["iIdDireccion"] = JSON.stringify(iIdDirecion);
-    ObtenerMetodoControlador("POST", "/Perfil/Direcciones", { iIdDireccion: iIDireccion }, "JSON").then((objRespuesta) => {
+function EliminarDireccion(iIdDireccion) {
+    console.log(iIdDireccion)
+    ObtenerMetodoControlador("POST", "/Direccion/EliminarDireccion", { _iIdDireccion: iIdDireccion }, "JSON").then((objRespuesta) => {
         alert(objRespuesta._bEstadoOperacion + " : " + objRespuesta._cMensaje);
+      
 
     })
 }
