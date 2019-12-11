@@ -72,12 +72,14 @@
     <Compile Include="DTO\DireccionDTO.cs" />
     <Compile Include="DTO\FotoPerfilDTO.cs" />
     <Compile Include="DTO\ListaCompraClienteDTO.cs" />
+    <Compile Include="DTO\PagoPaypalDTO.cs" />
     <Compile Include="DTO\PerfilDatosUsuarioDTO.cs" />
     <Compile Include="DTO\ProductoCompradoDTO.cs" />
     <Compile Include="DTO\ProductoDTO.cs" />
     <Compile Include="DTO\ProductoEnCarritoDTO.cs" />
     <Compile Include="DTO\ProductoEstadoDisponibleDTO.cs" />
     <Compile Include="DTO\ProductoMasCompradoDTO.cs" />
+    <Compile Include="DTO\ProductoPaypalDTO.cs" />
     <Compile Include="DTO\RealizarPagoDTO.cs" />
     <Compile Include="DTO\RegistrarUsuarioDTO.cs" />
     <Compile Include="DTO\TarjetaDTO.cs" />

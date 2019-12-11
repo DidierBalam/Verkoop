@@ -62,11 +62,20 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.2.0.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.2.0.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\CloudinaryDotNet.1.9.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -220,6 +229,7 @@
     <Content Include="Assets\js\map-active.js" />
     <Content Include="Assets\js\plugins.js" />
     <Content Include="Assets\js\popper.min.js" />
+    <Content Include="Scripts\DireccionHerramientas.js" />
     <Content Include="Assets\Librerias\SweetAlert\sweetalert2.all.min.js" />
     <Content Include="Scripts\Producto.js" />
     <Content Include="Scripts\utileriamodal.js" />
@@ -231,8 +241,9 @@
     <Content Include="Global.asax" />
     <Content Include="Assets\css\core-style.css.map" />
     <Content Include="Scripts\IniciarSesion.js" />
+    <Content Include="Scripts\ProductoHerramietas.js" />
+    <Content Include="Scripts\tarjeta.js" />
     <Content Include="Scripts\tarjetaHerramientas.js" />
-
     <Content Include="Scripts\ProductoCarrito.js" />
     <Content Include="Scripts\utileria.js" />
     <Content Include="Scripts\UtileriaVerkoop.js" />
@@ -248,6 +259,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HistorialCompras\Index.cshtml" />
+    <Content Include="Views\Producto\Catalogo.cshtml" />
     <Content Include="Views\Producto\Principal.cshtml" />
     <Content Include="Views\Perfil\InformacionPersonal.cshtml" />
     <Content Include="Views\Perfil\CambiarContraseña.cshtml" />
@@ -267,6 +279,13 @@
     <Content Include="Views\Perfil\NuevaTarjeta.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
     <Content Include="Views\Shared\_CardTarjeta.cshtml" />
+    <Content Include="Views\Shared\_CardDireccion.cshtml" />
+    <Content Include="Views\Shared\_Producto.cshtml" />
+    <Content Include="Views\Sesion\Index.cshtml" />
+    <Content Include="Views\Producto\BuscarProducto.cshtml" />
+    <Content Include="Views\Producto\VerMasProductos.cshtml" />
+    <Content Include="Views\Shared\_ProductoCarrito.cshtml" />
+    <Content Include="Views\Shared\_ComprasRealizadas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\scss\style.scss" />
@@ -287,6 +306,8 @@
     <Content Include="Assets\fonts\helvetica_neu_bold-webfont.woff2" />
     <Content Include="Views\Shared\_ModalDetalles.cshtml" />
     <Content Include="Views\Producto\DetallesProductos.cshtml" />
+    <Content Include="Views\Sesion\RegistroUsuario.cshtml" />
+    <Content Include="Views\Sesion\Contrasenia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Verkoop.Business\Verkoop.Business.csproj">
@@ -321,7 +342,7 @@
     <PropertyGroup>
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+   
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

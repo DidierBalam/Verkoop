@@ -11,14 +11,14 @@
                 <div class="product-img">
                     <img src="~/Assets/img/product-img/product1.jpg" alt="">
                     <!-- Hover Thumb -->
-                    <img class="hover-img" src="~/Assets/img/product-img/product2.jpg" alt="">
+                    
                 </div>
                 <!-- Descripción del producto -->
                 <div class="product-description -flex-between">
                     <!-- Product Meta Data -->
                     <div class="product-meta-data">
                         <div class="line"></div>
-                        <p class="product-price">@i.dPrecioProducto</p>
+                        <p class="product-price">$@i.dPrecioProducto</p>
                         <a href="product-details.html">
                             <h6>@i.cNombreProducto</h6>
                         </a>
@@ -26,20 +26,22 @@
                     <!-- Ratings & Cart -->
                     <div class="-text-right">
                         <div class="-padding-r4pst">
-                            @if (Convert.ToInt32(i.iCantidad) > 1)
+                           
+                                <button class="-boton-estandar btnVerProducto" idProducto="@i.iIdProducto">Ver</button>
+                          
+                        </div>
+                        <div class="cart -text-right -padding-t10pst">
+                            @if (Convert.ToInt32(i.iCantidad) >= 1)
                             {
-                                <button class="-boton-estandar">Ver</button>
+                                <button idProducto="@i.iIdProducto" class="-boton-icono">
+                                    <img src="~/Assets/img/core-img/icono-carrito.svg"
+                                         alt="">
+                                </button>
                             }
                             else
                             {
-                                <p>Agotado</p>
+                                <p>¡Agotado!</p>
                             }
-                        </div>
-                        <div class="cart -text-right -padding-t10pst">
-                            <button class="-boton-icono">
-                                <img src="~/Assets/img/core-img/icono-carrito.svg"
-                                     alt="">
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -47,8 +49,6 @@
         </div>
 
     }
-}
-else
-{
-    <h3>No se encuentran productos disponibles</h3>
+
+
 }

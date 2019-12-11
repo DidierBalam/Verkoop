@@ -1,0 +1,49 @@
+﻿@model List<Verkoop.CapaDatos.DTO.CompraDeClienteDTO>
+
+@if (Model.Count() > 0)
+{
+
+
+    foreach (var i in Model)
+    {
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+
+                    <th class="date"><h4>@i.dtFecha</h4></th>
+                    <th><h4>Precio: $@i.dPrecio</h4></th>
+                    <th></th>
+                    <th><button class="-boton-estandar ">Imprimir</button> <button type="button" class="-boton-" data-toggle="collapse" data-target="#demo">↕</button></th>
+
+                </tr>
+            </thead>
+
+            <tbody id="demo" class="collapse">
+                @foreach (var e in i.ProductoComprado)
+                {
+                    <tr>
+                        <td class="cart_product_img">
+                            <a href="#"><img src="~/Assets/img/bg-img/cart1.jpg" alt="Product"></a>
+                        </td>
+                        <td class="cart_product_desc">
+                            <h5>@e.cNombre</h5>
+                        </td>
+                        <td class="">
+                            <span>Cantidad: @e.iCantidad</span>
+                        </td>
+                        <td class="price">
+                            <span>Precio: $@e.dPrecio</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+
+    }
+}
+else
+{
+    <h4> No hay productos agregados al carrito </h4>
+}

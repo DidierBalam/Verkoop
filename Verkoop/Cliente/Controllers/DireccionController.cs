@@ -21,7 +21,7 @@ namespace Cliente.Controllers
         /// <param name="_objDireccion">Recibe los datos de la dirección en forma de objeto.</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
         [HttpPost]
-        public JsonResult ActualizarDireccion (DireccionDTO _objDireccion)
+        public JsonResult ActualizarDireccion (tblDireccion _objDireccion)
         {
             _objResultado =DireccionBusiness.ActualizarDireccion(_objDireccion);///Se guardan las propiedades de la tarjeta en un objeto llamado _objResultado.
 

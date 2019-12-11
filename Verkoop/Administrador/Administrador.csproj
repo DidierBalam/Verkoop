@@ -479,6 +479,14 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\categoria.js" />
+    <Content Include="Scripts\clientes.js" />
+    <Content Include="Scripts\graficas.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\productos.js" />
+    <Content Include="Scripts\utileria.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -499,11 +507,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\CarritoCompras\" />
-    <Folder Include="Views\Categoria\" />
     <Folder Include="Views\Compras\" />
     <Folder Include="Views\Compra\" />
     <Folder Include="Views\Perfil\" />
-    <Folder Include="Views\Sesion\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\img\img-shadow.gvdesign" />
@@ -563,6 +569,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\Shared\_SesionLayout.cshtml" />
+    <Content Include="Views\Sesion\Index.cshtml" />
+    <Content Include="Views\Categoria\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

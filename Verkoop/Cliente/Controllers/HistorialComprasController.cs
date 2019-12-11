@@ -10,22 +10,27 @@ namespace Cliente.Controllers
     {
         CompraBusiness CompraBusiness = new CompraBusiness();
 
+        #region Vistas
         public ActionResult ComprasRealizadas()
         {
-            return View();
+            List<CompraDeClienteDTO> _lstResultado = ObtenerComprasDeCliente();
+
+            return View(_lstResultado);
         }
+        #endregion
+
+        #region Métodos
 
         /// <summary>
         /// Método que conecta a ObtenerComprasDeCliente() de CompraBusiness
         /// </summary>
         /// <param name="_iIdUsuario">Contiene el idUsuario</param>
         /// <returns>Retorna la lista de las compras</returns>
-        [HttpPost]
-        public JsonResult ObtenerComprasDeCliente(int _iIdUsuario)
+        public List<CompraDeClienteDTO> ObtenerComprasDeCliente()
         {
-            List<CompraDeClienteDTO> _lstResultado = CompraBusiness.ObtenerComprasDeCliente(_iIdUsuario);
+            List<CompraDeClienteDTO> _lstResultado = CompraBusiness.ObtenerComprasDeCliente(5/*Variable sesión*/);
 
-            return Json(_lstResultado);
+            return _lstResultado;
         }
 
         /// <summary>
@@ -35,7 +40,6 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult ImprimirTicketDeCompra()
         {
-
             int.TryParse(Request["iIdCompra"], out int _iIdCompra);
 
             byte[] _bPDF = CompraBusiness.ImprimirTicketDeCompra(2);
@@ -48,8 +52,7 @@ namespace Cliente.Controllers
             Response.End();
 
             return Json(true);
-
         }
-       
+        #endregion
     }
 }

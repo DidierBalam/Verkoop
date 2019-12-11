@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
-using Verkoop.CapaDatos;
 
 namespace Administrador.Controllers
 {

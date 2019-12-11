@@ -16,11 +16,12 @@ namespace Cliente.Controllers
         /// Método para visualizar la vista de iniciar sesión
         /// </summary>
         /// <returns>Retorna una vista</returns>
+
+        #region Vistas
         public ActionResult Index()
         {
             return View();
         }
-       
 
         public ActionResult RegistroUsuario()
         {
@@ -32,8 +33,9 @@ namespace Cliente.Controllers
             return View();
         }
 
+        #endregion
 
-
+        #region Métodos
         /// <summary>
         /// Método que conecta al método RegistrarUsuario() del UsuarioBusiness
         /// </summary>
@@ -59,7 +61,7 @@ namespace Cliente.Controllers
             bool _bEstadoOperacion;
             string _cMensaje = "";
 
-            string _cCorreo = JsonConvert.DeserializeObject<string>(Request["Correo"]);
+            string _cCorreo = JsonConvert.DeserializeObject<string>(Request["Correo"]); //se deserealiza el json y se convierte a un string
             string _cContrasenia = JsonConvert.DeserializeObject<string>(Request["Contrasenia"]);
 
             SesionBusiness _SesionBusiness = new SesionBusiness();
@@ -70,7 +72,8 @@ namespace Cliente.Controllers
                 bool p = Convert.ToBoolean(_objRespuesta.GetType().GetProperty("EstadoOperacion").GetValue(_objRespuesta));
                 if (Convert.ToBoolean(_objRespuesta.GetType().GetProperty("EstadoOperacion").GetValue(_objRespuesta))) //se compara si  es diferente a nulo
                 {
-                    Session["iIdUsuario"] = int.Parse(Convert.ToString(_objRespuesta.GetType().GetProperty("VariableSesion").GetValue(_objRespuesta)));// Se ingresa a una variable Sesión
+                    System.Web.HttpContext.Current.Session["iIdUsuario"] = int.Parse(Convert.ToString(_objRespuesta.GetType().GetProperty("VariableSesion").GetValue(_objRespuesta)));// Se ingresa a una variable Sesión
+                   
                     _bEstadoOperacion = true;
 
                 }
@@ -89,7 +92,6 @@ namespace Cliente.Controllers
             return Json(new { _bEstadoOperacion, _cMensaje });
         }
 
-
         /// <summary>
         /// Método que llama al método CambiarContrasenia() de SesionBusiness
         /// </summary>
@@ -105,5 +107,6 @@ namespace Cliente.Controllers
 
             return Json(_objResultado);
         }
+        #endregion
     }
 }

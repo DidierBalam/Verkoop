@@ -66,3 +66,9 @@ function hideValidate(input) {
 
     $(thisAlert).removeClass('alert-validate');
 }
+/**Mensaje de validacion de formato de correo electrónico correcto */
+jQuery.extend(jQuery.validator.messages, {
+
+    email: "Formato de correo lectrónico incorrecto."
+    
+});
