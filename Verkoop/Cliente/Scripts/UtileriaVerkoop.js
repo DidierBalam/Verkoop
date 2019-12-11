@@ -10,7 +10,7 @@ function IniciarSesion(cCorreo, cContrasenia) {
     Data["Correo"] = JSON.stringify(cCorreo);
     Data["Contrasenia"] = JSON.stringify(cContrasenia);
 
-    ObtenerMetodoControlador("POST", "/Sesion/IniciarSesion", Data).then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "/Sesion/IniciarSesion", Data, "JSON").then((objRespuesta) => {
 
         if (objRespuesta._bEstadoOperacion == true) { //se obtiene la respuesta verdadera y redirecciona a la vista principal
             llamarSwetalert(objRespuesta);
@@ -24,7 +24,7 @@ function IniciarSesion(cCorreo, cContrasenia) {
 }
 
 function EliminarTarjeta(iIdTarjeta) {
-    ObtenerMetodoControlador("POST", "/Tarjeta/EliminarTarjeta", { idTarjeta: iIdTarjeta }).then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "/Tarjeta/EliminarTarjeta", { idTarjeta: iIdTarjeta },"JSON").then((objRespuesta) => {
 
     });
 
@@ -40,7 +40,7 @@ function EliminarDireccion(iIdDirecion) {
     let Data = {};
 
     Data["iIdDireccion"] = JSON.stringify(iIdDirecion);
-    ObtenerMetodoControlador("POST", "/Perfil/Direcciones", { iIdDireccion: iIDireccion }).then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "/Perfil/Direcciones", { iIdDireccion: iIDireccion },"JSON").then((objRespuesta) => {
         alert(objRespuesta._bEstadoOperacion + " : " + objRespuesta._cMensaje);
 
     })
