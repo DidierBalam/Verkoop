@@ -1,7 +1,6 @@
-﻿
-/*Sirve para abrir una vista del tab de registro.*/
+﻿/*Sirve para abrir una vista del tab de registro.*/
 $('#cContinuar').click(function (e) {
-    e.preventDefault();    
+    e.preventDefault();
     $('#myTab a[href="#cContrasenia"]').tab('show');
 })
 
@@ -37,12 +36,116 @@ function IniciarSesion(cCorreo, cContrasenia) {
     });
 }
 
-function EliminarTarjeta(iIdTarjeta) {
-    ObtenerMetodoControlador("POST", "/Tarjeta/EliminarTarjeta", { idTarjeta: iIdTarjeta }).then((objRespuesta) => {
+/**
+ * Esta función Elimina tarjeta de usuario
+ * @param {any} iIdTarjeta contiene el id de la tarjeta 
+ * @param {any} cElemento contiene el cardPadre que será removido 
+ */
+function EliminarTarjeta(iIdTarjeta, cElemento) {
+
+    ObtenerMetodoControlador("POST", "../Tarjeta/EliminarTarjeta", { _iIdTarjeta: iIdTarjeta }).then((objRespuesta) => {
+        if (objRespuesta._bEstadoOperacion == true) {
+
+            //console.log(objRespuesta);
+            llamarSwetalert(objRespuesta);
+
+            EliminarElementoHTML(cElemento);
+
+        }
+        else {
+
+            llamarSwetalert(objRespuesta);
+        }
 
     });
 
 }
+
+/**
+ * función que elimina elementos HTML
+ * @param {any} cElemento contiene el elemento que sera removido
+ */
+function EliminarElementoHTML(cElemento) {
+
+    cElemento.remove();
+
+}
+
+function GuardarTarjeta(cElemento, objTarjeta) {
+
+    let Data = {};
+
+    Data["Tarjeta"] = JSON.stringify(objTarjeta);
+
+    ObtenerMetodoControlador("POST", "/Tarjeta/GuardarTarjeta", Data).then((objRespuesta) => {
+
+        if (objRespuesta._bEstadoOperacion == true) { //se obtiene la respuesta verdadera y redirecciona a la vista principal
+
+            $('#ModalPrincipal').modal('hide');
+
+            llamarSwetalert(objRespuesta);
+
+            InsertarCardTarjeta(objRespuesta._objDatosTarjeta, cElemento);
+        }
+        else {
+
+            llamarSwetalert(objRespuesta);
+        }
+    });
+}
+
+/** 
+ * función que pinta el card de la tarjeta
+ * @param {any} objTarjeta contiene el objeto de la tarjeta
+ * @param {any} cElemento contiene el elemento del HTML 
+ */
+function InsertarCardTarjeta(objTarjeta, cElemento) {
+    let cTarjeta = '<div class="-cardPadre">' +
+        ' <div class="-cardDireccion" >' +
+        '  <div class="card">' +
+        ' <div class="card-body">' +
+        ' <div>' +
+        '<div class="-cardDireciones ">' +
+        '<h6 class="-cardDireciones">' +
+        'Número: <strong class="-TamCol">' +
+        objTarjeta.cNumeroTarjeta +
+    '</strong>' +
+        '</h6>' +
+        '<div >' +
+
+        '<a idTarjeta="' + objTarjeta.iIdTarjeta + '" class="btnEliminarTarjeta">' +
+        '<img class="-cardDireciones3" src="~/Assets/img/core-img/basura.svg"' +
+        'alt="">' +
+        '</a>' +
+
+        '</div>' +
+        '</div>' +
+
+        '<div>' +
+        '<p class="-cardDireciones4">' +
+        'Mes de vigencia: <strong class="-TamCol2">' +
+        objTarjeta.cMesVigencia +
+        '</strong>' +
+        '</p>' +
+        '</div>' +
+
+        '<div>' +
+        '<p class="-cardDireciones4">' +
+        'Año de vigencia: <strong class="-TamCol2">' +
+        objTarjeta.cAnioVigencia +
+        '</strong>' +
+        '</p>' +
+        '</div>' +
+
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div >'; 
+
+    $(cElemento).append(cTarjeta);
+}
+
 
 /**
 * FUNCIÓN AJAX QUE CONECTA A LOS MÉTODOS DEL CONTROLADOR
@@ -60,6 +163,8 @@ function ObtenerMetodoControlador(cTipo, cUrl, Data) {
             async: false,
             dataType: 'json',
             success: function (Respuesta) {
+
+                console.log(Respuesta);
 
                 objResultado(Respuesta);
             }
