@@ -27,10 +27,11 @@ function GuardarTarjeta() {
 
          var objTarjeta =  ObtenerDatosTarjeta();
 
+           // AlmacenarTarjeta("#ContenedorTarjetas", objTarjeta);
 
-            GuardarTarjeta("#ContenedorTarjetas", objTarjeta);
+            $('#ModalPrincipal').modal('hide');
         }
-        console.log(1);
+       //console.log(1);
     });
 
 }
