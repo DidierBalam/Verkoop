@@ -46,7 +46,7 @@ namespace Verkoop.Business
                 _EstadoConsulta = false;
                 _cMensaje = "Algo falló al agregar el producto al carrito";
             }
-            return (new { EstadoConsulta = _EstadoConsulta, Mensaje = _cMensaje });
+            return (new { EstadoConsulta = _EstadoConsulta, _cMensaje});
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    CantidadProductoValidadoDTO _objResultadoValidarCantidad = ProductoBusiness.ValidarCatidadCompraProducto(_ctx, _objPago.lstProductoComprado);//Valida la cantidad de la compra del producto.
+                    CantidadProductoValidadoDTO _objResultadoValidarCantidad = ProductoBusiness.ValidarCantidadCompraProducto(_ctx, _objPago.lstProductoComprado);//Valida la cantidad de la compra del producto.
 
                     if (_objResultadoValidarCantidad.bEstadoValidacion)
                     {
@@ -177,7 +177,8 @@ namespace Verkoop.Business
                             dtFecha = DateTime.Today
                         };
 
-                        _objPago.lstProductoComprado.ForEach(x => {
+                        _objPago.lstProductoComprado.ForEach(x =>
+                        {
 
                             tblProductoComprado _objProducto = new tblProductoComprado
                             {
@@ -187,13 +188,13 @@ namespace Verkoop.Business
                             };
 
                             _TablaProductoComprado.Add(_objProducto);
-                        });    
+                        });
 
                         _TablaCompra.tblProductoComprado = _TablaProductoComprado;
                         _ctx.tblCompra.Add(_TablaCompra);
 
                         List<tblCarrito> _lstCarritoAfectado = CambiarEstadoProductoCarrito(_ctx, _objPago.lstProductoComprado);//Cambia estado del producto a true indicando que el producto se ha comprado.
-                        List<tblCat_Producto> _lstProductoAfectado = ProductoBusiness.DisminuirCantidadProducto(_ctx, _objPago.lstProductoComprado); //Resta a la cantidad disponible del producto la cantidad asignada en la compra.
+                        //List<tblCat_Producto> _lstProductoAfectado = ProductoBusiness.DisminuirCantidadProducto(_ctx, _objPago.lstProductoComprado); //Resta a la cantidad disponible del producto la cantidad asignada en la compra.
 
                         _ctx.SaveChanges();
 
@@ -225,6 +226,45 @@ namespace Verkoop.Business
                 _cMensaje,
                 _objProductosEstado
             });
+        }
+
+        public PagoPaypalDTO ObtenerProductosCarrito(RealizarPagoDTO _objPago)
+        {
+            List<int> productsIds = new List<int> { 1, 2, 3, 2, 1 };
+
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                var shoppingCart = _ctx.tblCat_Producto
+                   .Join(productsIds, SC => SC.iIdProducto, PI => PI, (SC, PI) => SC)
+                   .ToList();
+
+                var xD = shoppingCart;
+            }
+
+            List<ProductoPaypalDTO> lstProductos = new List<ProductoPaypalDTO>();
+
+            PagoPaypalDTO ProductosxD = new PagoPaypalDTO();
+
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                _objPago.lstProductoComprado.ForEach(x =>
+                {
+                    ProductoPaypalDTO ob = (from producto in _ctx.tblCat_Producto
+                                            where producto.iIdProducto == x.iIdProducto
+                                            select new ProductoPaypalDTO
+                                            {
+                                                iCantidad = x.iCantidad,
+                                                cNombre = producto.cNombre
+                                            }).SingleOrDefault();
+
+                    lstProductos.Add(/*ob*/null);
+                });
+
+                ProductosxD.lstProducto = lstProductos;
+
+            }
+
+            return ProductosxD;
         }
     }
 }

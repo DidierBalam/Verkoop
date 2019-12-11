@@ -12,8 +12,8 @@ using iTextSharp.tool.xml.html;
 using iTextSharp.tool.xml.parser;
 using System.Text;
 using System.Web;
-using iTextSharp.tool.xml.pipeline.end;
 using System;
+using iTextSharp.tool.xml.pipeline.end;
 
 namespace Verkoop.Business
 {
@@ -36,11 +36,11 @@ namespace Verkoop.Business
 
                 _bPDF = GenerarTicketCompra(_objUsuarioCompra);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 _bPDF = null;
             }
-            
+
             return _bPDF;
 
         }
@@ -52,6 +52,7 @@ namespace Verkoop.Business
         /// <returns>Retorna la lista de las compras</returns>
         public List<CompraDeClienteDTO> ObtenerComprasDeCliente(int _iIdUsuario)
         {
+
             List<CompraDeClienteDTO> _lstCompras = new List<CompraDeClienteDTO>();
 
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
@@ -89,15 +90,15 @@ namespace Verkoop.Business
             return dato;
         }
 
-        //public decimal ObtenerNumeroTotalIngresoVentas()
-        //{
-        //    decimal dato = 0;
-        //    using (VerkoopDBEntities ctx = new VerkoopDBEntities())
-        //    {
-        //        dato = ctx.tblCompra.Select(i => i.).Sum();
-        //    }
-        //    return dato;
-        //}
+        public decimal ObtenerNumeroTotalIngresoVentas()
+        {
+            decimal dato = 0;
+            using (VerkoopDBEntities ctx = new VerkoopDBEntities())
+            {
+                //dato = ctx.tblCompra.Select(i => i.dPrecioTotal).Sum();
+            }
+            return dato;
+        }
 
         public List<ListaCompraClienteDTO> ObtenerTodasLasCompras()
         {

@@ -12,7 +12,7 @@ namespace Cliente.Controllers
 
         ProductoBusiness ProductoBusiness = new ProductoBusiness();
         CategoriaBusiness CategoriaBusiness = new CategoriaBusiness();
-
+ #region Vistas
         [HttpGet]
         public ActionResult Catalogo(string _cFiltro)
         {
@@ -61,6 +61,9 @@ namespace Cliente.Controllers
 
             return View(_objProducto);
         }
+        #endregion
+
+        #region Métodos
 
 
         /// <summary>
@@ -154,5 +157,6 @@ namespace Cliente.Controllers
 
             return PartialView(_lstProducto);
         }
+        #endregion
     }
 }

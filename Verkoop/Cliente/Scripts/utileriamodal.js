@@ -28,6 +28,34 @@ function ObtenerVista(cTipo, cUrl, Data, Funcion) {
 }
 
 /**
+ * OBTIENE UNA VISTA
+ * @param {any} cTipo GET / POST
+ * @param {any} cUrl DIRECCION DEL METODO A EJECUTAR
+ * @param {any} Data
+ * @para {any} function nombre de la funcion a ejecutar
+ */
+function ObtenerVistaDetalles(cTipo, cUrl, Data, Funcion) {
+    $.ajax({
+        type: cTipo,
+        url: cUrl,
+        async: false,
+        data: Data,
+        dataType: "HTML",
+        success: function (response) {
+            $("#ModalDetalles").html(response);    //id del modal      
+            $("#ModalDetalles").modal({
+                show: true,                        //abrir modal
+                //backdrop: "static"
+            });
+
+            if (Funcion) {
+
+                window[Funcion]();
+            }
+        }
+    });
+}
+/**
  * eiecuta un método a travez del nombre
  * @param {any} cTipo get/post
  * @param {any} cUrl direccion del metod a ejecuta
@@ -43,7 +71,7 @@ function LlamarMetodo(cTipo, cUrl, Data, Funcion) {
         dataType: "JSON",
         success: function (response) {
             $("#ModalPrincipal").modal('hide');
-            alert(response.cMensaje);
+            alert(response._cMensaje);
             //imprime un mensaje de la respuesta del servicio web que estoy llamando 
             if (Funcion) {
                 window[Funcion]();
@@ -52,3 +80,4 @@ function LlamarMetodo(cTipo, cUrl, Data, Funcion) {
         }
     });
 }
+

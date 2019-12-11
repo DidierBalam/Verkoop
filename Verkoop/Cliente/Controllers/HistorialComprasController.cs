@@ -10,11 +10,14 @@ namespace Cliente.Controllers
     {
         CompraBusiness CompraBusiness = new CompraBusiness();
 
-        // GET: HistorialCompras
+        #region Vistas
         public ActionResult ComprasRealizadas()
         {
             return View();
         }
+        #endregion
+
+        #region Métodos
 
         /// <summary>
         /// Método que conecta a ObtenerComprasDeCliente() de CompraBusiness
@@ -36,21 +39,19 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult ImprimirTicketDeCompra()
         {
-
             int.TryParse(Request["iIdCompra"], out int _iIdCompra);
 
             byte[] _bPDF = CompraBusiness.ImprimirTicketDeCompra(2);
 
             Response.Clear();
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename=" + "PDFfile.pdf");
+            Response.ContentType = "Application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=" + "VerkoopCompra.pdf");
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.BinaryWrite(_bPDF);
             Response.End();
 
             return Json(true);
-
         }
-       
+        #endregion
     }
 }

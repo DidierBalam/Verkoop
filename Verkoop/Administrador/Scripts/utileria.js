@@ -27,10 +27,35 @@ function ObtenarVista(cTipo, cUrel, Data, Funcion) {
     });
 }
 
-function DeshabilitarProducto(iIdProducto, iEstatus) {
+/**
+ * Guarda la categoría ingresada en el apartado.
+ * @param {any} cNombre nombre de la categoría a guardar.
+ */
+function GuardarCategoria(cNombre) {
+    let Data = {};
+    Data["cNombre"] = JSON.stringify(cNombre);
+
+    ObtenarMetodoControlador("POST", "../Categoria/GuardarCategoria", Data).then((objRespuesta) => {
+        Swal.fire({
+            icon: objRespuesta.EstadoConsulta,
+            title: objRespuesta.EstadoConsulta,
+            text: objRespuesta.Mensaje
+        })
+        $("#cNombre").val("") // limpia el campo especifico con su id.
+        $("#lstCategoria").html("") // limpia el div.
+        LlenarTarjeta(); // Llama la funcion para recargar el div.
+    })
+}
+
+/**
+ * Obtiene el id y estatus del producto, para desactivar el producto
+ * @param {any} _iIdProducto id del producto.
+ * @param {any} iEstatus estatus del producto
+ */
+function DeshabilitarProducto(_iIdProducto, iEstatus) {
     let Data = {};
 
-    Data["iIdProducto"] = JSON.parse(iIdProducto);
+    Data["iIdProducto"] = JSON.parse(_iIdProducto);
     Data["iEstatus"] = JSON.stringify(iEstatus);
 
     Swal.fire({
@@ -45,19 +70,24 @@ function DeshabilitarProducto(iIdProducto, iEstatus) {
     }).then((result) => {
         if (result.value) {
             ObtenarMetodoControlador("POST", "../Producto/Eliminar", Data).then((objRespuesta) => {
-                //alert(objRespuesta.Mensaje);
                 Swal.fire({
                     icon: objRespuesta.EstadoConsulta,
                     title: objRespuesta.EstadoConsulta,
                     text: objRespuesta.Mensaje
                 })
-                
-                
+                Datatables.ajax.reload();
+                iIdProducto = 0;
             })
         }
     })
 }
 
+/**
+ * Ejecuta un método a través del nombre.
+ * @param {any} cTipo GET/POST
+ * @param {any} cUrl Dirección del método a ejecutar.
+ * @param {any} Data Información a actualizar o guardar.
+ */
 function ObtenarMetodoControlador(cTipo, cUrl, Data) {
     return new Promise((objRespuesta) => {
         $.ajax({
@@ -68,10 +98,7 @@ function ObtenarMetodoControlador(cTipo, cUrl, Data) {
             dataType: 'JSON',
             success: function (Respuesta) {
                 objRespuesta(Respuesta);
-                Datatables.ajax.reload();
-                iIdProducto = 0;
             }
         });
     })
-
 }

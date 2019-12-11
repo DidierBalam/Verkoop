@@ -1,0 +1,62 @@
+﻿@model List<Verkoop.CapaDatos.DTO.TarjetaDTO>
+
+@if (Model.Count() > 0)
+{
+
+    foreach (var i in Model)
+    {
+
+        <div class="-cardPadre">
+            <div class="-cardDireccion">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <div class="-cardDireciones ">
+                                <h6 class="-cardDireciones">
+                                    Número: <strong class="-TamCol">
+                                        @i.cNumeroTarjeta
+                                    </strong>
+                                </h6>
+                                <div >
+
+                                    <a idTarjeta="@i.iIdTarjeta" class="btnEliminarTarjeta">
+                                        <img class="-cardDireciones3" src="~/Assets/img/core-img/basura.svg"
+                                             alt="">
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="-cardDireciones4">
+                                    Mes de vigencia: <strong class="-TamCol2">
+                                        @i.cMesVigencia
+                                    </strong>
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="-cardDireciones4">
+                                    Año de vigencia: <strong class="-TamCol2">
+                                        @i.cAnioVigencia
+                                    </strong>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+}
+else { 
+
+<p> No se encuentran tarjetas guardadas </p>
+
+}
+
+
+

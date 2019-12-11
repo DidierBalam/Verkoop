@@ -10,9 +10,40 @@ function IniciarSesion(cCorreo, cContrasenia) {
     Data["Correo"] = JSON.stringify(cCorreo);
     Data["Contrasenia"] = JSON.stringify(cContrasenia);
 
-    ObtenerMetodoControlador("POST", "/Sesion/IniciarSesion", Data, "JSON").then((objRespuesta) => {
-        alert(objRespuesta._bEstadoOperacion + ": " + objRespuesta._cMensaje);
+    ObtenerMetodoControlador("POST", "/Sesion/IniciarSesion", Data).then((objRespuesta) => {
+
+        if (objRespuesta._bEstadoOperacion == true) { //se obtiene la respuesta verdadera y redirecciona a la vista principal
+            llamarSwetalert(objRespuesta);
+            window.location.replace("/Producto/Principal")
+        }
+        else {
+
+            llamarSwetalert(objRespuesta);
+        }
     });
+}
+
+function EliminarTarjeta(iIdTarjeta) {
+    ObtenerMetodoControlador("POST", "/Tarjeta/EliminarTarjeta", { idTarjeta: iIdTarjeta }).then((objRespuesta) => {
+
+    });
+
+}
+
+
+/**
+ * Función para eliminar una dirección.
+ * @param {any} iIdDirecion Recibe el id de la dirección.
+ */
+function EliminarDireccion(iIdDirecion) {
+
+    let Data = {};
+
+    Data["iIdDireccion"] = JSON.stringify(iIdDirecion);
+    ObtenerMetodoControlador("POST", "/Perfil/Direcciones", { iIdDireccion: iIDireccion }).then((objRespuesta) => {
+        alert(objRespuesta._bEstadoOperacion + " : " + objRespuesta._cMensaje);
+
+    })
 }
 
 /**
@@ -171,3 +202,34 @@ function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato) {
     })
 }
 
+/**
+ * Función para ejecutar una alerta
+ * @param {any} cTipo El icono
+ * @param {any} cTitulo El titulo  
+ * @param {any} cTexto El mensaje
+ */
+function EjecutarAlerta(cTipo, cTitulo, cTexto) {
+    Swal.fire({
+        position: 'center',
+        icon: cTipo,
+        title: cTitulo,
+        text: cTexto,
+        showConfirmButton: false,
+        timer: 1500
+    })
+}
+
+/**
+ * Función para llamar el swetAlert
+ * @param {any} objRespuesta recibe el objeto respuesta
+ */
+function llamarSwetalert(objRespuesta) {
+
+    if (objRespuesta._bEstadoOperacion) {
+
+        EjecutarAlerta("success", "Ok", objRespuesta._cMensaje);
+    }
+    else {
+        EjecutarAlerta("error", "Error", objRespuesta._cMensaje);
+    }
+}
