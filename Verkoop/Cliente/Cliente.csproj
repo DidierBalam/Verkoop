@@ -283,6 +283,8 @@
     <Content Include="Views\Sesion\Index.cshtml" />
     <Content Include="Views\Producto\BuscarProducto.cshtml" />
     <Content Include="Views\Producto\VerMasProductos.cshtml" />
+    <Content Include="Views\Shared\_ProductoCarrito.cshtml" />
+    <Content Include="Views\Shared\_ComprasRealizadas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\scss\style.scss" />

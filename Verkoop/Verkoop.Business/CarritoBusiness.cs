@@ -107,22 +107,22 @@ namespace Verkoop.Business
 
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
-                _lstProductos = (from Carrito in _ctx.tblCarrito.AsNoTracking()
+                _lstProductos = (from Carrito in _ctx.tblCarrito
                                  where Carrito.iIdUsuario == _iIdUsuario
                                  && Carrito.lEstatus == false
                                  join Producto in _ctx.tblCat_Producto
-                                 on Carrito.iIdCarrito equals Producto.iIdProducto
+                                 on Carrito.iIdProducto equals Producto.iIdProducto
                                  select new ProductoEnCarritoDTO
                                  {
                                      iIdCarrito = Carrito.iIdCarrito,
                                      cImagenCarrito = Producto.cImagen,
                                      cNombreproducto = Producto.cNombre,
                                      dPrecioProducto = Producto.dPrecio,
-                                     iCantidad = Carrito.iCantidad
+                                     iCantidad = Producto.iCantidad
 
                                  }).ToList();
             }
-            return _lstProductos.ToList();
+            return _lstProductos;
         }
 
         /// <summary>

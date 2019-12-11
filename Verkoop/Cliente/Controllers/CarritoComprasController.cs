@@ -15,9 +15,16 @@ namespace Cliente.Controllers
         TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
 
         // GET: CarritoCompras
+
+            /// <summary>
+            /// Método para visualizar el carrito de compras
+            /// </summary>
+            /// <returns>Retorna la lista de los productos en carrito</returns>
         public ActionResult CarritoCompras()
         {
-            return View();
+            List<ProductoEnCarritoDTO> _lstProducto = ObtenerProductosDeUsuario(5/* Variable sesión*/);
+
+            return View(_lstProducto);
         }
 
         /// <summary>
@@ -51,12 +58,12 @@ namespace Cliente.Controllers
         /// </summary>
         /// <param name="_iIdUsuario">Contiene el idUsuario</param>
         /// <returns>Retorna la lista de los productos</returns>
-        [HttpPost]
-        public JsonResult ObtenerProductosDeUsuario(int _iIdUsuario)
+        
+        public List<ProductoEnCarritoDTO> ObtenerProductosDeUsuario(int _iIdUsuario)
         {
             List<ProductoEnCarritoDTO> _lstResultado = CarritoBusiness.ObtenerProductosDeUsuario(_iIdUsuario);
 
-            return Json(_lstResultado);
+            return _lstResultado;
         }
 
         /// <summary>
