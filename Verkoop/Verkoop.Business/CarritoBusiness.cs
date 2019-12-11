@@ -228,9 +228,43 @@ namespace Verkoop.Business
             });
         }
 
-        public object RealizarPagoPaypal()
+        public PagoPaypalDTO ObtenerProductosCarrito(RealizarPagoDTO _objPago)
         {
-            return null;
+            List<int> productsIds = new List<int> { 1, 2, 3, 2, 1 };
+
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                var shoppingCart = _ctx.tblCat_Producto
+                   .Join(productsIds, SC => SC.iIdProducto, PI => PI, (SC, PI) => SC)
+                   .ToList();
+
+                var xD = shoppingCart;
+            }
+
+            List<ProductoPaypalDTO> lstProductos = new List<ProductoPaypalDTO>();
+
+            PagoPaypalDTO ProductosxD = new PagoPaypalDTO();
+
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                _objPago.lstProductoComprado.ForEach(x =>
+                {
+                    ProductoPaypalDTO ob = (from producto in _ctx.tblCat_Producto
+                                            where producto.iIdProducto == x.iIdProducto
+                                            select new ProductoPaypalDTO
+                                            {
+                                                iCantidad = x.iCantidad,
+                                                cNombre = producto.cNombre
+                                            }).SingleOrDefault();
+
+                    lstProductos.Add(/*ob*/null);
+                });
+
+                ProductosxD.lstProducto = lstProductos;
+
+            }
+
+            return ProductosxD;
         }
     }
 }

@@ -36,11 +36,11 @@ namespace Verkoop.Business
 
                 _bPDF = GenerarTicketCompra(_objUsuarioCompra);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 _bPDF = null;
             }
-            
+
             return _bPDF;
 
         }
@@ -52,6 +52,7 @@ namespace Verkoop.Business
         /// <returns>Retorna la lista de las compras</returns>
         public List<CompraDeClienteDTO> ObtenerComprasDeCliente(int _iIdUsuario)
         {
+
             List<CompraDeClienteDTO> _lstCompras = new List<CompraDeClienteDTO>();
 
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())

@@ -3,8 +3,9 @@ using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
 using Verkoop.CapaDatos;
-using System.Reflection;
 using System;
+using PayPal.Api;
+using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
 
 namespace Cliente.Controllers
 {
@@ -13,20 +14,12 @@ namespace Cliente.Controllers
         CarritoBusiness CarritoBusiness = new CarritoBusiness();
         TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
 
-        #region Vistas
         // GET: CarritoCompras
         public ActionResult CarritoCompras()
         {
             return View();
         }
 
-        public ActionResult PagoConTarjeta()
-        {
-            return View();
-        }
-        #endregion
-
-        #region Métodos
         /// <summary>
         /// Método que se conecta a AgregarProductoCarrito() de CarritoBusiness
         /// </summary>
@@ -88,7 +81,94 @@ namespace Cliente.Controllers
 
             return Json(_objRespuestaPago);
         }
-        #endregion
-               
+
+        /// <summary>
+        /// Método que sirve para realizar un pago con Paypal.
+        /// </summary>
+        /// <param name="Cancel">Sirve para cancelar el pago.</param>
+        /// <returns>Una vista de Éxito o Error.</returns>
+        [HttpGet]
+        public ActionResult PagoConPaypal(string Cancel = null)
+        {
+            //_objPago = JsonConvert.DeserializeObject<RealizarPagoDTO>(Request["_objPago"]);
+
+            PaypalBusiness oPaypal = new PaypalBusiness();
+
+            // Llamada al apiContext de Paypal.
+            APIContext apiContext = PaypalConfiguracion.GetAPIContext();
+
+            try
+            {
+                // Un recurso que representa a un comprador que financia un método de pago como paypal.
+                // ID del comprador será devuelta cuando el pago proceda o haga clic para pagar.
+                string _payerId = Request.Params["PayerID"];
+
+                if (string.IsNullOrEmpty(_payerId))
+                {
+                    // Esta sección se ejecutrará primero proque el ID del comprador no existe.
+
+                    // Creación del pago.
+                    // La url donde paypal envia de regreso datos.
+                    string _baseURI = Request.Url.Scheme + "://" + Request.Url.Authority +
+                                "/Cliente/CarritoCompras/PagoConPaypal?";
+
+                    // Aquí se genera el GUID para almacenar el ID del pago recibido en la sesión.
+                    // Será usado en el proceso de pago.
+                    var _guid = Convert.ToString((new Random()).Next(100000));
+                    
+                    // _pagoCreado devuelve la url aprovada
+                    // en el cuál el comprador es redirigido para proceder al proceso de pago de paypal.
+                    var _pagoCreado = oPaypal.CrearPago(apiContext, _baseURI + "guid=" + _guid);
+
+                    
+                    var _links = _pagoCreado.links.GetEnumerator(); // Obtiene los links devueltos de paypal.
+
+                    string _cPaypalRedirectUrl = null;
+
+                    while (_links.MoveNext())
+                    {
+                        Links lnk = _links.Current;
+
+                        if (lnk.rel.ToLower().Trim().Equals("approval_url"))
+                        {
+                            
+                            _cPaypalRedirectUrl = lnk.href; // Guardar la url de paypal para redirigir al usuario a pagar.
+                        }
+                    }
+
+                    Session.Add(_guid, _pagoCreado.id);// guardar el ID del pago en GUID
+
+                    return Redirect(_cPaypalRedirectUrl);
+                }
+                else
+                {
+
+                    // Este bloque de código se ejecuta después de recibir todos los parámetros del pago
+
+                    var _guid = Request.Params["guid"];
+
+                    var _pagoRealizado = oPaypal.EjecutarPago(apiContext, _payerId, Session[_guid] as string);
+
+                    
+                    if (_pagoRealizado.state.ToLower() != "approved") // Si pagoRealizado falló entonces se redirige a la vista de error.
+                    {
+
+                        return View("FailureView");
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogMessage("Error" + ex.Message); // Imprimir el mensaje de error.
+
+                return View("FailureView"); // Si ocurre algun error, enviar mensaje de error
+
+            }
+
+            // En caso de éxito, se muestra un mensaje de aprovado al user.
+            return View("SuccessView");
+
+        }
     }
 }
