@@ -11,6 +11,7 @@
     <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Assets/css/core-style.css" rel="stylesheet" />
     <link href="~/Assets/css/libreria-verkoop.css" rel="stylesheet" />
+    <link href="http://localhost/Cliente/Assets/css/sweetalert2.min.css" rel="stylesheet" />
     <link href="~/Assets/css/style.css" rel="stylesheet" />
 
 </head>
@@ -57,7 +58,7 @@
                 <!-- Amado Nav -->
                 <!-- Cart Menu -->
                 <div class="cart-fav-search mb-100">
-                    @RenderSection("Opciones")
+                    @RenderSection("Opciones", false)                 
                     <a href="#" class=""><img src="~/Assets/img/core-img/icono-salir.svg" alt=""> Salir</a>
                 </div>
             </div>

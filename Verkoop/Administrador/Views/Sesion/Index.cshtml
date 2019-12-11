@@ -1,7 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
 <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -22,7 +21,7 @@
                     <span class="txt1 p-b-11">
                         Correo electrónico
                     </span>
-                    <div class="wrap-input100 validate-input m-b-36" data-validate="Correo electrónico es requerido">
+                    <div class="wrap-input100 validate-input m-b-36" data-validate="Correo electrónico requerido">
                         <input class="input100" id="cCorreo" type="email" name="cCorreo">
                         <p id="cMensaje"></p>
                         <span class="focus-input100"></span>
@@ -54,15 +53,12 @@
 </body>
 
 
+<script src="~/Assets/js/jquery-3.4.1.min.js"></script>
+<script src="~/Assets/js/bootstrap.min.js"></script>
+<script src="~/Assets/js/popper.min.js"></script>
+<script src="~/Assets/js/sweetalert2.all.min.js"></script>
+<script src="~/Scripts/UtileriaVerkoop.js"></script>
+<script src="~/Assets/js/jquery.validate.min.js"></script>
 
-@section Scripts{
-    <script src="~/Assets/js/jquery-3.4.1.min.js"></script>
-    <script src="~/Assets/js/bootstrap.min.js"></script>
-    <script src="~/Assets/js/popper.min.js"></script>
-    <script src="~/Scripts/UtileriaVerkoop.js"></script>
-    <script src="~/Assets/js/jquery.validate.min.js"></script>
-    <script src="~/Scripts/IniciarSesion.js"></script>
-
-    <script src="~/Assets/js/sweetalert.min.js"></script>
-}
+<script src="~/Scripts/IniciarSesion.js"></script>
 

@@ -14,11 +14,14 @@ namespace Cliente.Controllers
         UsuarioBusiness UsuarioBusiness = new UsuarioBusiness();
         DireccionBusiness DireccionBusiness = new DireccionBusiness();
 
+        TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
+
         #region Vistas
         public ActionResult InformacionPersonal()
         {
             return View();
         }
+
 
         public ActionResult CambiarContraseña()
         {
@@ -32,11 +35,28 @@ namespace Cliente.Controllers
             return View(_lstDirecciones);
         }
 
+        /// <summary>
+        /// Método que devuelve la vista tarjetas con la lista de tarjetas
+        /// </summary>  
+        /// <returns>retorna la vista de tarjetas con la lista </returns>
         public ActionResult Tarjetas()
+        {
+            List<TarjetaDTO> _lstTarjetas = TarjetaBusiness.ObtenerTodasTarjetas(1);
+
+            return View(_lstTarjetas);
+        }
+
+        /// <summary>
+        /// Método que regresa a la vista NuevaTarjeta.
+        /// </summary>
+        /// <returns>Regresa a la vista a NuevaTarjeta.</returns>
+        [HttpPost]
+        public ActionResult NuevaTarjeta()
         {
             return View();
         }
-        
+
+
         #endregion
 
         #region Métodos

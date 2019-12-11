@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
-
-
-
 
 namespace Administrador.Controllers
 {
@@ -26,9 +24,10 @@ namespace Administrador.Controllers
         /// <param name="_cNombreCategoria">Contiene el nombre de la categoría.</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
         [HttpPost]
-        public JsonResult GuardarCategoria(string _cNombreCategoria)
+        public JsonResult GuardarCategoria()
         {
-             _objResultado = CategoriaBusiness.GuardarCategoria(_cNombreCategoria);
+            string _CNombre = JsonConvert.DeserializeObject<string>(Request["cNombre"]);
+            _objResultado = CategoriaBusiness.GuardarCategoria(_CNombre);
 
             return Json(_objResultado);
         }
@@ -58,9 +57,5 @@ namespace Administrador.Controllers
 
             return Json(_lstCategorias);
         }
-
-
-
-
     }
 }
