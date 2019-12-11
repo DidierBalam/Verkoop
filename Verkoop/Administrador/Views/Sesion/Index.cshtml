@@ -1,12 +1,10 @@
 ﻿
 @{
-    Layout = null;
+    ViewBag.Title = "InicioSesion";
+    Layout = "~/Views/Shared/_SesionLayout.cshtml";
 }
 
-<link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Assets/css/Verkoop.css" rel="stylesheet" />
-<link href="~/Assets/css/util.css" rel="stylesheet" />
-<link href="~/Assets/css/main.css" rel="stylesheet" />
 
 <body>
 
@@ -30,10 +28,7 @@
                     <span class="txt1 p-b-11">
                         Contraseña
                     </span>
-                    <div class="wrap-input100 validate-input m-b-12" data-validate="La contraseña es requerida">
-                        <span class="btn-show-pass">
-                            <i class="fa fa-eye"></i>
-                        </span>
+                    <div class="wrap-input100 validate-input m-b-12" data-validate="La contraseña es requerida">                        
                         <input class="input100" id="cContrasenia" type="password" name="cContrasenia">
                         <p id="cMensaje2"></p>
                         <span class="focus-input100"></span>
@@ -52,13 +47,10 @@
 
 </body>
 
+@section scripts{
+    <script src="~/Assets/js/popper.min.js"></script>
+    <script src="~/Assets/Librerias/SweetAlert/sweetalert2.all.min.js"></script>
 
-<script src="~/Assets/js/jquery-3.4.1.min.js"></script>
-<script src="~/Assets/js/bootstrap.min.js"></script>
-<script src="~/Assets/js/popper.min.js"></script>
-<script src="~/Assets/js/sweetalert2.all.min.js"></script>
-<script src="~/Scripts/UtileriaVerkoop.js"></script>
-<script src="~/Assets/js/jquery.validate.min.js"></script>
-
-<script src="~/Scripts/IniciarSesion.js"></script>
-
+    <script src="~/Scripts/UtileriaVerkoop.js"></script>
+    <script src="~/Scripts/IniciarSesion.js"></script>
+}

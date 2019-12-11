@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Principal";
+    List<Verkoop.CapaDatos.DTO.CategoriaDTO> Data = ViewBag.Data as List<Verkoop.CapaDatos.DTO.CategoriaDTO>;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Opciones{
+
+    <a class="fav-nav -azul-cielo"><img src="~/Assets/img/core-img/icono-producto-azul.svg" alt=""> Productos</a>
+    <a class="cart-nav">
+        <img src="~/Assets/img/core-img/icono-carrito.svg" alt=""> Carrito<span>(0)</span>
+    </a>
+    <a class="fav-nav"><img src="~/Assets/img/core-img/icono-compra.svg" alt="">Compras</a>
+    @if (ViewBag.Sesion == true)
+    {
+        <a class=""><img src="~/Assets/img/core-img/icono-usuario.svg" alt=""> Perfil</a>
+        <a class=""><img src="~/Assets/img/core-img/icono-salir.svg" alt=""> Salir</a>
+
+    }
+
+}
+
+
+
+<div class="-width-35pst">
+
+    <div class="-fixed -height-100pst -ColorBarra -width-35pst">
+
+        <div class="widget catagory -padding5pst ">
+
+            <h4 class="">Filtros</h4>
+
+            <div class="catagories-menu -AlingFiltros  -margin1">
+                <ul>
+                    @if (ViewBag.Select == "RECIENTES" || ViewBag.Select == null)
+                    {
+                        <li class="active"><a class="TipoFiltro" Filtro="RECIENTES" Estado="1">Recientes</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="TipoFiltro" Filtro="Recientes" Estado="0">Recientes</a></li>
+                    }
+                    @if (ViewBag.Select == "MASVENDIDOS")
+                    {
+                        <li class="active"><a class="TipoFiltro" Filtro="MASVENDIDOS" Estado="1">Más vendidos</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="TipoFiltro" Filtro="MasVendidos" Estado="0">Más vendidos</a></li>
+                    }
+                </ul>
+            </div>
+
+            <h5 class=" ">Categorías</h5>
+
+            <div class="catagories-menu -margin1">
+                <ul>
+                    @foreach (var i in Data)
+                    {
+
+                        if (ViewBag.Select == i.cNombre.ToUpper())
+                        {
+                            <li class="active"><a class="TipoFiltro" Filtro="@ViewBag.Select" Estado="1">@i.cNombre</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="TipoFiltro" Filtro="@i.cNombre.ToUpper()" Estado="0">@i.cNombre</a></li>
+                        }
+
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="amado_product_area -padding-9pst ">
+
+    <div class="container-fluid">
+        <div class="-flex-between-center -width-100pst -padding-t3pst">
+
+            <div class="-width-80pst -flex">
+                <input id="BarraBusqueda" class="-input-busqueda -width-80pst TipoFiltro" type="search" placeholder="Buscar" Filtro="Buscar" Estado="0">
+                <button id="btnBuscarProducto" class="-boton-icono"><img src="~/Assets/img/core-img/icono-buscar.svg" alt=""></button>
+            </div>
+            <div class="-width-20pst">
+                @if (ViewBag.Sesion == false)
+                {
+                    <button id="btnAcceder" class="-boton-icono -padding15pst -flex-center-center"><img src="~/Assets/img/core-img/icono-usuario.svg" alt="">Acceder</button>
+
+                }
+                else
+                {
+                    <p>Didier Balam</p>
+
+                }
+            </div>
+
+        </div>
+    </div>
+    <!-- Comienza el contenido de los productos. -->
+    <div id="contendorProductos" class="row -padding15pst">
+
+        @Html.Partial("_Producto")
+
+    </div>
+    <!-- Termina vista de productos. -->
+    <div id="contenedorSpiners" class="-flex-center-center"></div>
+
+</div>
+
+@section scripts{
+
+    <script src="~/Assets/js/utileriamodal.js"></script>
+    <script src="~/Scripts/ProductoHerramietas.js"></script>
+    <script src="~/Scripts/UtileriaVerkoop.js"></script>
+}

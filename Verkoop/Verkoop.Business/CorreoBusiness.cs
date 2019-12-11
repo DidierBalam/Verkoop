@@ -3,8 +3,6 @@ using System.Net.Mail;
 using System.IO;
 using System;
 
-
-
 namespace Verkoop.Business
 {
     public class CorreoBusiness
