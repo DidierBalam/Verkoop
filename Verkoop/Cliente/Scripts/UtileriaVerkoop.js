@@ -1,7 +1,7 @@
 ﻿
 /*Sirve para abrir una vista del tab de registro.*/
 $('#cContinuar').click(function (e) {
-    e.preventDefault();    
+    e.preventDefault();
     $('#myTab a[href="#cContrasenia"]').tab('show');
 })
 
@@ -44,17 +44,16 @@ function EliminarTarjeta(iIdTarjeta) {
 }
 
 
+
 /**
  * Función para eliminar una dirección.
- * @param {any} iIdDirecion Recibe el id de la dirección.
+ * @param {any} iIdDireccion Recibe el id de la dirección.
  */
-function EliminarDireccion(iIdDirecion) {
-
-    let Data = {};
-
-    Data["iIdDireccion"] = JSON.stringify(iIdDirecion);
-    ObtenerMetodoControlador("POST", "/Perfil/Direcciones", { iIdDireccion: iIDireccion }).then((objRespuesta) => {
+function EliminarDireccion(iIdDireccion) {
+    console.log(iIdDireccion)
+    ObtenerMetodoControlador("POST", "/Direccion/EliminarDireccion", { _iIdDireccion: iIdDireccion }, "JSON").then((objRespuesta) => {
         alert(objRespuesta._bEstadoOperacion + " : " + objRespuesta._cMensaje);
+      
 
     })
 }
