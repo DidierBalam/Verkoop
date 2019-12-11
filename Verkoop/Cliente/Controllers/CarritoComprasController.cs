@@ -26,9 +26,9 @@ namespace Cliente.Controllers
         /// <param name="_objProducto">Contiene el idProducto y idUsuario</param>
         /// <returns>Retorna el estado de la consulta y la cantidad de productos agregados al carrito del usuario</returns>
         [HttpPost]
-        public JsonResult AgregarProductoCarrito(int _iIdProducto, int _iCantidad)
+        public JsonResult AgregarProductoCarrito(int _iIdProducto)
         {
-            object _objResultado = CarritoBusiness.AgregarProductoCarrito(_iIdProducto, 1, _iCantidad);
+            object _objResultado = CarritoBusiness.AgregarProductoCarrito(_iIdProducto, 1);
 
             return Json(_objResultado);
         }

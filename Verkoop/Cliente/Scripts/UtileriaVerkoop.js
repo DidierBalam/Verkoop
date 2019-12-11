@@ -30,6 +30,14 @@ function EliminarTarjeta(iIdTarjeta) {
 
 }
 
+function AgregarProductoCarrito(iIdProducto) {
+
+    ObtenerMetodoControlador("POST", "Cliente/CarritoCompras/AgregarProductoCarrito", { _iIdProducto: iIdProducto }, "JSON").then((objRespuesta) => {
+        console.log(objRespuesta)
+        llamarSwetalert(objRespuesta)
+    })
+
+}
 
 /**
  * Función para eliminar una dirección.

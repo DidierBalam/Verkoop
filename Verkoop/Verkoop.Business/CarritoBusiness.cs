@@ -16,37 +16,46 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_objProducto">Contiene el idProducto y idUsuario</param>
         /// <returns>Retorna el estado de la consulta y la cantidad de productos agregados al carrito del usuario</returns>
-        public object AgregarProductoCarrito(int _iIdProducto, int _iIdUsuario, int _iCantidad)
+        public object AgregarProductoCarrito(int _iIdProducto, int _iIdUsuario)
         {
-            bool _EstadoConsulta;
+            bool _bEstadoOperacion;
             string _cMensaje;
 
             try
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    tblCarrito _objTablaCarrito = new tblCarrito
+                    if (!VerificarProductosEnCarrito(_ctx, _iIdProducto, _iIdUsuario))
                     {
-                        iIdProducto = _iIdProducto,
-                        iIdUsuario = _iIdUsuario,
-                        lEstatus = false,
-                        iCantidad = _iCantidad,
-                        dtFechaSeleccion = DateTime.Today
-                    };
+                        tblCarrito _objTablaCarrito = new tblCarrito
+                        {
+                            iIdProducto = _iIdProducto,
+                            iIdUsuario = _iIdUsuario,
+                            lEstatus = false,
+                            dtFechaSeleccion = DateTime.Today
+                        };
 
-                    _ctx.tblCarrito.Add(_objTablaCarrito);
-                    _ctx.SaveChanges();
+                        _ctx.tblCarrito.Add(_objTablaCarrito);
+                        _ctx.SaveChanges();
 
-                    _EstadoConsulta = true;
-                    _cMensaje = "Producto agregado al carrito";
+                        _bEstadoOperacion = true;
+                        _cMensaje = "Producto agregado al carrito";
+                    }
+                    else
+                    {
+                        _bEstadoOperacion = false;
+                        _cMensaje = "El producto ya se ha agregado en el carrito";
+                    }
+
+                    
                 }
             }
             catch (Exception)
             {
-                _EstadoConsulta = false;
+                _bEstadoOperacion = false;
                 _cMensaje = "Algo falló al agregar el producto al carrito";
             }
-            return (new { EstadoConsulta = _EstadoConsulta, _cMensaje});
+            return (new { _bEstadoOperacion, _cMensaje });
         }
 
         /// <summary>
@@ -265,6 +274,15 @@ namespace Verkoop.Business
             }
 
             return ProductosxD;
+        }
+
+        public bool VerificarProductosEnCarrito(VerkoopDBEntities _ctx,int _iIdProducto, int _iIdUsuario)
+        {
+
+            bool _bCoincidencia = _ctx.tblCarrito.Any(x => x.iIdProducto == _iIdProducto && x.iIdUsuario == _iIdUsuario);
+
+            return _bCoincidencia;
+
         }
     }
 }

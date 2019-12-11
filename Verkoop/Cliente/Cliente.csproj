@@ -236,7 +236,6 @@
     <Content Include="Assets\Librerias\Boostrap\bootstrap.min.js" />
     <Content Include="Assets\Librerias\jQueryValidate\jquery.validate.min.js" />
     <Content Include="Assets\Librerias\jQuery\jquery-3.3.1.min.js" />
-    <Content Include="Assets\Librerias\SweetAlert\sweetalert2.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Assets\css\core-style.css.map" />
@@ -244,7 +243,6 @@
     <Content Include="Scripts\ProductoHerramietas.js" />
     <Content Include="Scripts\tarjeta.js" />
     <Content Include="Scripts\tarjetaHerramientas.js" />
-
     <Content Include="Scripts\ProductoCarrito.js" />
     <Content Include="Scripts\utileria.js" />
     <Content Include="Scripts\UtileriaVerkoop.js" />
@@ -341,7 +339,6 @@
     <PropertyGroup>
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
-   
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
