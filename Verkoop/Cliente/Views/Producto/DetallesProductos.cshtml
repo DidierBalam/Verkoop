@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_ModalDetalles.cshtml";
 }
 
+@model Verkoop.CapaDatos.DTO.DetallesProductoDTO
+
 @section Titulo{
     <h4>Detalles producto.</h4>
 }
@@ -14,12 +16,12 @@
             <div id="product_details_slider" class="carousel slide" data-ride="carousel">
 
                 @*<div class="carousel-inner">*@
-                    @*<div class="carousel-item active">*@
-                        <a class="gallery_img" href="~/Assets/img/product-img/pro-big-1.jpg">
-                            <img class="d-block w-100" src="~/Assets/img/product-img/pro-big-1.jpg"
-                                 alt="First slide">
-                        </a>
-                    @*</div>*@
+                @*<div class="carousel-item active">*@
+                <a class="gallery_img" href="~/Assets/img/product-img/pro-big-1.jpg">
+                    <img class="d-block w-100" src="~/Assets/img/product-img/pro-big-1.jpg"
+                         alt="First slide">
+                </a>
+                @*</div>*@
                 @*</div>*@
             </div>
         </div>
@@ -30,33 +32,32 @@
             <div class="product-meta-data">
                 <div class="line"></div>
 
-                <h3 class="-letranegrita">Silla moderna blanca.</h3>
+                <h3 class="-letranegrita">@Html.DisplayFor(model => model.cNombre)</h3>
 
                 <p class="avaibility"> En Stock</p>
             </div>
 
             <div class="short_overview -TextoDetalleProducto  ">
                 <p>
-                    Contemporáneo juego de sillas de comedor con garantía de satisfacción 100% y servicio post-venta.
-                    Funda de plástico moldeado en acabado mate, forma ergonómica y cómodo asiento curvado.
-                    La altura del asiento desde el piso es de 16,5 pulgadas, el tamaño detallado de la imagen se muestra en el sitio web.
+                    @Html.DisplayFor(model => model.cDescripcionProducto)
                 </p>
             </div>
 
-            <h4 class="product-price">$180</h4>
+            <h4 class="product-price">@Html.DisplayFor(model => model.cPrecioProducto)</h4>
 
+            @if (Model.iCantidad > 0)
+            {
 
-            <form class="cart clearfix" method="post">
-                <div class="cart-btn d-flex mb-15">
-                    <div>   
-                                <input type="number" class=" -AlinearBotondeDetalles" id="qty" step="1" min="1" max="200"
-                                       name="quantity" value="1">
-                    </div>
-                </div>
-                <button type="submit" name="addtocart" value="5" class="btn amado-btn">
-                    Agregar al carrito
-                </button>
-            </form>
+                <form class="cart clearfix" method="post">                   
+                    <button idProducto="@Model.iIdProducto" type="submit" name="addtocart" value="5" class="btn amado-btn">
+                        Agregar al carrito
+                    </button>
+                </form>
+            }
+            else
+            {
+                <p>¡Agotado!</p>
+            }
 
         </div>
     </div>

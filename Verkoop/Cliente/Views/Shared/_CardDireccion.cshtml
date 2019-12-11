@@ -1,0 +1,84 @@
+﻿@*Referencia al DTO.*@
+@model List<Verkoop.CapaDatos.DTO.DireccionDTO>
+
+@{
+
+    int iConteo = 1;
+}
+
+@if (Model.Count() > 0)
+{
+    int iContador = 1;
+
+    foreach (var i in Model)
+    {
+        <div class="-cardPadre">
+            <div class="-cardDireccion">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+
+                            <div class="-cardDireciones ">
+                                <h6 class="-cardDireciones">
+                                    Colonia: <strong class="-TamCol"> @i.cMunicipio, @i.cEstado, @i.cPais </strong>
+                                </h6>
+
+                                <div class="-cardDireciones2">
+                                    <a idDireccion=" @i.iIdDireccion" class="btnEditar" >
+                                        <img class="-cardDireciones3"
+                                             src="~/Assets/img/core-img/editar.svg" alt="">
+                                    </a>
+
+                                    <a idDireccion="@i.iIdDireccion" class="btnEliminar">
+                                        <img class="-cardDireciones3"
+                                             src="~/Assets/img/core-img/basura.svg" alt="">
+                                    </a>
+
+                                    <div class="custom-control custom-radio">
+                                        @if (i.bEstado == true)
+                                        {
+                                            <input idDireccion="@i.iIdDireccion" type="radio" id="customRadio" name="customRadio"
+                                                   class="custom-control-input" checked>
+
+                                        }
+                                        else
+                                        {
+                                            <input idDireccion="@i.iIdDireccion" type="radio" id="customRadio" + @iContador +"" name="customRadio"
+                                                   class="custom-control-input">
+                                        }
+
+                                        <label class="custom-control-label"
+                                               for="customRadio1">Usar</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="-cardDireciones4">
+                                    CP: <strong class="-TamCol2">@i.cCodigoPostal</strong>
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="-cardDireciones4">
+                                    Calle: <strong class="-TamCol2">
+                                        @i.cDireccion
+                                    </strong>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+    }
+}
+else
+{
+        <p> Por el momento no hay direcciones agregadas, agregue una nueva dirección. </p>
+    }
+
+

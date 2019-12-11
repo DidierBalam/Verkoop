@@ -3,7 +3,6 @@ using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
 using Verkoop.CapaDatos;
 using System.Web;
-using CloudinaryDotNet.Actions;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +11,7 @@ namespace Cliente.Controllers
     public class PerfilController : Controller
     {
         UsuarioBusiness UsuarioBusiness = new UsuarioBusiness();
+        DireccionBusiness DireccionBusiness = new DireccionBusiness();
 
         TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
 
@@ -29,7 +29,9 @@ namespace Cliente.Controllers
 
         public ActionResult Direcciones()
         {
-            return View();
+            List<DireccionDTO> _lstDirecciones = DireccionBusiness.ObtenerDireccionesDeUsuario(2);
+
+            return View(_lstDirecciones);
         }
 
         /// <summary>
