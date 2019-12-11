@@ -9,7 +9,7 @@ namespace Cliente.Controllers
     {
         ProductoBusiness ProductoBusiness = new ProductoBusiness();
 
-        [HttpGet]
+        #region Vistas
         public ActionResult Principal()
         {
             List<VistaPreviaProductoClienteDTO> _lstProducto = ProductosRecientes();
@@ -21,6 +21,9 @@ namespace Cliente.Controllers
         {
             return View();
         }
+        #endregion
+
+        #region Métodos
 
         /// <summary>
         /// Método para obtener detalles de producto
@@ -34,20 +37,19 @@ namespace Cliente.Controllers
             return Json(_objProducto);
         }
 
-        
         public List<VistaPreviaProductoClienteDTO> ProductosRecientes()
         {
             List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosRecientes(20);
 
-           return _lstProducto;
+            return _lstProducto;
         }
 
-        
         public List<VistaPreviaProductoClienteDTO> ProductosMasVendidos()
         {
             List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosRecientes(20);
 
             return _lstProducto;
         }
+        #endregion
     }
 }

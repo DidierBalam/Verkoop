@@ -13,6 +13,7 @@ namespace Cliente.Controllers
         CarritoBusiness CarritoBusiness = new CarritoBusiness();
         TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
 
+        #region Vistas
         // GET: CarritoCompras
         public ActionResult CarritoCompras()
         {
@@ -23,7 +24,9 @@ namespace Cliente.Controllers
         {
             return View();
         }
+        #endregion
 
+        #region Métodos
         /// <summary>
         /// Método que se conecta a AgregarProductoCarrito() de CarritoBusiness
         /// </summary>
@@ -70,7 +73,7 @@ namespace Cliente.Controllers
         /// <returns></returns>
         public JsonResult RealizarPago(RealizarPagoDTO _objPago)
         {
-            object _objRespuestaGuardarTarjeta;         
+            object _objRespuestaGuardarTarjeta;
 
             if (_objPago.objTarjeta.iIdTarjeta == 0) //Verifica si no se está recibiendo el id de alguna tarjeta seleccionada
             {
@@ -81,10 +84,12 @@ namespace Cliente.Controllers
                 _objPago.objTarjeta.iIdTarjeta = Convert.ToInt32(_objRespuestaGuardarTarjeta.GetType().GetProperty("_objDatosTarjeta.iIdTarjeta").GetValue(_objRespuestaGuardarTarjeta));//Obtiene el id de la tarjeta y se lo asigna al objeto tarjeta que pertenece al objeto pago.
 
             }
-            
+
             object _objRespuestaPago = CarritoBusiness.RealizarPago(1, _objPago);
 
             return Json(_objRespuestaPago);
         }
+        #endregion
+               
     }
 }

@@ -5,19 +5,20 @@ using Verkoop.CapaDatos;
 using System.Web;
 using CloudinaryDotNet.Actions;
 using System;
+using System.Collections.Generic;
 
 namespace Cliente.Controllers
 {
     public class PerfilController : Controller
     {
         UsuarioBusiness UsuarioBusiness = new UsuarioBusiness();
+        DireccionBusiness DireccionBusiness = new DireccionBusiness();
 
         #region Vistas
         public ActionResult InformacionPersonal()
         {
             return View();
         }
-
 
         public ActionResult CambiarContraseña()
         {
@@ -26,16 +27,16 @@ namespace Cliente.Controllers
 
         public ActionResult Direcciones()
         {
-            return View();
-        }
+            List<DireccionDTO> _lstDirecciones = DireccionBusiness.ObtenerDireccionesDeUsuario(2);
 
+            return View(_lstDirecciones);
+        }
 
         public ActionResult Tarjetas()
         {
             return View();
         }
-
-
+        
         #endregion
 
         #region Métodos

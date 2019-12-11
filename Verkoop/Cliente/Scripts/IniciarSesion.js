@@ -3,7 +3,7 @@
 
 });
 
-/**Función para iniciar sesión  */
+/**Función para iniciar sesión */
 function Boton() {
     let lFormularioValido = false;
 
@@ -22,7 +22,6 @@ function Boton() {
         }
 
     });
-
 }
 
 /**Función para validar los campos de inicio de sesión */
@@ -51,7 +50,7 @@ function ValidarInicioSesion() {
 
 /**
  * Función para mostrar una alerta para los campos requeridos
- * @param {any} input recibe el imput
+ * @param {any} input recibe el input
  */
 function showValidate(input) {
     var thisAlert = $(input).parent();

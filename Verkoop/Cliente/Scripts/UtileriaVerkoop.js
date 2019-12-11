@@ -8,11 +8,14 @@ $('#cContinuar').click(function (e) {
 /*Sirve para abrir una vista del tab de registro.*/
 $('#cAtras').click(function (e) {
     e.preventDefault();
-    console.log("Si funciona")
     $('#myTab a[href="#cRegistro"]').tab('show');
 })
 
-
+/**
+ * Función para 
+ * @param {any} cCorreo
+ * @param {any} cContrasenia
+ */
 function IniciarSesion(cCorreo, cContrasenia) {
     let Data = {};
 
@@ -22,6 +25,22 @@ function IniciarSesion(cCorreo, cContrasenia) {
     ObtenerMetodoControlador("POST", "/Sesion/IniciarSesion", Data).then((objRespuesta) => {
         alert(objRespuesta._bEstadoOperacion + ": " + objRespuesta._cMensaje);
     });
+}
+
+
+/**
+ * Función para eliminar una dirección.
+ * @param {any} iIdDirecion Recibe el id de la dirección.
+ */
+function EliminarDireccion(iIdDirecion) {
+
+    let Data = {};
+
+    Data["iIdDireccion"] = JSON.stringify(iIdDirecion);
+    ObtenerMetodoControlador("POST", "/Perfil/Direcciones", { iIdDireccion: iIDireccion }).then((objRespuesta) => {
+        alert(objRespuesta._bEstadoOperacion + " : " + objRespuesta._cMensaje);
+
+    })
 }
 
 /**

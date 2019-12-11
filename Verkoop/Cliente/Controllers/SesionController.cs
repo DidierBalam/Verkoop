@@ -16,11 +16,12 @@ namespace Cliente.Controllers
         /// Método para visualizar la vista de iniciar sesión
         /// </summary>
         /// <returns>Retorna una vista</returns>
+
+        #region Vistas
         public ActionResult Index()
         {
             return View();
         }
-       
 
         public ActionResult RegistroUsuario()
         {
@@ -32,8 +33,9 @@ namespace Cliente.Controllers
             return View();
         }
 
+        #endregion
 
-
+        #region Métodos
         /// <summary>
         /// Método que conecta al método RegistrarUsuario() del UsuarioBusiness
         /// </summary>
@@ -89,7 +91,6 @@ namespace Cliente.Controllers
             return Json(new { _bEstadoOperacion, _cMensaje });
         }
 
-
         /// <summary>
         /// Método que llama al método CambiarContrasenia() de SesionBusiness
         /// </summary>
@@ -105,5 +106,6 @@ namespace Cliente.Controllers
 
             return Json(_objResultado);
         }
+        #endregion
     }
 }
