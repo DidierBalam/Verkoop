@@ -8,8 +8,3 @@ function Barraherramientas() {
         ObtenerVistaDetalles("POST", "../Producto/DetallesProductos", null);///Se le agrega la función Modal al botón de guardar del modal.
     });
 }
-
-
-
-
-
