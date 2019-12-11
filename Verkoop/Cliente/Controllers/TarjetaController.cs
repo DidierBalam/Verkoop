@@ -1,7 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos;
-
+using Verkoop.CapaDatos.DTO;
 
 namespace Cliente.Controllers
 {
@@ -14,18 +17,20 @@ namespace Cliente.Controllers
         /// </summary>
         readonly TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
 
+
+
         /// <summary>
         /// Método que se conecta con GuardarPrimeraTarjeta de la clase TarjetaBusiness.
         /// </summary>
         /// <param name="_objTarjeta">Recibe los datos  de la tarjeta a guardar.</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
-        [HttpPost]
-        public JsonResult GuardarPrimeraTarjeta(tblTarjeta _objTarjeta)
-        {
-            _objResultado = TarjetaBusiness.GuardarTarjeta(_objTarjeta);//Se guardan las propiedades de la tarjeta en un objeto llamado _objResultado.
+        //[HttpPost]
+        //public JsonResult GuardarPrimeraTarjeta(tblTarjeta _objTarjeta)
+        //{
+        //    _objResultado = TarjetaBusiness.GuardarTarjeta(_objTarjeta);//Se guardan las propiedades de la tarjeta en un objeto llamado _objResultado.
 
-            return Json(_objResultado);///Regresa un Json con los datos que este en la variable _objResultado.
-        }
+        //    return Json(_objResultado);///Regresa un Json con los datos que este en la variable _objResultado.
+        //}
 
         /// <summary>
         /// Método que se conecta a GuardarTarjeta() de la clase TarjetaBusiness.
@@ -33,11 +38,15 @@ namespace Cliente.Controllers
         /// <param name="objDatos">Recibe los datos de la tarjeta.</param>
         /// <returns> Retorna el mensaje de confirmación</returns.>
         [HttpPost]
-        public JsonResult GuardarTarjeta(tblTarjeta _objTarjeta)
-        {         
-             _objResultado = TarjetaBusiness.GuardarTarjeta(_objTarjeta);///Se guardan las propiedades de la tarjeta en un objeto llamado _objResultado.
+        public JsonResult GuardarTarjeta()
+        {
+            tblTarjeta _objTarjeta = JsonConvert.DeserializeObject<tblTarjeta>(Request["Tarjeta"]);
+
+             _objResultado = TarjetaBusiness.GuardarTarjeta(1/*Session["iIdUsuario"]*/, _objTarjeta);///Se guardan las propiedades de la tarjeta en un objeto llamado _objResultado.
+
+           // _objTarjeta.iIdTarjeta = Convert.ToInt32(_objResultado.GetType().GetProperty("_objResultado.iIdTarjeta").GetValue(_objResultado)); 
             
-            return  Json(_objResultado);///Regresa un Json con los datos que este en la variable _objResultado.
+            return  Json( _objResultado);//Regresa un JSON con los datos que este en la variable _objResultado.
         }        
 
         /// <summary>
@@ -61,7 +70,7 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult ObtenerTodasTarjetas(int _iIdUsuario)
         {
-           object _lstTarjetas = TarjetaBusiness.ObtenerTodasTarjetas(_iIdUsuario);
+            List<TarjetaDTO> _lstTarjetas = TarjetaBusiness.ObtenerTodasTarjetas(_iIdUsuario);
 
             return Json(_lstTarjetas);
         }

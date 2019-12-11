@@ -19,6 +19,20 @@ button{
     font-size: 15px !important;
     font-weight:lighter !important;
 }
+
+.-boton-{
+    width: 20px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    color: rgb(133, 133, 133);
+    border: solid 1px rgb(185, 185, 185);
+    font-size: 15px !important;
+    font-weight:lighter !important;
+}
+
 .-boton-chido{
     width: 150px;
     padding-top: 7%;
@@ -59,7 +73,7 @@ button{
     line-height: 40px;
     background-color: #fbb710;
     font-weight: 400; }
-    .amado-btn.active, .amado-btn:hover, .amado-btn:focus {
+.amado-btn.active, .amado-btn:hover, .amado-btn:focus {
       font-size: 18px;
       color: #ffffff;
       background-color: #252424; }
@@ -507,6 +521,38 @@ button{
 .-AlinearPregunta{
     padding-left: 10%;
 }
+
+.-AlingInput {
+    display: flex;
+    padding-bottom: 10%;
+}
+
+.-AlingInput2 {
+    display: flex;   
+}
+
+
+.-AlingIconoSesion {
+    padding-right: 3%;
+}
+
+.-AlingIconoSesion2 {
+    padding-right: 3%;
+}
+
+.-AlingTabs {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.-AlingSesion3 {
+    margin-right: 10px;
+}
+
+
+
+
+
 
 
 

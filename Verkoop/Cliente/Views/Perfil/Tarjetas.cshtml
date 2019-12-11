@@ -62,111 +62,25 @@
                 <h2>Tarjetas guardadas.</h2>
             </div>
 
-            <div>
-                <button class="-BotonAgregarTarjeta">
+            <div>  <!--botón agregar tarjeta-->
+                <button id="btnAgregarTarjeta" class="-BotonAgregarTarjeta">
                     <img class="-SeparacionIconoAgregar"
                          src="~/Assets/img/core-img/anadir.svg" alt=""> Nueva
                 </button>
             </div>
         </div>
-        
-        <div class="-cardPadreDireccion2">
-            <div class="-cardPadre">
-                <div class="-cardDireccion">
-                    <div class="card">
-                        <div class="card-body">
-                            <div>
-                                <div class="-cardDireciones ">
-                                    <h6 class="-cardDireciones">
-                                        Número: <strong class="-TamCol">
-                                            XXXX XXXX XXXX
-                                            3943
-                                        </strong>
-                                    </h6>
-                                    <div class="-cardDireciones2">
-                                        <a href="">
-                                            <img class="-cardDireciones3" src="~/Assets/img/core-img/editar.svg"
-                                                 alt="">
-                                        </a>
-                                        <a href="">
-                                            <img class="-cardDireciones3" src="~/Assets/img/core-img/basura.svg"
-                                                 alt="">
-                                        </a>
 
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio1" name="customRadio"
-                                                   class="custom-control-input">
-                                            <label class="custom-control-label" for="customRadio1">Usar</label>
-                                        </div>
-                                    </div>
-                                </div>
+        <!-- Aqui se encierra los cards -->
+        <div class="-cardPadreDireccion2" >
 
-                                <div>
-                                    <p class="-cardDireciones4">
-                                        Mes de vigencia: <strong class="-TamCol2">
-                                            04
-                                        </strong>
-                                    </p>
-                                </div>
+            @Html.Partial("_CardTarjeta")
 
-                                <div>
-                                    <p class="-cardDireciones4">Año de vigencia: <strong class="-TamCol2"> 2025</strong></p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="-cardPadre">
-                <div class="-cardDireccion">
-                    <div class="card">
-                        <div class="card-body">
-                            <div>
-                                <div class="-cardDireciones ">
-                                    <h6 class="-cardDireciones">
-                                        Número: <strong class="-TamCol">
-                                            XXXX XXXX XXXX
-                                            9367
-                                        </strong>
-                                    </h6>
-                                    <div class="-cardDireciones2">
-                                        <a href="">
-                                            <img class="-cardDireciones3" src="~/Assets/img/core-img/editar.svg"
-                                                 alt="">
-                                        </a>
-                                        <a href="">
-                                            <img class="-cardDireciones3" src="~/Assets/img/core-img/basura.svg"
-                                                 alt="">
-                                        </a>
-
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio2" name="customRadio"
-                                                   class="custom-control-input">
-                                            <label class="custom-control-label" for="customRadio2">Usar</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <p class="-cardDireciones4">
-                                        Mes de vigencia: <strong class="-TamCol2">
-                                            12
-                                        </strong>
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <p class="-cardDireciones4">Año de vigencia: <strong class="-TamCol2"> 2034</strong></p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          
         </div>
     </div>
 </div>
 
+@section scripts{
+    <script src="http://localhost/Cliente/Scripts/utileriamodal.js"></script>
+    <script src="~/Scripts/tarjetaHerramientas.js"></script>
+} 

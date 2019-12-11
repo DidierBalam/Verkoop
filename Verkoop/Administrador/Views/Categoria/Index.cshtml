@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Estilos{
+    <link href="~/Assets/css/sweetalert2.min.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="h1 m-0" style="text-align:center">Nueva Categoría</div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="largeInput">Nombre de la nueva Categoría</label>
+                    <input type="text" class="form-control form-control-lg" name="cNombre" id="cNombre" required>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-outline-success btn-rounded btn-fix" href="#" id="btnGuardarCategoria"> Guardar </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="h1 m-0" style="text-align:center">Categorías Actuales</div>
+            </div>
+            <div class="card-body">
+                <div class="row" id="lstCategoria">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Assets/js/sweetalert2.min.js"></script>
+    <script src="~/Scripts/categoria.js"></script>
+}
