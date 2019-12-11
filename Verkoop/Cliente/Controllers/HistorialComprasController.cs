@@ -12,7 +12,9 @@ namespace Cliente.Controllers
 
         public ActionResult ComprasRealizadas()
         {
-            return View();
+            List<CompraDeClienteDTO> _lstResultado = ObtenerComprasDeCliente();
+
+            return View(_lstResultado);
         }
 
         /// <summary>
@@ -20,12 +22,11 @@ namespace Cliente.Controllers
         /// </summary>
         /// <param name="_iIdUsuario">Contiene el idUsuario</param>
         /// <returns>Retorna la lista de las compras</returns>
-        [HttpPost]
-        public JsonResult ObtenerComprasDeCliente(int _iIdUsuario)
+        public List<CompraDeClienteDTO> ObtenerComprasDeCliente()
         {
-            List<CompraDeClienteDTO> _lstResultado = CompraBusiness.ObtenerComprasDeCliente(_iIdUsuario);
+            List<CompraDeClienteDTO> _lstResultado = CompraBusiness.ObtenerComprasDeCliente(5/*Variable sesión*/);
 
-            return Json(_lstResultado);
+            return _lstResultado;
         }
 
         /// <summary>

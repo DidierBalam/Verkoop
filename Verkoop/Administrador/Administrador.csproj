@@ -503,7 +503,6 @@
     <Folder Include="Views\Compras\" />
     <Folder Include="Views\Compra\" />
     <Folder Include="Views\Perfil\" />
-    <Folder Include="Views\Sesion\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\img\img-shadow.gvdesign" />
@@ -563,6 +562,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\Shared\_SesionLayout.cshtml" />
+    <Content Include="Views\Sesion\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

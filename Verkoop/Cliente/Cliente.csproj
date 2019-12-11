@@ -232,7 +232,6 @@
     <Content Include="Assets\css\core-style.css.map" />
     <Content Include="Scripts\IniciarSesion.js" />
     <Content Include="Scripts\tarjetaHerramientas.js" />
-
     <Content Include="Scripts\ProductoCarrito.js" />
     <Content Include="Scripts\utileria.js" />
     <Content Include="Scripts\UtileriaVerkoop.js" />
@@ -267,6 +266,8 @@
     <Content Include="Views\Perfil\NuevaTarjeta.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
     <Content Include="Views\Shared\_CardTarjeta.cshtml" />
+    <Content Include="Views\Shared\_ProductoCarrito.cshtml" />
+    <Content Include="Views\Shared\_ComprasRealizadas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\scss\style.scss" />

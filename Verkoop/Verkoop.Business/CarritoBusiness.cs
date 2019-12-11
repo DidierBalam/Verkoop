@@ -16,7 +16,7 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_objProducto">Contiene el idProducto y idUsuario</param>
         /// <returns>Retorna el estado de la consulta y la cantidad de productos agregados al carrito del usuario</returns>
-        public object AgregarProductoCarrito(int _iIdProducto, int _iIdUsuario, int _iCantidad)
+        public object AgregarProductoCarrito(int _iIdProducto, int _iIdUsuario)
         {
             bool _EstadoConsulta;
             string _cMensaje;
@@ -29,8 +29,7 @@ namespace Verkoop.Business
                     {
                         iIdProducto = _iIdProducto,
                         iIdUsuario = _iIdUsuario,
-                        lEstatus = false,
-                        iCantidad = _iCantidad,
+                        lEstatus = false,                       
                         dtFechaSeleccion = DateTime.Today
                     };
 
@@ -98,22 +97,22 @@ namespace Verkoop.Business
 
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
-                _lstProductos = (from Carrito in _ctx.tblCarrito.AsNoTracking()
+                _lstProductos = (from Carrito in _ctx.tblCarrito
                                  where Carrito.iIdUsuario == _iIdUsuario
                                  && Carrito.lEstatus == false
                                  join Producto in _ctx.tblCat_Producto
-                                 on Carrito.iIdCarrito equals Producto.iIdProducto
+                                 on Carrito.iIdProducto equals Producto.iIdProducto
                                  select new ProductoEnCarritoDTO
                                  {
                                      iIdCarrito = Carrito.iIdCarrito,
                                      cImagenCarrito = Producto.cImagen,
                                      cNombreproducto = Producto.cNombre,
                                      dPrecioProducto = Producto.dPrecio,
-                                     iCantidad = Carrito.iCantidad
+                                     iCantidad = Producto.iCantidad
 
                                  }).ToList();
             }
-            return _lstProductos.ToList();
+            return _lstProductos;
         }
 
         /// <summary>
