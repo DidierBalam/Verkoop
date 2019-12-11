@@ -9,6 +9,7 @@ namespace Verkoop.Business
 {
     public class ProductoBusiness
     {
+        
         private string _cMensaje = string.Empty;
         private string _EstadoConsulta = string.Empty;
 
@@ -125,10 +126,8 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_iNumeroConsulta">Recibe el número de consultas realizadas</param>
         /// <returns>Retorna una lista con los productos</returns>
-        public List<VistaPreviaProductoClienteDTO> ObtenerProductosRecientes(int _iNumeroConsulta)
+        public List<VistaPreviaProductoClienteDTO> ObtenerProductosRecientes(int _iNumeroConsulta, int _iProductosObtener)
         {
-            int _iProductosObtener = 20;
-
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto
@@ -155,14 +154,14 @@ namespace Verkoop.Business
         /// <param name="_iIdCategoria">Recibe el id de la categoría</param>
         /// <param name="_iNumeroConsulta ">Recibe el número de consultas realizadas</param>
         /// <returns>Retorna una lista con los productos</returns>
-        public List<VistaPreviaProductoClienteDTO> ObtenerProductosPorCategoria(int _iIdCategoria, int _iNumeroConsulta)
+        public List<VistaPreviaProductoClienteDTO> ObtenerProductosPorCategoria(string _cCategoria, int _iNumeroConsulta, int _iProductosObtener)
         {
-            int _iProductosObtener = 20;
-
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto
-                                                                     where Producto.iIdCategoria == _iIdCategoria
+                                                                     join Categoria in _ctx.tblCat_Categoria 
+                                                                     on Producto.iIdCategoria equals Categoria.iIdCategoria
+                                                                     where Categoria.cNombre == _cCategoria
                                                                      orderby Producto.dtFechaAlta descending
                                                                      select new VistaPreviaProductoClienteDTO
                                                                      {
@@ -184,10 +183,8 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_iNumeroConsulta">Recibe el número de consultas realizadas</param>
         /// <returns>Retorna una lista con los productos</returns>
-        public List<VistaPreviaProductoClienteDTO> ObtenerProductosMasComprados(int _iNumeroConsulta)
+        public List<VistaPreviaProductoClienteDTO> ObtenerProductosMasComprados(int _iNumeroConsulta, int _iProductosObtener)
         {
-            int _iProductosObtener = 20;
-
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 List<VistaPreviaProductoClienteDTO> _lstProductos = (from ProductoComprado in _ctx.tblProductoComprado
@@ -216,14 +213,12 @@ namespace Verkoop.Business
         /// <param name="_cNombre">Recibe el nombre del producto</param>
         /// <param name="_iNumeroConsulta">Recibe el núemero de consultas realzadas</param>
         /// <returns>Retorna una lista con los productos</returns>
-        public List<VistaPreviaProductoClienteDTO> BuscarProducto(string _cNombre, int _iNumeroConsulta)
+        public List<VistaPreviaProductoClienteDTO> BuscarProducto(string _cNombre, int _iNumeroConsulta, int _iProductosObtener)
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
-            {
-                int _iProductosObtener = 20;
-
+            { 
                 List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto
-                                                                     where Producto.cNombre.ToUpper().Contains(_cNombre.ToUpper())
+                                                                     where Producto.cNombre.ToUpper().Contains(_cNombre.Trim().ToUpper())
 
                                                                      orderby Producto.dtFechaAlta descending
                                                                      select new VistaPreviaProductoClienteDTO

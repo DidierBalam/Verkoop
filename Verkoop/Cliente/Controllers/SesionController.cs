@@ -70,7 +70,8 @@ namespace Cliente.Controllers
                 bool p = Convert.ToBoolean(_objRespuesta.GetType().GetProperty("EstadoOperacion").GetValue(_objRespuesta));
                 if (Convert.ToBoolean(_objRespuesta.GetType().GetProperty("EstadoOperacion").GetValue(_objRespuesta))) //se compara si  es diferente a nulo
                 {
-                    Session["iIdUsuario"] = int.Parse(Convert.ToString(_objRespuesta.GetType().GetProperty("VariableSesion").GetValue(_objRespuesta)));// Se ingresa a una variable Sesión
+                    System.Web.HttpContext.Current.Session["iIdUsuario"] = int.Parse(Convert.ToString(_objRespuesta.GetType().GetProperty("VariableSesion").GetValue(_objRespuesta)));// Se ingresa a una variable Sesión
+                   
                     _bEstadoOperacion = true;
 
                 }

@@ -226,6 +226,7 @@
     <Content Include="Global.asax" />
     <Content Include="Assets\css\core-style.css.map" />
     <Content Include="Scripts\IniciarSesion.js" />
+    <Content Include="Scripts\ProductoHerramietas.js" />
     <Content Include="Scripts\tarjeta.js" />
     <Content Include="Scripts\utileria.js" />
     <Content Include="Scripts\UtileriaVerkoop.js" />
@@ -241,7 +242,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\HistorialCompras\Index.cshtml" />
-    <Content Include="Views\Producto\Principal.cshtml" />
+    <Content Include="Views\Producto\Catalogo.cshtml" />
     <Content Include="Views\Perfil\InformacionPersonal.cshtml" />
     <Content Include="Views\Perfil\CambiarContraseña.cshtml" />
     <Content Include="Views\Perfil\Direcciones.cshtml" />
@@ -252,6 +253,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\Shared\_Producto.cshtml" />
+    <Content Include="Views\Sesion\Index.cshtml" />
+    <Content Include="Views\Producto\BuscarProducto.cshtml" />
+    <Content Include="Views\Producto\VerMasProductos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\scss\style.scss" />
