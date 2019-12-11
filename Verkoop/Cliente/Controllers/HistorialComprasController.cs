@@ -10,10 +10,14 @@ namespace Cliente.Controllers
     {
         CompraBusiness CompraBusiness = new CompraBusiness();
 
+        #region Vistas
         public ActionResult ComprasRealizadas()
         {
             return View();
         }
+        #endregion
+
+        #region Métodos
 
         /// <summary>
         /// Método que conecta a ObtenerComprasDeCliente() de CompraBusiness
@@ -35,7 +39,6 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult ImprimirTicketDeCompra()
         {
-
             int.TryParse(Request["iIdCompra"], out int _iIdCompra);
 
             byte[] _bPDF = CompraBusiness.ImprimirTicketDeCompra(2);
@@ -48,8 +51,7 @@ namespace Cliente.Controllers
             Response.End();
 
             return Json(true);
-
         }
-       
+        #endregion
     }
 }

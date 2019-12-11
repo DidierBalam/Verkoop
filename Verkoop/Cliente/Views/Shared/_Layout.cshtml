@@ -8,41 +8,27 @@
 
     <title>Verkoop | Inicio</title>
 
+
     <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Assets/css/core-style.css" rel="stylesheet" />
     <link href="~/Assets/css/libreria-verkoop.css" rel="stylesheet" />
-    <link href="http://localhost/Cliente/Assets/css/sweetalert2.min.css" rel="stylesheet" />
     <link href="~/Assets/css/style.css" rel="stylesheet" />
 
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body>
-    <div class="search-wrapper section-padding-100">
-        <div class="search-close">
-            <i class="fa fa-close" aria-hidden="true"></i>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="search-content">
-                        <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="~/Assets/img/core-img/search.png" alt=""></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <div class="main-content-wrapper d-flex clearfix">
 
         <!-- Mobile Nav (max width 767px)-->
-        <div class="mobile-nav">
+        @*<div class="mobile-nav">*@
             <!-- Navbar Toggler -->
-            <div class="amado-navbar-toggler">
+            @*<div class="amado-navbar-toggler">
                 <span></span><span></span><span></span>
             </div>
-        </div>
+        </div>*@
 
         <!-- Header Area Start -->
         <header class="header-area clearfix">
@@ -58,8 +44,8 @@
                 <!-- Amado Nav -->
                 <!-- Cart Menu -->
                 <div class="cart-fav-search mb-100">
-                    @RenderSection("Opciones", false)                 
-                    <a href="#" class=""><img src="~/Assets/img/core-img/icono-salir.svg" alt=""> Salir</a>
+                    @RenderSection("Opciones")
+                    
                 </div>
             </div>
         </header>

@@ -13,7 +13,7 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_objDatosDireccion"> Es un objeto que contiene los datos de la dirección</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
-        public object ActualizarDireccion(DireccionDTO _objDatosDireccion)
+        public object ActualizarDireccion(tblDireccion _objDatosDireccion)
         {
             string _cMensaje; ///Se crea variable tipo string.
             bool _bEstadoOperación;///Se crea variable tipo booleano.
@@ -24,27 +24,27 @@ namespace Verkoop.Business
                 {
                     tblDireccion _TablaDireccion = new tblDireccion(); /// Instancia de tblDirección.
 
-                    _TablaDireccion = (from Direccion in _ctx.tblDireccion 
-                                                where Direccion.iIdDireccion == _objDatosDireccion.iIdDireccion
-                                                select Direccion).First();
+                    _TablaDireccion = (from Direccion in _ctx.tblDireccion
+                                       where Direccion.iIdDireccion == _objDatosDireccion.iIdDireccion
+                                       select Direccion).First();
 
-                    _TablaDireccion.iIdDireccion = _objDatosDireccion.iIdDireccion;                   
+                    _TablaDireccion.iIdDireccion = _objDatosDireccion.iIdDireccion;
                     _TablaDireccion.cCodigoPostal = _objDatosDireccion.cCodigoPostal;
                     _TablaDireccion.cDireccion = _objDatosDireccion.cDireccion;
                     _TablaDireccion.iIdMunicipio = _objDatosDireccion.iIdMunicipio;
-                    
+
                     _ctx.SaveChanges();
 
-                    _cMensaje ="Se han actualizado los datos con éxito";
+                    _cMensaje = "Se han actualizado los datos con éxito";
                     _bEstadoOperación = true;
 
                 }
             }
             catch (Exception)
             {
-                    _cMensaje= "Ocurrió un error al momento de actualizar, intente de nuevo.";
-                    _bEstadoOperación = false;
-                
+                _cMensaje = "Ocurrió un error al momento de actualizar, intente de nuevo.";
+                _bEstadoOperación = false;
+
             }
 
             return (new { _bEstadoOperación, _cMensaje });
@@ -86,9 +86,9 @@ namespace Verkoop.Business
                 _cMensaje = "¡Wow, la tarjeta no se pudo eliminar!";
                 _bEstadoOperación = false;
             }
-            return (new { _bEstadoOperación, _cMensaje});
+            return (new { _bEstadoOperación, _cMensaje });
         }
-          
+
 
         /// <summary>
         /// Método para conectarse con GuardarDirección()
@@ -133,23 +133,31 @@ namespace Verkoop.Business
         public List<DireccionDTO> ObtenerDireccionesDeUsuario(int _iIdUsuario)
         {
 
-            using (VerkoopDBEntities _ctx= new VerkoopDBEntities())
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 List<DireccionDTO> _lstDirecciones = (from Direccion in _ctx.tblDireccion
                                                       where Direccion.iIdUsuario == _iIdUsuario
+                                                      join Municipio in _ctx.tblMunicipio on Direccion.iIdMunicipio equals Municipio.iIdMunicipio
+                                                      join Estado in _ctx.tblEstado on Municipio.iIdEstado equals Estado.iIdEstado
+                                                      join Pais in _ctx.tblPais on Estado.iIdPais equals Pais.iIdPais
+
                                                       select new DireccionDTO
                                                       {
-                                                          iIdDireccion=Direccion.iIdDireccion,
-                                                          iIdMunicipio=Direccion.iIdMunicipio,
-                                                          cDireccion=Direccion.cDireccion,
-                                                          cCodigoPostal=Direccion.cCodigoPostal
+                                                          iIdDireccion = Direccion.iIdDireccion,
+                                                          cMunicipio = Municipio.cNombre,
+                                                          cEstado = Estado.cNombre,
+                                                          cPais = Pais.cNombre,
+                                                          cDireccion = Direccion.cDireccion,
+                                                          cCodigoPostal = Direccion.cCodigoPostal,
+                                                          bEstado = Direccion.lDefault
+
                                                       }).ToList();
 
 
                 return _lstDirecciones;
             }
 
-               
+
         }
     }
 }

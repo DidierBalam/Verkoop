@@ -4,4 +4,26 @@
     Layout = "~/Views/Shared/_SesionLayout.cshtml";
 }
 
- 
+<form action="/" method="post">
+    <div>
+        <h3 class=" title text-center ">Verificación de contraseña.</h3>
+        <p class="title text-center -AlinearBotonRegistro">Ingrese el código de verificación enviado a su correo.</p>
+
+        <div>
+            <div class="-AlingInput4">
+                <input type="text" class="form-control w-100  " id="cNombre" placeholder="231457">
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="cart-btn mt-30 justify-content-center">
+            <a id="cVerificarContrasenia" class="btn amado-btn -ColorText w-50 -ml-15 ">Confirmar</a>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+    <script src="~/Scripts/utileria.js"></script>
+    <script src="~/Scripts/Producto.js"></script>
+}
