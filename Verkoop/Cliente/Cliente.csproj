@@ -232,6 +232,7 @@
     <Content Include="Scripts\DireccionHerramientas.js" />
     <Content Include="Assets\Librerias\SweetAlert\sweetalert2.all.min.js" />
     <Content Include="Scripts\Producto.js" />
+    <Content Include="Scripts\registroHerramientas.js" />
     <Content Include="Scripts\utileriamodal.js" />
     <Content Include="Assets\Librerias\Boostrap\bootstrap.min.js" />
     <Content Include="Assets\Librerias\jQueryValidate\jquery.validate.min.js" />
@@ -244,10 +245,10 @@
     <Content Include="Scripts\ProductoHerramietas.js" />
     <Content Include="Scripts\tarjeta.js" />
     <Content Include="Scripts\tarjetaHerramientas.js" />
-
     <Content Include="Scripts\ProductoCarrito.js" />
     <Content Include="Scripts\utileria.js" />
     <Content Include="Scripts\UtileriaVerkoop.js" />
+    <Content Include="Scripts\VerificarCuentaHerramientas.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -278,11 +279,9 @@
     <Content Include="Views\Sesion\RegistroUsuario.cshtml" />
     <Content Include="Views\Sesion\VerificarContrasenia.cshtml" />
     <Content Include="Views\Perfil\NuevaTarjeta.cshtml" />
-    <Content Include="Views\Shared\_Modal.cshtml" />
     <Content Include="Views\Shared\_CardTarjeta.cshtml" />
     <Content Include="Views\Shared\_CardDireccion.cshtml" />
     <Content Include="Views\Shared\_Producto.cshtml" />
-    <Content Include="Views\Sesion\Index.cshtml" />
     <Content Include="Views\Producto\BuscarProducto.cshtml" />
     <Content Include="Views\Producto\VerMasProductos.cshtml" />
   </ItemGroup>
@@ -305,7 +304,6 @@
     <Content Include="Assets\fonts\helvetica_neu_bold-webfont.woff2" />
     <Content Include="Views\Shared\_ModalDetalles.cshtml" />
     <Content Include="Views\Producto\DetallesProductos.cshtml" />
-    <Content Include="Views\Sesion\RegistroUsuario.cshtml" />
     <Content Include="Views\Sesion\Contrasenia.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -341,7 +339,6 @@
     <PropertyGroup>
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
-   
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

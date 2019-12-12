@@ -30,7 +30,7 @@ namespace Verkoop.Business
                         iIdProducto = _iIdProducto,
                         iIdUsuario = _iIdUsuario,
                         lEstatus = false,
-                        iCantidad = _iCantidad,
+                        //iCantidad = _iCantidad,
                         dtFechaSeleccion = DateTime.Today
                     };
 
@@ -109,7 +109,7 @@ namespace Verkoop.Business
                                      cImagenCarrito = Producto.cImagen,
                                      cNombreproducto = Producto.cNombre,
                                      dPrecioProducto = Producto.dPrecio,
-                                     iCantidad = Carrito.iCantidad
+                                     //iCantidad = Carrito.iCantidad
 
                                  }).ToList();
             }
@@ -173,7 +173,6 @@ namespace Verkoop.Business
                         {
                             iIdUsuario = _iIdUsuario,
                             iIdDireccion = _objPago.iIdDireccion,
-                            iIdTarjeta = _objPago.objTarjeta.iIdTarjeta,
                             dtFecha = DateTime.Today
                         };
 

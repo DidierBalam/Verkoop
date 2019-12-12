@@ -9,46 +9,7 @@ namespace Verkoop.Business
     public class TarjetaBusiness
     {
 
-        /// <summary>
-        /// Método para guardar la primera tarjeta y marcarla por defecto, para ser el determinado para realizar compras.
-        /// </summary>
-        /// <param name="_objDatosTarjeta">Es un objeto que contiene los datos de la tarjeta</param>
-        /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
-        public object GuardarPrimeraTarjeta(tblTarjeta _objDatosTarjeta)
-        {
-            string _cMensaje;///Se crea variable tipo string.
-            bool _bEstadoTarjeta;///Se crea variable tipo booleano.
-
-            try ///Se usa try catch para controlar los posibles errores que surgen.
-            {
-                using (VerkoopDBEntities _ctx = new VerkoopDBEntities()) ///Se crea contexto
-                {
-                    if (!VerificarExistenciaTarjeta(_ctx, _objDatosTarjeta))
-                    {
-                        _objDatosTarjeta.lDefault = true;///Permite guardar la primera tarjeta como default.
-
-                        _ctx.tblTarjeta.Add(_objDatosTarjeta);///Se inserta las propiedades del objeto  _objDatosTarjeta a la tabla tblTarjeta.
-                        _ctx.SaveChanges();///Se guardan cambios.
-
-                        _cMensaje = "Tarjeta guardada";///
-                        _bEstadoTarjeta = true;
-                    }
-                    else
-                    {
-                        _cMensaje = "La tarjeta ya se encuentra registrada.";
-                        _bEstadoTarjeta = false;
-
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                _cMensaje = "Ocurrió un error al momento de guardar la tarjeta.";
-                _bEstadoTarjeta = false;
-            }
-
-            return (new { _bEstadoTarjeta, _cMensaje });
-        }
+        
 
         /// <summary>
         /// Método para guardar una tarjeta nueva.
@@ -70,7 +31,7 @@ namespace Verkoop.Business
                     if (!VerificarExistenciaTarjeta(_ctx, _objDatosTarjeta))
                     {
                         _objDatosTarjeta.iIdUsuario = _iIdUsuario;
-                        _objDatosTarjeta.lDefault = false;  ///Permite guardar las tarjetas con valor default en falso.
+                       
                         //tblTarjeta _objDatos = new tblTarjeta
                         //{
                         //    cNumeroTarjeta = _objDatosTarjeta.cNumeroTarjeta,

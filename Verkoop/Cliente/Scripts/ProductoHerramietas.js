@@ -26,7 +26,6 @@ $("#BarraBusqueda").keyup(function (e) {
 //Botón que redirigea a la vista de inicar sesión.
 $("#btnAcceder").click(function () {
 
-    
     window.location.href = "Cliente/Sesion/Index";
 
 });
@@ -54,6 +53,13 @@ $(function () {
         }
     });
 });
+
+$("#btnSalir").click(function () {
+  
+    CerrarSesion();
+
+});
+
 
 /**
  * FUNCIÓN PARA OBTENER EL FILTRO SELECCIONADO EN LA VISTA.
