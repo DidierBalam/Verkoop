@@ -15,7 +15,7 @@ namespace Verkoop.Business
         Cloudinary Cloudinary = new Cloudinary(Credenciales);
 
         /// <summary>
-        /// Método para subir foto de perfil a Cloudinary
+        /// MÉTODO PARA SUBIR FOTO DE PERFIL A CLOUDINARY.
         /// </summary>
         /// <param name="_Imagen">Recibe la imagen</param>
         /// <returns>Retorna un objeto Json que contiene la propiedad StatusCode de tipo System.Net.HttpStatusCode para manejar errores y la propiedad JsonObj de tipo Newtonsoft.Json.Linq.JToke</returns>
@@ -29,7 +29,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para subir imagen de producto a cloudinary
+        /// MÉTODO PARA SUBIR IMAGEN DE PRODUCTO A CLOUDINARY.
         /// </summary>
         /// <param name="_Imagen">Recibe la imagen</param>
         /// <param name="_iIdProducto">Recibe el id del producto</param>
@@ -45,7 +45,7 @@ namespace Verkoop.Business
 
 
         /// <summary>
-        /// Método para subir una imagen a Cloudinary
+        /// MÉTODO PARA SUBIR UNA IMAGEN A CLOUDINARY.
         /// </summary>
         /// <param name="_Imagen">Recibe a la imagen</param>
         /// <param name="_iIdProducto">Recibe el id del sujeto</param>

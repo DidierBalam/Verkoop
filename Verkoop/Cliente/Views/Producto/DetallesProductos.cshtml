@@ -45,19 +45,37 @@
 
             <h4 class="product-price">@Html.DisplayFor(model => model.cPrecioProducto)</h4>
 
-            @if (Model.iCantidad > 0)
+
+
+            @if (Model.bEstadoCarrito == true)
             {
 
-                <form class="cart clearfix" method="post">                   
-                    <button idProducto="@Model.iIdProducto" type="submit" name="addtocart" value="5" class="btn amado-btn">
-                        Agregar al carrito
-                    </button>
-                </form>
+                <div class="-flex-center-center -padding-t3pst">
+
+                    <p class="-fuente-muy-pequeña"><img src="~/Assets/img/checkmark.svg" />Agregado</p>
+                </div>
             }
             else
             {
-                <p>¡Agotado!</p>
+                if (Convert.ToInt32(Model.iCantidad) >= 1)
+                {
+                    <form class="cart clearfix" method="post">
+                        <button idProducto="@Model.iIdProducto" type="submit" name="addtocart" value="5" class="btn amado-btn">
+                            Agregar al carrito
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <p class="-color-producto-agotado">¡Agotado!</p>
+                }
+
             }
+
+
+
+
+           
 
         </div>
     </div>

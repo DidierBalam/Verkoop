@@ -12,7 +12,7 @@ namespace Verkoop.Business
         ProductoBusiness ProductoBusiness = new ProductoBusiness();
 
         /// <summary>
-        /// Método para agregar un producto al carrito
+        /// MÉTODO PARA AGREGAR UN PRODUCTO AL CARRITO.
         /// </summary>
         /// <param name="_objProducto">Contiene el idProducto y idUsuario</param>
         /// <returns>Retorna el estado de la consulta y la cantidad de productos agregados al carrito del usuario</returns>
@@ -59,7 +59,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para cambiar el estado de los productos del carrito al realizar el pago.
+        /// MÉTODO PARA CAMBIAR EL ESTADO DE LOS PRODUCTOS DEL CARRITO AL REALIZAR EL PAGO.
         /// </summary>
         /// <param name="_ctx">Recibe el contexto de la base de datos</param>
         /// <param name="_lstProducto">Recibe la lista de los productos a afectar</param>
@@ -81,23 +81,29 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para obtener los productos agregados del cliente.
+        /// MÉTODO PARA OBTENER LOS PRODUCTOS AGREGADOS DEL CLIENTE.
         /// </summary>
         /// <param name="_ctx">Recibe el contexto de la base de datos</param>
         /// <param name="_iIdUsuario">Recibe el id del usuario</param>
         /// <returns>Retorna el valor entero de los productos agregados al carrito</returns>
-        public int ObtenerNumeroTotalProductosDeUsuario(VerkoopDBEntities _ctx, int _iIdUsuario)
+        public int ObtenerNumeroTotalProductosDeUsuario(int _iIdUsuario)
         {
-            int _iProductosCarrito = (from carrito in _ctx.tblCarrito.AsNoTracking()
-                                      where carrito.iIdUsuario == _iIdUsuario
-                                      && carrito.lEstatus == false
-                                      select carrito.iIdUsuario).Count();
 
-            return _iIdUsuario;
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                int _iProductosCarrito = (from carrito in _ctx.tblCarrito.AsNoTracking()
+                                          where carrito.iIdUsuario == _iIdUsuario
+                                          && carrito.lEstatus == false
+                                          select carrito.iIdUsuario).Count();
+
+                return _iProductosCarrito;
+
+            }
+
         }
 
         /// <summary>
-        /// Método para visualizar productos en el carrito
+        /// MÉTODO PARA VISUALIZAR PRODUCTOS EN EL CARRITO.
         /// </summary>
         /// <param name="_iIdUsuario">Contiene el idUsuario</param>
         /// <returns>Retorna la lista de los productos</returns>
@@ -119,7 +125,7 @@ namespace Verkoop.Business
                                      cImagenCarrito = Producto.cImagen,
                                      cNombreproducto = Producto.cNombre,
                                      dPrecioProducto = Producto.dPrecio,
-                                     
+
 
                                  }).ToList();
             }
@@ -127,7 +133,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para quitar producto del carrito
+        /// MÉTODO PARA QUITAR PRODUCTO DEL CARRITO.
         /// </summary>
         /// <param name="_iIdCarrito">Contiene el idCarrito</param>
         /// <returns>Retorna el estado de la operación y su mensaje</returns>
@@ -160,7 +166,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para realizar el pago de los productos agregados al carrito.
+        /// MÉTODO PARA REALIZAR EL PAGO DE LOS PRODUCTOS AGREGADOS AL CARRITO.
         /// </summary>
         /// <param name="_objPago">Recibe el id del usuario</param>
         public object RealizarPago(int _iIdUsuario, RealizarPagoDTO _objPago)
@@ -203,7 +209,7 @@ namespace Verkoop.Business
                         _ctx.tblCompra.Add(_TablaCompra);
 
                         List<tblCarrito> _lstCarritoAfectado = CambiarEstadoProductoCarrito(_ctx, _objPago.lstProductoComprado);//Cambia estado del producto a true indicando que el producto se ha comprado.
-                        //List<tblCat_Producto> _lstProductoAfectado = ProductoBusiness.DisminuirCantidadProducto(_ctx, _objPago.lstProductoComprado); //Resta a la cantidad disponible del producto la cantidad asignada en la compra.
+                                                                                                                                //List<tblCat_Producto> _lstProductoAfectado = ProductoBusiness.DisminuirCantidadProducto(_ctx, _objPago.lstProductoComprado); //Resta a la cantidad disponible del producto la cantidad asignada en la compra.
 
                         _ctx.SaveChanges();
 
@@ -237,8 +243,13 @@ namespace Verkoop.Business
             });
         }
 
+        /// <summary>
+        /// MÉTODO PARA OBTENER LOS PRODUCTOS AGREGADOS AL CARRITO.
+        /// </summary>
+        /// <param name="Productos">Recibe el objecto con los productos</param>
+        /// <returns></returns>
         public PagoPaypalDTO ObtenerProductosCarrito(PagoPaypalDTO Productos)
-        { 
+        {
 
             List<ProductoPaypalDTO> lstProducto = new List<ProductoPaypalDTO>();
 
@@ -267,6 +278,13 @@ namespace Verkoop.Business
             return Productos;
         }
 
+        /// <summary>
+        /// MÉTODO PARA VERIFICAR LOS PRODUCTOS EN EL CARRITO.
+        /// </summary>
+        /// <param name="_ctx"></param>
+        /// <param name="_iIdProducto"></param>
+        /// <param name="_iIdUsuario"></param>
+        /// <returns></returns>
         public bool VerificarProductosEnCarrito(VerkoopDBEntities _ctx, int _iIdProducto, int _iIdUsuario)
         {
 

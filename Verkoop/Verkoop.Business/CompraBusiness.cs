@@ -22,7 +22,7 @@ namespace Verkoop.Business
         CorreoBusiness CorreoBusiness = new CorreoBusiness();
 
         /// <summary>
-        /// Método que crea un documento PDF.
+        /// MÉTODO QUE CREA UN DOCUMENTO PDF.
         /// </summary>
         /// <param name="_iIdCompra">Identificador de la compra.</param>
         /// <returns>Devuelve un array de bytes.</returns>
@@ -46,7 +46,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para Visualizar las compras del cliente
+        /// MÉTODO PARA VISUALIZAR LAS COMPRAS DEL CLIENTE.
         /// </summary>
         /// <param name="_iIdUsuario">Contiene el idUsuario</param>
         /// <returns>Retorna la lista de las compras</returns>
@@ -80,6 +80,10 @@ namespace Verkoop.Business
             return _lstCompras.ToList();
         }
 
+        /// <summary>
+        /// MÉTODO PARA OBTENER EL TOTAL DE COMPRAS REALIZADAS.
+        /// </summary>
+        /// <returns>Retorna la cantidad únicamente</returns>
         public int ObtenerNumeroTotalCompras()
         {
             int dato = 0;
@@ -90,6 +94,10 @@ namespace Verkoop.Business
             return dato;
         }
 
+        /// <summary>
+        /// MÉTODO PARA OBTENER EL TOTAL DE INGRESOS.
+        /// </summary>
+        /// <returns>er</returns>
         public decimal ObtenerNumeroTotalIngresoVentas()
         {
             decimal dato = 0;

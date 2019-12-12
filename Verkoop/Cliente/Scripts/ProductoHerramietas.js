@@ -30,6 +30,7 @@ $("#btnAcceder").click(function () {
 
 });
 
+
 //BOTÓN VER DEL PRODUCTO.
 $("#contendorProductos").on('click', '.btnVerProducto', function () {
 
@@ -40,7 +41,7 @@ $("#contendorProductos").on('click', '.btnVerProducto', function () {
 //BOTÓN AGREGAR PRODUCTO.
 $("#contendorProductos").on('click', '.btnAgregarCarrito', function () {
 
-    AgregarProductoCarrito($(this).attr('idProducto'));
+    AgregarProductoCarrito($(this).attr('idProducto'), $(this).closest("#EstadoProductoAlmacen"));
 
 });
 
@@ -61,11 +62,7 @@ $(function () {
     });
 });
 
-$("#btnSalir").click(function () {
-  
-    CerrarSesion();
 
-});
 
 
 /**

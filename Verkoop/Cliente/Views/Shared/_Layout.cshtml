@@ -58,8 +58,8 @@
                 <!-- Amado Nav -->
                 <!-- Cart Menu -->
                 <div class="cart-fav-search mb-100">
-                    @RenderSection("Opciones", false)                 
-                    <a href="#" class=""><img src="~/Assets/img/core-img/icono-salir.svg" alt=""> Salir</a>
+                    @RenderSection("Opciones", false)
+
                 </div>
             </div>
         </header>
@@ -74,7 +74,11 @@
     <script src="~/Assets/Librerias/Boostrap/bootstrap.min.js"></script>
     <script src="~/Assets/Librerias/SweetAlert/sweetalert2.all.min.js"></script>
 
+
+    <script src="~/Scripts/barraLateralHerramientas.js"></script>
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/UtileriaVerkoop.js"></script>
+
 
 </body>
 </html>

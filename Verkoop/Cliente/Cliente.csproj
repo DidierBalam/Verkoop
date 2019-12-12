@@ -175,6 +175,7 @@
     <Content Include="Assets\img\bg-img\cart1.jpg" />
     <Content Include="Assets\img\bg-img\cart2.jpg" />
     <Content Include="Assets\img\bg-img\cart3.jpg" />
+    <Content Include="Assets\img\checkmark.svg" />
     <Content Include="Assets\img\core-img\agregartarjeta.svg" />
     <Content Include="Assets\img\core-img\anadir.svg" />
     <Content Include="Assets\img\core-img\basura.svg" />
@@ -229,6 +230,7 @@
     <Content Include="Assets\js\map-active.js" />
     <Content Include="Assets\js\plugins.js" />
     <Content Include="Assets\js\popper.min.js" />
+    <Content Include="Scripts\barraLateralHerramientas.js" />
     <Content Include="Scripts\CarritoHerramientas.js" />
     <Content Include="Scripts\DireccionHerramientas.js" />
     <Content Include="Assets\Librerias\SweetAlert\sweetalert2.all.min.js" />

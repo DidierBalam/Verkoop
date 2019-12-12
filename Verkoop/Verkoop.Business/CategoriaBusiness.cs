@@ -11,10 +11,10 @@ namespace Verkoop.Business
     {
         private string _cMensaje = string.Empty;
         private string _EstadoConsulta = string.Empty;
-        private bool _bEstadoCategoria;
+       
 
         /// <summary>
-        /// Método para agregar una categoría.
+        /// MÉTODO PARA AGREGAR UNA CATEGORÍA.
         /// </summary>
         /// <param name="_cNombreCategoria">String que contiene el nombre de la categoría.</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
@@ -47,7 +47,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para conectar con EliminarCategoria().
+        /// MÉTODO PARA CONECTAR CON ELIMINARCATEGORIA().
         /// </summary>
         /// <param name="_iIdCategoria">Contiene el id de la categoría.</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
@@ -87,7 +87,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para conectar con ObtenerCategorias().
+        /// MÉTODO PARA CONECTAR CON OBTENERCATEGORIAS().
         /// </summary>
         /// <param name="_iIdUsuario">Contiene el id del usuario.</param>
         /// <returns>Retorna la lista de la consulta.</returns>

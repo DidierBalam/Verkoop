@@ -9,8 +9,8 @@
 @section Opciones{
 
     <a class="fav-nav -azul-cielo"><img src="~/Assets/img/core-img/icono-producto-azul.svg" alt=""> Productos</a>
-    <a class="cart-nav">
-        <img src="~/Assets/img/core-img/icono-carrito.svg" alt=""> Carrito<span>(0)</span>
+    <a id="tbnCarrito" class="cart-nav">
+        <img src="~/Assets/img/core-img/icono-carrito.svg" alt=""> Carrito<span>(<span id="TotalProductosCarrito">@ViewBag.TotalCarrito</span>)</span>
     </a>
     <a class="fav-nav"><img src="~/Assets/img/core-img/icono-compra.svg" alt="">Compras</a>
     @if (Session["iIdUsuario"] != null)
@@ -119,5 +119,5 @@
 
     <script src="~/Assets/js/utileriamodal.js"></script>
     <script src="~/Scripts/ProductoHerramietas.js"></script>
-    <script src="~/Scripts/UtileriaVerkoop.js"></script>
+    
 }

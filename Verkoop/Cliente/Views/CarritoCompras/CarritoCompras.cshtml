@@ -5,12 +5,16 @@
 }
 
 @section Opciones {
-    <a href="#" class="fav-nav -azul-cielo"><img src="~/Assets/img/core-img/icono-producto.svg" alt=""> Productos</a>
+    <a id="btnProducto" class="fav-nav -azul-cielo"><img src="~/Assets/img/core-img/icono-producto.svg" alt=""> Productos</a>
     <a href="carrito.html" class="cart-nav">
-        <img src="~/Assets/img/core-img/icono-carrito-azul.svg" alt=""> Carrito<span>(0)</span>
+        <img src="~/Assets/img/core-img/icono-carrito-azul.svg" alt=""> Carrito<span>(<span id="TotalProductosCarrito">@ViewBag.TotalCarrito</span>)</span>
     </a>
     <a href="compras.html" class="fav-nav"><img src="~/Assets/img/core-img/icono-compra.svg" alt="">Compras</a>
-    <a href="nuevoperfil.html" class=""><img src="~/Assets/img/core-img/icono-usuario.svg" alt=""> Perfil</a>
+    
+        <a class=""><img src="~/Assets/img/core-img/icono-usuario.svg" alt=""> Perfil</a>
+        <a id="btnSalir"><img src="~/Assets/img/core-img/icono-salir.svg" alt=""> Salir</a>
+
+    
 }
 
 <!--Comienza listado de productos-->
@@ -22,9 +26,9 @@
                     <h2>Carrito de compras.</h2>
                 </div>
                 <div class="cart-table clearfix" id="ContenedorProductos">
-                   
-                          @Html.Partial("_ProductoCarrito")
-                        
+
+                    @Html.Partial("_ProductoCarrito")
+
                 </div>
             </div>
             <div class="col-12 col-lg-4">

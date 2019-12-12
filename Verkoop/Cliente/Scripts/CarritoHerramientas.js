@@ -1,11 +1,22 @@
-﻿$(document).ready(function () {
+﻿
+$(document).on('click', '.btnEliminarCarrito', function () {
+
+    let iIdCarrito = $(this).attr('idCarrito');
+
+    QuitarProductoDeCarrito(iIdCarrito, $(this).closest("tr"));
+  
+
+});
+
+
+$(document).ready(function () {
 
     leerRadioButtonPago()
 
 });
 
 /**
- * Función que sirve para leer el valor de un radio button seleccionado.
+ * FUNCIÓN QUE SIRVE PARA LEER EL VALOR DE UN RADIO BUTTON SELECCIONADO.
  * */
 function leerRadioButtonPago() {
 
@@ -42,6 +53,9 @@ function leerRadioButtonPago() {
 
 }
 
+/**
+ * MÉTODO PARA OBTENER LOS PRODUCTOS AGREGADOS AL CARRITO.
+ * */
 function ObtenerProductos() {
 
     let lstProducto = []

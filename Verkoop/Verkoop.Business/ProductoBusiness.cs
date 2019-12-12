@@ -126,11 +126,11 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_iNumeroConsulta">Recibe el número de consultas realizadas</param>
         /// <returns>Retorna una lista con los productos</returns>
-        public List<VistaPreviaProductoClienteDTO> ObtenerProductosRecientes(int _iNumeroConsulta, int _iProductosObtener)
+        public List<VistaPreviaProductoClienteDTO> ObtenerProductosRecientes(int _iNumeroConsulta, int _iProductosObtener, int _iIdUsuario)
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
-                List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto
+                List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto                                                                    
                                                                      //orderby Producto.cNombre descending
                                                                      select new VistaPreviaProductoClienteDTO
                                                                      {
@@ -138,9 +138,11 @@ namespace Verkoop.Business
                                                                          cNombreProducto = Producto.cNombre,
                                                                          cImagenProducto = Producto.cImagen,
                                                                          dPrecioProducto = Producto.dPrecio.ToString(),
-                                                                         iCantidad = Producto.iCantidad
+                                                                         iCantidad = Producto.iCantidad,
+                                                                         bEstadoCarrito = _ctx.tblCarrito.Any(x => x.iIdProducto == Producto.iIdProducto 
+                                                                         && x.iIdUsuario == _iIdUsuario && x.lEstatus==false)
 
-                                                                     })/*.Skip(_iNumeroConsulta * _iProductosObtener)*/
+            })/*.Skip(_iNumeroConsulta * _iProductosObtener)*/
                                                                      //.Take(_iProductosObtener)
                                                                      .ToList();
                 return _lstProductos;
@@ -154,7 +156,7 @@ namespace Verkoop.Business
         /// <param name="_iIdCategoria">Recibe el id de la categoría</param>
         /// <param name="_iNumeroConsulta ">Recibe el número de consultas realizadas</param>
         /// <returns>Retorna una lista con los productos</returns>
-        public List<VistaPreviaProductoClienteDTO> ObtenerProductosPorCategoria(string _cCategoria, int _iNumeroConsulta, int _iProductosObtener)
+        public List<VistaPreviaProductoClienteDTO> ObtenerProductosPorCategoria(string _cCategoria, int _iNumeroConsulta, int _iProductosObtener, int _iIdUsuario)
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
@@ -169,7 +171,9 @@ namespace Verkoop.Business
                                                                          cNombreProducto = Producto.cNombre,
                                                                          cImagenProducto = Producto.cImagen,
                                                                          dPrecioProducto = Producto.dPrecio.ToString(),
-                                                                         iCantidad = Producto.iCantidad
+                                                                         iCantidad = Producto.iCantidad,
+                                                                         bEstadoCarrito = _ctx.tblCarrito.Any(x => x.iIdProducto == Producto.iIdProducto
+                                                                         && x.iIdUsuario == _iIdUsuario && x.lEstatus == false)
 
                                                                      }).Skip(_iNumeroConsulta * _iProductosObtener)
                                                                      .Take(_iProductosObtener)
@@ -183,7 +187,7 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_iNumeroConsulta">Recibe el número de consultas realizadas</param>
         /// <returns>Retorna una lista con los productos</returns>
-        public List<VistaPreviaProductoClienteDTO> ObtenerProductosMasComprados(int _iNumeroConsulta, int _iProductosObtener)
+        public List<VistaPreviaProductoClienteDTO> ObtenerProductosMasComprados(int _iNumeroConsulta, int _iProductosObtener, int _iIdUsuario)
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
@@ -198,7 +202,9 @@ namespace Verkoop.Business
                                                                          cNombreProducto = ProductoAgrupado.Select(x => x.Producto.cNombre).FirstOrDefault(),
                                                                          cImagenProducto = ProductoAgrupado.Select(x => x.Producto.cImagen).FirstOrDefault(),
                                                                          dPrecioProducto = ProductoAgrupado.Select(x => x.Producto.dPrecio).FirstOrDefault().ToString(),
-                                                                         iCantidad = ProductoAgrupado.Select(x => x.Producto.iCantidad).FirstOrDefault()
+                                                                         iCantidad = ProductoAgrupado.Select(x => x.Producto.iCantidad).FirstOrDefault(),
+                                                                         bEstadoCarrito = _ctx.tblCarrito.Any(y => y.iIdProducto == ProductoAgrupado.Select(x=>x.Producto.iIdProducto).FirstOrDefault()
+                                                                         && y.iIdUsuario == _iIdUsuario && y.lEstatus == false)
 
                                                                      }).Skip(_iNumeroConsulta * _iProductosObtener)
                                                                      .Take(_iProductosObtener)
@@ -213,7 +219,7 @@ namespace Verkoop.Business
         /// <param name="_cNombre">Recibe el nombre del producto</param>
         /// <param name="_iNumeroConsulta">Recibe el núemero de consultas realzadas</param>
         /// <returns>Retorna una lista con los productos</returns>
-        public List<VistaPreviaProductoClienteDTO> BuscarProducto(string _cNombre, int _iNumeroConsulta, int _iProductosObtener)
+        public List<VistaPreviaProductoClienteDTO> BuscarProducto(string _cNombre, int _iNumeroConsulta, int _iProductosObtener, int _iIdUsuario)
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             { 
@@ -227,7 +233,9 @@ namespace Verkoop.Business
                                                                          cNombreProducto = Producto.cNombre,
                                                                          cImagenProducto = Producto.cImagen,
                                                                          dPrecioProducto = Producto.dPrecio.ToString(),
-                                                                         iCantidad = Producto.iCantidad
+                                                                         iCantidad = Producto.iCantidad,
+                                                                         bEstadoCarrito = _ctx.tblCarrito.Any(x => x.iIdProducto == Producto.iIdProducto
+                                                                        && x.iIdUsuario == _iIdUsuario && x.lEstatus == false)
 
                                                                      }).Skip(_iNumeroConsulta * _iProductosObtener)
                                                                      .Take(_iProductosObtener)
@@ -277,7 +285,7 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_iIdProducto">Recibe el id del producto</param>
         /// <returns>Retorna un objeto con los datos del producto</returns>
-        public DetallesProductoDTO VisualizarDetallesDeProductoCliente(int _iIdProducto)
+        public DetallesProductoDTO VisualizarDetallesDeProductoCliente(int _iIdProducto, int _iIdUsuario)
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
@@ -290,7 +298,9 @@ namespace Verkoop.Business
                                                         cDescripcionProducto = Producto.cDescripcion,
                                                         cPrecioProducto = Producto.dPrecio.ToString(),
                                                         cImagenProducto = Producto.cImagen,
-                                                        iCantidad = Producto.iCantidad
+                                                        iCantidad = Producto.iCantidad,
+                                                        bEstadoCarrito = _ctx.tblCarrito.Any(x => x.iIdProducto == Producto.iIdProducto
+                                                                        && x.iIdUsuario == _iIdUsuario && x.lEstatus == false)
 
                                                     }).SingleOrDefault();
                 return _objProducto;

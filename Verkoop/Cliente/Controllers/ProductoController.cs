@@ -12,13 +12,16 @@ namespace Cliente.Controllers
 
         ProductoBusiness ProductoBusiness = new ProductoBusiness();
         CategoriaBusiness CategoriaBusiness = new CategoriaBusiness();
- #region Vistas
+        CarritoBusiness CarritoBusiness = new CarritoBusiness();
+
+        #region Vistas
         [HttpGet]
         public ActionResult Catalogo(string _cFiltro)
         {
-            
+
+            int _iTotalCarrito = 0;
             string _cFiltroUpper = _cFiltro != null ? _cFiltro.ToUpper() : "RECIENTES";
-            //string _cFiltro = JsonConvert.DeserializeObject<string>(Request["Filtro"]==null ? "": Request["Filtro"]);
+            
 
             List<VistaPreviaProductoClienteDTO> _lstProducto = new List<VistaPreviaProductoClienteDTO>();
 
@@ -40,9 +43,14 @@ namespace Cliente.Controllers
 
             List<CategoriaDTO> _lstCategoria = CategoriaBusiness.ObtenerCategorias();
 
-           
+            if (Session["iIdUsuario"] != null)
+            {
+                _iTotalCarrito = CarritoBusiness.ObtenerNumeroTotalProductosDeUsuario(Convert.ToInt32(Session["iIdUsuario"]));
+            }
+
             ViewBag.Data = _lstCategoria;
             ViewBag.Select = _cFiltroUpper;
+            ViewBag.TotalCarrito = _iTotalCarrito;
 
             return View(_lstProducto);
         }
@@ -68,7 +76,7 @@ namespace Cliente.Controllers
         /// <returns>Retorna un objeto con los datos del producto</returns>
         public DetallesProductoDTO VisualizarDetallesDeProductoCliente(int _iIdProducto)
         {
-            DetallesProductoDTO _objProducto = ProductoBusiness.VisualizarDetallesDeProductoCliente(_iIdProducto);
+            DetallesProductoDTO _objProducto = ProductoBusiness.VisualizarDetallesDeProductoCliente(_iIdProducto, Convert.ToInt32(Session["iIdUsuario"]));
 
             return _objProducto;
         }
@@ -80,7 +88,7 @@ namespace Cliente.Controllers
         /// <returns></returns>
         public List<VistaPreviaProductoClienteDTO> ProductosRecientes(int _iNumeroConsulta)
         {
-            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosRecientes(_iNumeroConsulta, iProductosObtener);
+            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosRecientes(_iNumeroConsulta, iProductosObtener, Convert.ToInt32(Session["iIdUsuario"]));
 
             return _lstProducto;
         }
@@ -92,7 +100,7 @@ namespace Cliente.Controllers
         /// <returns></returns>
         public List<VistaPreviaProductoClienteDTO> ProductosMasComprados(int _iNumeroConsulta)
         {
-            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosMasComprados(_iNumeroConsulta, iProductosObtener);
+            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosMasComprados(_iNumeroConsulta, iProductosObtener, Convert.ToInt32(Session["iIdUsuario"]));
 
             return _lstProducto;
         }
@@ -105,30 +113,30 @@ namespace Cliente.Controllers
         /// <returns></returns>
         public List<VistaPreviaProductoClienteDTO> ProductosPorCategoria(string _cCategoria, int _iNumeroConsulta)
         {
-            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosPorCategoria(_cCategoria, _iNumeroConsulta, iProductosObtener);
+            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.ObtenerProductosPorCategoria(_cCategoria, _iNumeroConsulta, iProductosObtener, Convert.ToInt32(Session["iIdUsuario"]));
 
             return _lstProducto;
         }
 
         /// <summary>
-        /// 
+        /// MÉTODO PARA BUSCAR PRODUCTOS.
         /// </summary>
-        /// <param name="_cNombre"></param>
-        /// <param name="_iNumeroConsulta"></param>
+        /// <param name="_cNombre">Recibe el nombre del producto</param>
+        /// <param name="_iNumeroConsulta">Recibe el número de la consulta</param>
         /// <returns></returns>
         [HttpPost]
         public PartialViewResult BuscarProducto(string _cNombre, int _iNumeroConsulta)
         {
-            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.BuscarProducto(_cNombre, _iNumeroConsulta, iProductosObtener);
+            List<VistaPreviaProductoClienteDTO> _lstProducto = ProductoBusiness.BuscarProducto(_cNombre, _iNumeroConsulta, iProductosObtener, Convert.ToInt32(Session["iIdUsuario"]));
 
             return PartialView(_lstProducto);
         }
 
         /// <summary>
-        /// 
+        /// MÉTODO PARA VER MÁS PRODUCTOS.
         /// </summary>
-        /// <param name="_cFiltro"></param>
-        /// <param name="_iNumeroConsulta"></param>
+        /// <param name="_cFiltro">Recibe el filtro</param>
+        /// <param name="_iNumeroConsulta">Recibe el número de la consulta</param>
         /// <returns></returns>
         public PartialViewResult VerMasProductos(string _cFiltro, int _iNumeroConsulta)
         {

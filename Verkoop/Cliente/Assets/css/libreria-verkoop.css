@@ -643,3 +643,11 @@ button {
 .-ColorText{    
     color:white!important;
 }
+
+
+.-color-producto-agotado {
+    color: #d83219;
+    text-decoration: line-through;
+    
+}
+.-fuente-muy-pequeña{font-size:10px;}

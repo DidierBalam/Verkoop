@@ -21,7 +21,11 @@ namespace Cliente.Controllers
         /// <returns>Retorna la lista de los productos en carrito</returns>
         public ActionResult CarritoCompras()
         {
-            List<ProductoEnCarritoDTO> _lstProducto = ObtenerProductosDeUsuario(1/* Variable sesión*/);
+            int _iTotalCarrito = CarritoBusiness.ObtenerNumeroTotalProductosDeUsuario(Convert.ToInt32(Session["iIdUsuario"]));
+
+            ViewBag.TotalCarrito = _iTotalCarrito;
+
+            List<ProductoEnCarritoDTO> _lstProducto = ObtenerProductosDeUsuario(Convert.ToInt32(Session["iIdUsuario"]));
 
             return View(_lstProducto);
         }
@@ -34,7 +38,21 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult AgregarProductoCarrito(int _iIdProducto)
         {
-            object _objResultado = CarritoBusiness.AgregarProductoCarrito(_iIdProducto, 1);
+            object _objResultado;
+
+            if (Session["iIdUsuario"] != null)
+            {
+                _objResultado = CarritoBusiness.AgregarProductoCarrito(_iIdProducto, Convert.ToInt32(Session["iIdUsuario"]));
+
+            }
+            else
+            {
+                _objResultado = new
+                {
+                    _bEstadoOperacion = false,
+                    _cMensaje = "¡Inicie sesión para poder agregar el producto al carrito!"
+                };
+            }
 
             return Json(_objResultado);
         }
@@ -99,7 +117,7 @@ namespace Cliente.Controllers
 
             PaypalBusiness oPaypal = new PaypalBusiness();
 
-            
+
             APIContext apiContext = PaypalConfiguracion.GetAPIContext();// Llamada al apiContext de Paypal.
 
             try

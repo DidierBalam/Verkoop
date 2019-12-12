@@ -9,5 +9,7 @@ namespace Verkoop.CapaDatos.DTO
         public string dPrecioProducto { get; set; }
         public int iCantidad { get; set; }
         public int iIdProducto { get; set; }
+
+        public bool bEstadoCarrito { get; set; }
     }
 }
