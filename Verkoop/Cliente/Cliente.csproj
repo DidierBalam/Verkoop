@@ -229,6 +229,7 @@
     <Content Include="Assets\js\map-active.js" />
     <Content Include="Assets\js\plugins.js" />
     <Content Include="Assets\js\popper.min.js" />
+    <Content Include="Scripts\Agradecimiento.js" />
     <Content Include="Scripts\CarritoHerramientas.js" />
     <Content Include="Scripts\DireccionHerramientas.js" />
     <Content Include="Assets\Librerias\SweetAlert\sweetalert2.all.min.js" />
@@ -286,6 +287,7 @@
     <Content Include="Views\Producto\VerMasProductos.cshtml" />
     <Content Include="Views\Shared\_ProductoCarrito.cshtml" />
     <Content Include="Views\Shared\_ComprasRealizadas.cshtml" />
+    <Content Include="Views\CarritoCompras\Agradecimiento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\scss\style.scss" />

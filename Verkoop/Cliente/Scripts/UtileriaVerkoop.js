@@ -304,7 +304,7 @@ function InsertarCardTarjeta(objTarjeta, cElemento) {
 * @param {any} cMetodo Recibe la url del método.
 * @param {any} datoEnvio Recibe los datos a enviar.
 */
-function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato) {
+function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato, cTipoContenido = null) {
 
     return new Promise((objResultado) => {
 
@@ -314,6 +314,7 @@ function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato) {
             data: Data,
             async: false,
             dataType: cTipoDato,
+            contentType: cTipoContenido,
             success: function (Respuesta) {
 
                 objResultado(Respuesta);

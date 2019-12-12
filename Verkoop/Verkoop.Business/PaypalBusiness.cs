@@ -37,7 +37,6 @@ namespace Verkoop.Business
         /// <returns></returns>
         public Payment CrearPago(APIContext apiContext, string redirectUrl, PagoPaypalDTO Productos)
         {
-
             CarritoBusiness oCarrito = new CarritoBusiness();
 
             PagoPaypalDTO lstProductos = oCarrito.ObtenerProductosCarrito(Productos);
@@ -63,16 +62,14 @@ namespace Verkoop.Business
             // Configuración de las URLs.
             var redirUrls = new RedirectUrls()
             {
-                cancel_url = redirectUrl + "&Cancel=true",
-                return_url = redirectUrl
+                cancel_url = redirectUrl,
+                return_url = redirectUrl + "/CarritoCompras/Agradecimiento"
             };
 
             // Impuesto, Envio, subTotal
             var details = new Details()
             {
-                //tax = "1",
-                //shipping = "1",
-                subtotal = lstProductos.dPrecioTotal.ToString()//"1"
+                subtotal = lstProductos.dPrecioTotal.ToString()
             };
 
             //Cantidad final con detalles.

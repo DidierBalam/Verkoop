@@ -63,16 +63,19 @@ function ObtenerProductos() {
 
     Productos = JSON.stringify(Productos);
 
-    $.ajax({
+    ObtenerMetodoControlador("POST", "PagoConPaypal", Productos, "JSON", "application/json; charset=utf-8").then((objRespuesta) => {
 
-        type: "POST",
-        url: "PagoConPaypal",
-        data: Productos,
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        success: function () {
-            console.log("éxito")
+        if (objRespuesta._bEstadoOperacion == true) {
+
+            window.location.replace(objRespuesta._cPaypalRedirectUrl);
+
+        }
+        else {
+
+            llamarSwetalert(objRespuesta);
+
         }
 
-    });
+    })
+
 }
