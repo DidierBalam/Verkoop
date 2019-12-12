@@ -34,6 +34,11 @@ namespace Cliente.Controllers
             return View(_lstDirecciones);
         }
 
+        public ActionResult NuevaDireccion()
+        {
+            return View();
+        }
+
         /// <summary>
         /// Método que devuelve la vista tarjetas con la lista de tarjetas
         /// </summary>  

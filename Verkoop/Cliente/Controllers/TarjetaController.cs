@@ -74,8 +74,5 @@ namespace Cliente.Controllers
 
             return Json(_lstTarjetas);
         }
-
-
-
     }
 }

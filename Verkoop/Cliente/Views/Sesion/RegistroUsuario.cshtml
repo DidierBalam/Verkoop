@@ -4,125 +4,140 @@
     Layout = "~/Views/Shared/_SesionLayout.cshtml";
 }
 
-<div class="w-100">
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+            <div class="w-100">
 
-    <ul class="nav nav-tabs " id="myTab" role="tablist">
-        <li class="nav-item col-lg-6 -AlingTabs">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#cRegistro" role="tab" aria-controls="home" aria-selected="true">Registro usuario</a>
-        </li>
+                <ul class="nav nav-tabs " id="myTab" role="tablist">
+                    <li class="nav-item col-lg-6 -AlingTabs">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#cRegistro" role="tab" aria-controls="home" aria-selected="true"></a>
+                    </li>
 
-        <li class="nav-item  col-lg-6 -AlingTabs">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#cContrasenia" role="tab" aria-controls="profile" aria-selected="false">Contraseña</a>
-        </li>
-    </ul>
+                    <li class="nav-item  col-lg-6 -AlingTabs">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#cContrasenia" role="tab" aria-controls="profile" aria-selected="false"></a>
+                    </li>
+                </ul>
 
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="cRegistro" role="tabpanel" aria-labelledby="home-tab">
-            <form>
-                <h3 class="title text-center -AlinearBotonRegistro ">Registro de usuario.</h3>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="cRegistro" role="tabpanel" aria-labelledby="home-tab">
+                        <form>
+                            <h3 class="title text-center -AlinearBotonRegistro ">Registro de usuario.</h3>
 
-                <div class="form-group">
-                    <label for="cNombre"></label>
-                    <input type="text" class="form-control" id="cNombre" placeholder="Ingrese nombre.">
-                </div>
+                            <div class="form-group">
+                                <label for="cNombre"></label>
+                                <input type="text" class="form-control" id="cNombre" placeholder="Ingrese nombre.">
+                            </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="cApellidoPaterno"></label>
-                        <input type="text" class="form-control" id="cApellidoPaterno" placeholder="Apellido paterno">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="cApellidoPaterno"></label>
+                                    <input type="text" class="form-control" id="cApellidoPaterno" placeholder="Apellido paterno">
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="cApellidoMaterno"></label>
+                                    <input type="text" class="form-control" id="cApellidoMaterno" placeholder="Apellido Materno">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cCorreo">Correo electrónico</label>
+                                <input type="email" class="form-control" id="cCorreo" placeholder="ejemplo@gmail.mx">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cDireccion">Dirección</label>
+                                <input type="text" class="form-control" id="cDireccion" placeholder=" ejemplo: calle 1 x 2 y 3 S/N">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="cPais">País</label>
+                                    <select id="cPais" class="form-control">
+                                        <option selected>....</option>
+                                        <option>México</option>
+                                        <option>Estados Unidos</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="cCiudad">Ciudad</label>
+                                    <select id="cCiudad" class="form-control">
+                                        <option selected>....</option>
+                                        <option>Mérida</option>
+                                        <option>Guanajuato</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="cMunicipio">Municipio</label>
+                                    <select id="cMunicipio" class="form-control">
+                                        <option selected>....</option>
+                                        <option>Progreso</option>
+                                        <option>Baca</option>
+                                        <option>Motul</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="cApellidoPaterno">Código postal</label>
+                                    <input type="text" class="form-control" id="cCodigoPostal" placeholder="27900">
+                                </div>
+                            </div>
+
+                            <div class="cart-btn mt-30 justify-content-center">
+                                <a href="" id="cContinuar" class="btn amado-btn w-50 -ml-15">Continuar</a>
+                            </div>
+
+                            <div class="cart-btn mt-30 justify-content-center">
+                                <a class="-AlinearPregunta w-50 -ml-15" href="#">¿Ya tengo cuenta?</a>
+                            </div>
+                        </form>
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="cApellidoMaterno"></label>
-                        <input type="text" class="form-control" id="cApellidoMaterno" placeholder="Apellido Materno">
+                    <div class="tab-pane fade" id="cContrasenia" role="tabpanel" aria-labelledby="profile-tab">
+                        <form>
+                            <h3 class="title text-center -AlinearBotonRegistro ">Contraseña.</h3>
+
+                            <div>
+                                <div class=" -AlingInput">
+                                    <img class="-AlingIconoSesion" src="~/Assets/img/core-img/candado.svg" alt="">
+
+                                    <label for="cNombre"></label>
+                                    <input type="text" class="form-control w-100  " id="cNombre" placeholder="Ingrese contraseña">
+
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class=" -AlingInput">
+                                    <img class="-AlingIconoSesion " src="~/Assets/img/core-img/recargar.svg" alt="">
+                                    <label for="cNombre"></label>
+                                    <input type="text" class="form-control w-100  " id="cNombre" placeholder="Confirmar contraseña">
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="-AlingIconoSesion2 -padding-9px">
+
+                                    <a href="#" class="btn amado-btn active -AlingSesion3" id="cAtras">Atrás</a>
+                                    <a href="" class="btn amado-btn w-30">Registrar</a>
+
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="cCorreo">Correo electrónico</label>
-                    <input type="email" class="form-control" id="cCorreo" placeholder="ejemplo@gmail.mx">
-                </div>
-
-                <div class="form-group">
-                    <label for="cDireccion">Dirección</label>
-                    <input type="text" class="form-control" id="cDireccion" placeholder=" ejemplo: calle 1 x 2 y 3 S/N">
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="cPais">País</label>
-                        <select id="cPais" class="form-control">
-                            <option selected>....</option>
-                            <option>México</option>
-                            <option>Estados Unidos</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label for="cCiudad">Ciudad</label>
-                        <select id="cCiudad" class="form-control">
-                            <option selected>....</option>
-                            <option>Mérida</option>
-                            <option>Guanajuato</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label for="cMunicipio">Municipio</label>
-                        <select id="cMunicipio" class="form-control">
-                            <option selected>....</option>
-                            <option>Progreso</option>
-                            <option>Baca</option>
-                            <option>Motul</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="cart-btn mt-30 justify-content-center">
-                    <a href="" id="cContinuar" class="btn amado-btn w-50 -ml-15">Continuar</a>
-                </div>
-
-                <div class="cart-btn mt-30 justify-content-center">
-                    <a class="-AlinearPregunta w-50 -ml-15" href="#">¿Ya tengo cuenta?</a>
-                </div>
-            </form>
-        </div>
-
-        <div class="tab-pane fade" id="cContrasenia" role="tabpanel" aria-labelledby="profile-tab">
-            <form>
-                <h3 class="title text-center -AlinearBotonRegistro ">Contraseña.</h3>
-
-                <div>
-                    <div class=" -AlingInput">
-                        <img class="-AlingIconoSesion" src="~/Assets/img/core-img/candado.svg" alt="">
-
-                        <label for="cNombre"></label>
-                        <input type="text" class="form-control w-100  " id="cNombre" placeholder="Ingrese contraseña">
-
-                    </div>
-                </div>
-
-                <div>
-                    <div class=" -AlingInput">
-                        <img class="-AlingIconoSesion " src="~/Assets/img/core-img/recargar.svg" alt="">
-                        <label for="cNombre"></label>
-                        <input type="text" class="form-control w-100  " id="cNombre" placeholder="Confirmar contraseña">
-                    </div>
-                </div>
-
-                <div>
-                    <div class="-AlingIconoSesion2 -padding-9px">
-
-                        <a href="#" class="btn amado-btn active -AlingSesion3" id="cAtras">Atrás</a>
-                        <a href="" class="btn amado-btn w-30">Registrar</a>
-
-                    </div>
-                </div>
-            </form>
+            @section scripts{
+                <script src="~/Scripts/UtileriaVerkoop.js"></script>
+            }
         </div>
     </div>
 </div>
 
-@section scripts{
-    <script src="~/Scripts/UtileriaVerkoop.js"></script>
-}
+
+
+
