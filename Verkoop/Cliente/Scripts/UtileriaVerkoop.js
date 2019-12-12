@@ -12,6 +12,121 @@ $('#cAtras').click(function (e) {
 
 
 /**
+ * 
+ * @param {any} iIdPais
+ */
+function ObtenerEstadosPorPais(iIdPais) {
+
+    ObtenerMetodoControlador("POST", "../Direccion/ObtenerEstadosPorPais", { _iIdPais: iIdPais }, "JSON").then((objRespuesta) => {
+
+        RellenarSelectEstado(objRespuesta, "#cEstado");
+       
+    });
+
+}
+
+
+/**
+ * 
+ * @param {any} iIdPais
+ */
+function ObtenerMunicipiosPorEstado(iIdEstado) {
+
+    ObtenerMetodoControlador("POST", "../Direccion/ObtenerMunicipiosPorEstado", { _iIdEstado: iIdEstado }, "JSON").then((objRespuesta) => {
+
+        RellenarSelectMunicipio(objRespuesta, "#cMunicipio");
+
+    });
+
+}
+
+/**
+ * 
+ * @param {any} objRespuesta
+ * @param {any} cElemento
+ */
+function RellenarSelectEstado(objRespuesta, cElemento) {
+
+    let cOpciones = "";
+
+    for (let i = 0; i < objRespuesta.length; i++) {
+
+        cOpciones = cOpciones + '<option value="' + objRespuesta[i].iIdEstado + '">' + objRespuesta[i].cNombre + '</option>';
+    }
+
+    $(cElemento).append(cOpciones);
+    $(cElemento).prop('disabled', false);
+
+}
+
+
+/**
+ * 
+ * @param {any} objRespuesta
+ * @param {any} cElemento
+ */
+function RellenarSelectMunicipio(objRespuesta, cElemento) {
+
+    let cOpciones = "";
+
+    for (let i = 0; i < objRespuesta.length; i++) {
+
+        cOpciones = cOpciones + '<option value="' + objRespuesta[i].iIdMunicipio + '">' + objRespuesta[i].cNombre + '</option>';
+    }
+
+    $(cElemento).append(cOpciones);
+    $(cElemento).prop('disabled', false);
+
+}
+
+/**
+ * 
+ * @param {any} objUsuario
+ */
+function RegistrarUsuario(objUsuario) {
+
+    let Data = {};
+
+    Data["objDatosUsuario"] = JSON.stringify(objUsuario);
+
+    ObtenerMetodoControlador("POST", "../Sesion/RegistrarUsuario", Data, "JSON").then((objRespuesta) => {
+
+        if (objRespuesta._bEstadoOperacion == true) { //se obtiene la respuesta verdadera y redirecciona a la vista principal
+
+            localStorage.setItem("VerkoopCorreo", objUsuario.cCorreo);
+
+            window.location.href = "../Sesion/VerificarContrasenia";
+        }
+        else {
+
+            llamarSwetalert(objRespuesta);
+        }
+    });
+
+}
+
+/**
+ * MÉTODO PARA VERIFICAR LA CUENTA AL REGISTRARSE.
+ * @param {any} cCodigo Recibe el código de verificación.
+ */
+function VerificarCuenta(cCodigo) {
+
+    let cCorreo = localStorage.getItem("VerkoopCorreo");
+
+    ObtenerMetodoControlador("POST", "../Sesion/VerficarCuenta", { _cCodigo : cCodigo, _cCorreo: cCorreo }, "JSON").then((objRespuesta) => {
+
+        if (objRespuesta._bEstadoOperacion == true) { 
+
+            window.location.href = "../Producto/Catalogo";
+        }
+        else {
+
+            llamarSwetalert(objRespuesta);
+        }
+    });
+}
+
+/**
  * FUNCIÓN PARA INICIAR SESIÓN.
  * @param {any} cCorreo Recibe el correo del usuario.
  * @param {any} cContrasenia Recibe la contraseña del usuario.
@@ -22,11 +137,11 @@ function IniciarSesion(cCorreo, cContrasenia) {
     Data["Correo"] = JSON.stringify(cCorreo);
     Data["Contrasenia"] = JSON.stringify(cContrasenia);
 
-    ObtenerMetodoControlador("POST", "/Sesion/IniciarSesion", Data, "JSON").then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "../Sesion/IniciarSesion", Data, "JSON").then((objRespuesta) => {
 
         if (objRespuesta._bEstadoOperacion == true) { //se obtiene la respuesta verdadera y redirecciona a la vista principal
-            llamarSwetalert(objRespuesta);
-            window.location.replace("/Producto/Principal")
+            
+            window.location.href = "../Producto/Catalogo";
         }
         else {
 
@@ -34,6 +149,15 @@ function IniciarSesion(cCorreo, cContrasenia) {
         }
     });
 }
+
+/**
+ * FUNCIÓN PARA CERRAR LA SESIÓN.
+ * */
+function CerrarSesion() {
+
+    window.location.href = "../Sesion/CerrarSesion";
+}
+
 
 /**
  * Esta función Elimina tarjeta de usuario
@@ -71,11 +195,18 @@ function AgregarProductoCarrito(iIdProducto) {
  * Función para eliminar una dirección.
  * @param {any} iIdDireccion Recibe el id de la dirección.
  */
-function EliminarDireccion(iIdDireccion) {
-    console.log(iIdDireccion)
-    ObtenerMetodoControlador("POST", "/Direccion/EliminarDireccion", { _iIdDireccion: iIdDireccion }, "JSON").then((objRespuesta) => {
-        alert(objRespuesta._bEstadoOperacion + " : " + objRespuesta._cMensaje);
-      
+function EliminarDireccion(iIdDireccion, cElementoDireccion) {
+    //console.log(iIdDireccion)
+    ObtenerMetodoControlador("POST", "../Direccion/EliminarDireccion", { _iIdDireccion: iIdDireccion }).then((objRespuesta) => {
+        //alert(objRespuesta._bEstadoOperacion + " : " + objRespuesta._cMensaje);
+        if (objRespuesta._bEstadoOperacion == true) { /// se obtiene  el estado verdadero y se redirecciona a la acción de eliminardirección.
+
+            LlamarSwetalertDireccion(objRespuesta)
+            EliminarElementoDireccion(cElementoDireccion)
+        }
+        else {
+            LlamarSwetalertDireccion(objRespuesta)
+        }
 
     })
 }
@@ -223,6 +354,19 @@ function EliminarElementoHTML(cElemento) {
     cElemento.remove();
 
 }
+}
+
+
+
+/**
+ * función que elimina elementos HTML
+ * @param {any} cElementoDireccion contiene el elemento que sera removido
+ */
+function EliminarElementoDireccion(cElementoDireccion) {
+
+    cElementoDireccion.remove();
+
+}
 
 function AlmacenarTarjeta(cElemento, objTarjeta) {
 
@@ -346,6 +490,22 @@ function EjecutarAlerta(cTipo, cTitulo, cTexto) {
  * @param {any} objRespuesta recibe el objeto respuesta
  */
 function llamarSwetalert(objRespuesta) {
+
+    if (objRespuesta._bEstadoOperacion) {
+
+        EjecutarAlerta("success", "Ok", objRespuesta._cMensaje);
+    }
+    else {
+        EjecutarAlerta("error", "Error", objRespuesta._cMensaje);
+    }
+}
+
+
+/**
+ * Función para llamar el swetAlert
+ * @param {any} objRespuesta recibe el objeto respuesta
+ */
+function LlamarSwetalertDireccion(objRespuesta) {
 
     if (objRespuesta._bEstadoOperacion) {
 

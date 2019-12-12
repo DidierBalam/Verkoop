@@ -14,21 +14,12 @@ namespace Verkoop.CapaDatos
     
     public partial class tblTarjeta
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblTarjeta()
-        {
-            this.tblCompra = new HashSet<tblCompra>();
-        }
-    
         public int iIdTarjeta { get; set; }
         public int iIdUsuario { get; set; }
         public string cNumeroTarjeta { get; set; }
         public string cMesVigencia { get; set; }
         public string cAnioVigencia { get; set; }
-        public bool lDefault { get; set; }
     
         public virtual tblCat_Usuario tblCat_Usuario { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblCompra> tblCompra { get; set; }
     }
 }

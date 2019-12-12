@@ -119,7 +119,7 @@ namespace Verkoop.Business
                                      cImagenCarrito = Producto.cImagen,
                                      cNombreproducto = Producto.cNombre,
                                      dPrecioProducto = Producto.dPrecio,
-                                     iCantidad = Producto.iCantidad
+                                     
 
                                  }).ToList();
             }
@@ -183,7 +183,6 @@ namespace Verkoop.Business
                         {
                             iIdUsuario = _iIdUsuario,
                             iIdDireccion = _objPago.iIdDireccion,
-                            iIdTarjeta = _objPago.objTarjeta.iIdTarjeta,
                             dtFecha = DateTime.Today
                         };
 
