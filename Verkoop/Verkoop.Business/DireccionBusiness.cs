@@ -57,7 +57,7 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_iIdDireccion">Recibe el id de la dirección.</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
-        public object EliminarDirecion(int _iIdDireccion)
+        public object EliminarDireccion(int _iIdDireccion)
         {
             string _cMensaje;
             bool _bEstadoOperación;
@@ -66,12 +66,9 @@ namespace Verkoop.Business
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    tblDireccion _tabladireccion = new tblDireccion
-                    {
-                        iIdDireccion = (from Direccion in _ctx.tblDireccion
-                                        where Direccion.iIdDireccion == _iIdDireccion
-                                        select Direccion.iIdDireccion).First()
-                    };
+                    tblDireccion _tabladireccion = (from Direccion in _ctx.tblDireccion
+                                                    where Direccion.iIdDireccion == _iIdDireccion
+                                                    select Direccion).SingleOrDefault();
 
                     _ctx.tblDireccion.Remove(_tabladireccion);
                     _ctx.SaveChanges();
@@ -152,7 +149,6 @@ namespace Verkoop.Business
                                                           bEstado = Direccion.lDefault
 
                                                       }).ToList();
-
 
                 return _lstDirecciones;
             }

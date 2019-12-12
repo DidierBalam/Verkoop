@@ -14,10 +14,16 @@ namespace Cliente.Controllers
         CarritoBusiness CarritoBusiness = new CarritoBusiness();
         TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
 
-        // GET: CarritoCompras
+
+        /// <summary>
+        /// Método para visualizar el carrito de compras
+        /// </summary>
+        /// <returns>Retorna la lista de los productos en carrito</returns>
         public ActionResult CarritoCompras()
         {
-            return View();
+            List<ProductoEnCarritoDTO> _lstProducto = ObtenerProductosDeUsuario(1/* Variable sesión*/);
+
+            return View(_lstProducto);
         }
 
         /// <summary>
@@ -26,9 +32,9 @@ namespace Cliente.Controllers
         /// <param name="_objProducto">Contiene el idProducto y idUsuario</param>
         /// <returns>Retorna el estado de la consulta y la cantidad de productos agregados al carrito del usuario</returns>
         [HttpPost]
-        public JsonResult AgregarProductoCarrito(int _iIdProducto, int _iCantidad)
+        public JsonResult AgregarProductoCarrito(int _iIdProducto)
         {
-            object _objResultado = CarritoBusiness.AgregarProductoCarrito(_iIdProducto, 1, _iCantidad);
+            object _objResultado = CarritoBusiness.AgregarProductoCarrito(_iIdProducto, 1);
 
             return Json(_objResultado);
         }
@@ -51,12 +57,12 @@ namespace Cliente.Controllers
         /// </summary>
         /// <param name="_iIdUsuario">Contiene el idUsuario</param>
         /// <returns>Retorna la lista de los productos</returns>
-        [HttpPost]
-        public JsonResult ObtenerProductosDeUsuario(int _iIdUsuario)
+
+        public List<ProductoEnCarritoDTO> ObtenerProductosDeUsuario(int _iIdUsuario)
         {
             List<ProductoEnCarritoDTO> _lstResultado = CarritoBusiness.ObtenerProductosDeUsuario(_iIdUsuario);
 
-            return Json(_lstResultado);
+            return _lstResultado;
         }
 
         /// <summary>
@@ -71,7 +77,7 @@ namespace Cliente.Controllers
             if (_objPago.objTarjeta.iIdTarjeta == 0) //Verifica si no se está recibiendo el id de alguna tarjeta seleccionada
             {
 
-                _objRespuestaGuardarTarjeta = TarjetaBusiness.GuardarTarjeta(1,_objPago.objTarjeta); //Guarda la tarjeta y recibe el estado de la operación y la tarjeta guardada.
+                _objRespuestaGuardarTarjeta = TarjetaBusiness.GuardarTarjeta(1, _objPago.objTarjeta); //Guarda la tarjeta y recibe el estado de la operación y la tarjeta guardada.
 
                 _objPago.objTarjeta.iIdTarjeta = Convert.ToInt32(_objRespuestaGuardarTarjeta.GetType().GetProperty("_objDatosTarjeta.iIdTarjeta").GetValue(_objRespuestaGuardarTarjeta));//Obtiene el id de la tarjeta y se lo asigna al objeto tarjeta que pertenece al objeto pago.
 
@@ -87,15 +93,14 @@ namespace Cliente.Controllers
         /// </summary>
         /// <param name="Cancel">Sirve para cancelar el pago.</param>
         /// <returns>Una vista de Éxito o Error.</returns>
-        [HttpGet]
-        public ActionResult PagoConPaypal(string Cancel = null)
+        [HttpPost]
+        public ActionResult PagoConPaypal(PagoPaypalDTO Productos, string Cancel = null)
         {
-            //_objPago = JsonConvert.DeserializeObject<RealizarPagoDTO>(Request["_objPago"]);
 
             PaypalBusiness oPaypal = new PaypalBusiness();
 
-            // Llamada al apiContext de Paypal.
-            APIContext apiContext = PaypalConfiguracion.GetAPIContext();
+            
+            APIContext apiContext = PaypalConfiguracion.GetAPIContext();// Llamada al apiContext de Paypal.
 
             try
             {
@@ -115,12 +120,12 @@ namespace Cliente.Controllers
                     // Aquí se genera el GUID para almacenar el ID del pago recibido en la sesión.
                     // Será usado en el proceso de pago.
                     var _guid = Convert.ToString((new Random()).Next(100000));
-                    
+
                     // _pagoCreado devuelve la url aprovada
                     // en el cuál el comprador es redirigido para proceder al proceso de pago de paypal.
-                    var _pagoCreado = oPaypal.CrearPago(apiContext, _baseURI + "guid=" + _guid);
+                    var _pagoCreado = oPaypal.CrearPago(apiContext, _baseURI + "guid=" + _guid, Productos);
 
-                    
+
                     var _links = _pagoCreado.links.GetEnumerator(); // Obtiene los links devueltos de paypal.
 
                     string _cPaypalRedirectUrl = null;
@@ -131,7 +136,7 @@ namespace Cliente.Controllers
 
                         if (lnk.rel.ToLower().Trim().Equals("approval_url"))
                         {
-                            
+
                             _cPaypalRedirectUrl = lnk.href; // Guardar la url de paypal para redirigir al usuario a pagar.
                         }
                     }
@@ -149,7 +154,7 @@ namespace Cliente.Controllers
 
                     var _pagoRealizado = oPaypal.EjecutarPago(apiContext, _payerId, Session[_guid] as string);
 
-                    
+
                     if (_pagoRealizado.state.ToLower() != "approved") // Si pagoRealizado falló entonces se redirige a la vista de error.
                     {
 

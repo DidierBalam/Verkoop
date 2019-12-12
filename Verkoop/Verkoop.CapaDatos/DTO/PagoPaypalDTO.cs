@@ -16,5 +16,13 @@ namespace Verkoop.CapaDatos.DTO
         /// Lista de los productos.
         /// </summary>
         public List<ProductoPaypalDTO> lstProducto { get; set; }
+
+        /// <summary>
+        /// Constructo que inicializa lstProducto.
+        /// </summary>
+        public PagoPaypalDTO()
+        {
+            lstProducto = new List<ProductoPaypalDTO>();
+        }
     }
 }

@@ -62,9 +62,9 @@ namespace Cliente.Controllers
         /// <param name="_iIdUsuario">Contiene el id del usuario.</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
         [HttpPost]
-        public JsonResult EliminarDireccion(int _iIdUsuario)
+        public JsonResult EliminarDireccion(int _iIdDireccion)
         {
-            _objResultado = DireccionBusiness.EliminarDirecion(_iIdUsuario);
+            _objResultado = DireccionBusiness.EliminarDireccion(_iIdDireccion);
 
             return Json(_objResultado);
         }

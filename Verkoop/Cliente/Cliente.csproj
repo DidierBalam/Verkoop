@@ -229,6 +229,7 @@
     <Content Include="Assets\js\map-active.js" />
     <Content Include="Assets\js\plugins.js" />
     <Content Include="Assets\js\popper.min.js" />
+    <Content Include="Scripts\CarritoHerramientas.js" />
     <Content Include="Scripts\DireccionHerramientas.js" />
     <Content Include="Assets\Librerias\SweetAlert\sweetalert2.all.min.js" />
     <Content Include="Scripts\Producto.js" />
@@ -237,7 +238,6 @@
     <Content Include="Assets\Librerias\Boostrap\bootstrap.min.js" />
     <Content Include="Assets\Librerias\jQueryValidate\jquery.validate.min.js" />
     <Content Include="Assets\Librerias\jQuery\jquery-3.3.1.min.js" />
-    <Content Include="Assets\Librerias\SweetAlert\sweetalert2.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Assets\css\core-style.css.map" />
@@ -284,6 +284,8 @@
     <Content Include="Views\Shared\_Producto.cshtml" />
     <Content Include="Views\Producto\BuscarProducto.cshtml" />
     <Content Include="Views\Producto\VerMasProductos.cshtml" />
+    <Content Include="Views\Shared\_ProductoCarrito.cshtml" />
+    <Content Include="Views\Shared\_ComprasRealizadas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\scss\style.scss" />

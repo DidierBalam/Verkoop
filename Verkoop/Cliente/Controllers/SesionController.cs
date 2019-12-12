@@ -68,7 +68,7 @@ namespace Cliente.Controllers
             bool _bEstadoOperacion;
             string _cMensaje = "";
 
-            string _cCorreo = JsonConvert.DeserializeObject<string>(Request["Correo"]);
+            string _cCorreo = JsonConvert.DeserializeObject<string>(Request["Correo"]); //se deserealiza el json y se convierte a un string
             string _cContrasenia = JsonConvert.DeserializeObject<string>(Request["Contrasenia"]);
 
             SesionBusiness _SesionBusiness = new SesionBusiness();

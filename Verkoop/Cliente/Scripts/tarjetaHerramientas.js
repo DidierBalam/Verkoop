@@ -10,37 +10,10 @@ function IniciarBoton() {
         ValidarCampos("#FormularioTarjeta")
     });
 
-    //$("#btnEliminarTargeta").click(function (e) {
-    //    e.preventDefault();
 
-    //    let _iIdTarjeta;
-
-    //    if (_iIdTarjeta) {
-    //        Swal.fire({
-    //            title: '¿Esta seguro de eliminarlo?',
-    //            type: 'warning',
-    //            showCancelButton: true,
-    //            confirmButtonColor: '#3085d6',
-    //            cancelButtonColor: '#d33',
-    //            confirmButtonText: 'Si, !Eliminalo!',
-    //            cancelButtonText: 'Cancelar'
-    //        }).then((result) => {
-    //            if (result.value) {
-    //                LlamarMetodo("POST", "../Tarjeta/EliminarTarjeta", { _iIdTarjeta: _iIdTarjeta });
-    //                Swal.fire(
-    //                    'Eliminar!',
-    //                    'Ha sido eliminada.',
-    //                    'Aceptar.'
-    //                )
-    //            }
-    //        })
-    //    }
-
-    //});
     $(".btnEliminarTarjeta").click(function (e) {
         e.preventDefault();
-        console.log($(this).attr("idTarjeta"));
-
+        EliminarTarjeta($(this).attr("idTarjeta"), $(this).parentsUntil(".-cardPadre"));
     });
 
 }
@@ -49,37 +22,34 @@ function IniciarBoton() {
 function GuardarTarjeta() {
     $("#btnGuardarTarjeta").click(function (e) {
         e.preventDefault();
-        //alert('You clicked the button!')
+   
         if ($('#FormularioTarjeta').valid()) {
-            ObtenerDatosTarjeta();
 
-            $('#ModalPrincipal').modal('hide'); //oculta el modal
+         var objTarjeta =  ObtenerDatosTarjeta();
 
+           // AlmacenarTarjeta("#ContenedorTarjetas", objTarjeta);
+
+            $('#ModalPrincipal').modal('hide');
         }
-
+       //console.log(1);
     });
 
 }
 
 /**esta función trae los datos de la tarjeta y contiene el método que contiene la URL con los datos */
 function ObtenerDatosTarjeta() {
-    var Data = {}
-
-    var Tarjeta = {
+  
+    var objTarjeta = {
         cNumeroTarjeta: $("#cNumeroTarjeta").val(),
         cMesVigencia: $("#cMesVigencia").val(),
         cAnioVigencia: $("#cAnioVigencia").val()
     };
 
-    Data['Tarjeta'] = JSON.stringify(Tarjeta);// convierte a una cadena JSON
-
-    LlamarMetodo("POST", "..//Tarjeta/GuardarTarjeta", Data);
+    return objTarjeta;
 };
 
 
-
-
-/** Validaciones*/
+/** Esta función valida los campos con jquery validate*/
 function ValidarCampos(ValidarFormulario) {
     $(ValidarFormulario).validate({
         rules: {
@@ -103,7 +73,7 @@ function ValidarCampos(ValidarFormulario) {
     });
 };
 
-//valida mensaje
+/*contiene los mensajes que seran llamados en la configuración de la función ValidarCampos*/
 $.extend($.validator.messages, {
     required: "Este campo es requerido.",
     number: "Por favor introduzca un número válido.",

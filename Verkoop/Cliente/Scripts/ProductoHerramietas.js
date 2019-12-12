@@ -37,6 +37,13 @@ $("#contendorProductos").on('click', '.btnVerProducto', function () {
 
 });
 
+//BOTÓN AGREGAR PRODUCTO.
+$("#contendorProductos").on('click', '.btnAgregarCarrito', function () {
+
+    AgregarProductoCarrito($(this).attr('idProducto'));
+
+});
+
 //FUNCIÓN PARA VERIFICAR CUANDO SE LLEGA AL FINAL DE LA PÁGINA.
 $(function () {
 
