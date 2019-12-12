@@ -62,7 +62,6 @@ function EliminarTarjeta(iIdTarjeta, cElemento) {
 function AgregarProductoCarrito(iIdProducto) {
 
     ObtenerMetodoControlador("POST", "Cliente/CarritoCompras/AgregarProductoCarrito", { _iIdProducto: iIdProducto }, "JSON").then((objRespuesta) => {
-        console.log(objRespuesta)
         llamarSwetalert(objRespuesta)
     })
 
@@ -316,8 +315,6 @@ function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato) {
             async: false,
             dataType: cTipoDato,
             success: function (Respuesta) {
-
-                console.log(Respuesta);
 
                 objResultado(Respuesta);
             }
