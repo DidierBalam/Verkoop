@@ -12,6 +12,121 @@ $('#cAtras').click(function (e) {
 
 
 /**
+ * 
+ * @param {any} iIdPais
+ */
+function ObtenerEstadosPorPais(iIdPais) {
+
+    ObtenerMetodoControlador("POST", "../Direccion/ObtenerEstadosPorPais", { _iIdPais: iIdPais }, "JSON").then((objRespuesta) => {
+
+        RellenarSelectEstado(objRespuesta, "#cEstado");
+       
+    });
+
+}
+
+
+/**
+ * 
+ * @param {any} iIdPais
+ */
+function ObtenerMunicipiosPorEstado(iIdEstado) {
+
+    ObtenerMetodoControlador("POST", "../Direccion/ObtenerMunicipiosPorEstado", { _iIdEstado: iIdEstado }, "JSON").then((objRespuesta) => {
+
+        RellenarSelectMunicipio(objRespuesta, "#cMunicipio");
+
+    });
+
+}
+
+/**
+ * 
+ * @param {any} objRespuesta
+ * @param {any} cElemento
+ */
+function RellenarSelectEstado(objRespuesta, cElemento) {
+
+    let cOpciones = "";
+
+    for (let i = 0; i < objRespuesta.length; i++) {
+
+        cOpciones = cOpciones + '<option value="' + objRespuesta[i].iIdEstado + '">' + objRespuesta[i].cNombre + '</option>';
+    }
+
+    $(cElemento).append(cOpciones);
+    $(cElemento).prop('disabled', false);
+
+}
+
+
+/**
+ * 
+ * @param {any} objRespuesta
+ * @param {any} cElemento
+ */
+function RellenarSelectMunicipio(objRespuesta, cElemento) {
+
+    let cOpciones = "";
+
+    for (let i = 0; i < objRespuesta.length; i++) {
+
+        cOpciones = cOpciones + '<option value="' + objRespuesta[i].iIdMunicipio + '">' + objRespuesta[i].cNombre + '</option>';
+    }
+
+    $(cElemento).append(cOpciones);
+    $(cElemento).prop('disabled', false);
+
+}
+
+/**
+ * 
+ * @param {any} objUsuario
+ */
+function RegistrarUsuario(objUsuario) {
+
+    let Data = {};
+
+    Data["objDatosUsuario"] = JSON.stringify(objUsuario);
+
+    ObtenerMetodoControlador("POST", "../Sesion/RegistrarUsuario", Data, "JSON").then((objRespuesta) => {
+
+        if (objRespuesta._bEstadoOperacion == true) { //se obtiene la respuesta verdadera y redirecciona a la vista principal
+
+            localStorage.setItem("VerkoopCorreo", objUsuario.cCorreo);
+
+            window.location.href = "../Sesion/VerificarContrasenia";
+        }
+        else {
+
+            llamarSwetalert(objRespuesta);
+        }
+    });
+
+}
+
+/**
+ * MÉTODO PARA VERIFICAR LA CUENTA AL REGISTRARSE.
+ * @param {any} cCodigo Recibe el código de verificación.
+ */
+function VerificarCuenta(cCodigo) {
+
+    let cCorreo = localStorage.getItem("VerkoopCorreo");
+
+    ObtenerMetodoControlador("POST", "../Sesion/VerficarCuenta", { _cCodigo : cCodigo, _cCorreo: cCorreo }, "JSON").then((objRespuesta) => {
+
+        if (objRespuesta._bEstadoOperacion == true) { 
+
+            window.location.href = "../Producto/Catalogo";
+        }
+        else {
+
+            llamarSwetalert(objRespuesta);
+        }
+    });
+}
+
+/**
  * FUNCIÓN PARA INICIAR SESIÓN.
  * @param {any} cCorreo Recibe el correo del usuario.
  * @param {any} cContrasenia Recibe la contraseña del usuario.
@@ -22,11 +137,11 @@ function IniciarSesion(cCorreo, cContrasenia) {
     Data["Correo"] = JSON.stringify(cCorreo);
     Data["Contrasenia"] = JSON.stringify(cContrasenia);
 
-    ObtenerMetodoControlador("POST", "/Sesion/IniciarSesion", Data, "JSON").then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "../Sesion/IniciarSesion", Data, "JSON").then((objRespuesta) => {
 
         if (objRespuesta._bEstadoOperacion == true) { //se obtiene la respuesta verdadera y redirecciona a la vista principal
-            llamarSwetalert(objRespuesta);
-            window.location.replace("/Producto/Principal")
+            
+            window.location.href = "../Producto/Catalogo";
         }
         else {
 
@@ -34,6 +149,15 @@ function IniciarSesion(cCorreo, cContrasenia) {
         }
     });
 }
+
+/**
+ * FUNCIÓN PARA CERRAR LA SESIÓN.
+ * */
+function CerrarSesion() {
+
+    window.location.href = "../Sesion/CerrarSesion";
+}
+
 
 /**
  * Esta función Elimina tarjeta de usuario
@@ -62,7 +186,6 @@ function EliminarTarjeta(iIdTarjeta, cElemento) {
 function AgregarProductoCarrito(iIdProducto) {
 
     ObtenerMetodoControlador("POST", "Cliente/CarritoCompras/AgregarProductoCarrito", { _iIdProducto: iIdProducto }, "JSON").then((objRespuesta) => {
-        console.log(objRespuesta)
         llamarSwetalert(objRespuesta)
     })
 
@@ -231,6 +354,7 @@ function EliminarElementoHTML(cElemento) {
     cElemento.remove();
 
 }
+}
 
 
 
@@ -244,21 +368,20 @@ function EliminarElementoDireccion(cElementoDireccion) {
 
 }
 
-function GuardarTarjeta(cElemento, objTarjeta) {
+function AlmacenarTarjeta(cElemento, objTarjeta) {
 
     let Data = {};
 
     Data["Tarjeta"] = JSON.stringify(objTarjeta);
 
-    ObtenerMetodoControlador("POST", "/Tarjeta/GuardarTarjeta", Data).then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "../Tarjeta/GuardarTarjeta", Data).then((objRespuesta) => {
 
         if (objRespuesta._bEstadoOperacion == true) { //se obtiene la respuesta verdadera y redirecciona a la vista principal
-
-            $('#ModalPrincipal').modal('hide');
 
             llamarSwetalert(objRespuesta);
 
             InsertarCardTarjeta(objRespuesta._objDatosTarjeta, cElemento);
+
         }
         else {
 
@@ -336,6 +459,7 @@ function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato) {
             async: false,
             dataType: cTipoDato,
             success: function (Respuesta) {
+
                 objResultado(Respuesta);
             }
         });

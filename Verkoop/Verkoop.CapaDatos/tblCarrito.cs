@@ -17,7 +17,6 @@ namespace Verkoop.CapaDatos
         public int iIdCarrito { get; set; }
         public int iIdUsuario { get; set; }
         public int iIdProducto { get; set; }
-        public int iCantidad { get; set; }
         public bool lEstatus { get; set; }
         public System.DateTime dtFechaSeleccion { get; set; }
     

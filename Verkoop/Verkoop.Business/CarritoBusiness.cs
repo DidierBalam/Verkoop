@@ -47,7 +47,7 @@ namespace Verkoop.Business
                         _cMensaje = "El producto ya se ha agregado en el carrito";
                     }
 
-                    
+
                 }
             }
             catch (Exception)
@@ -114,11 +114,12 @@ namespace Verkoop.Business
                                  on Carrito.iIdProducto equals Producto.iIdProducto
                                  select new ProductoEnCarritoDTO
                                  {
+                                     iIdProducto = Producto.iIdProducto,
                                      iIdCarrito = Carrito.iIdCarrito,
                                      cImagenCarrito = Producto.cImagen,
                                      cNombreproducto = Producto.cNombre,
                                      dPrecioProducto = Producto.dPrecio,
-                                     iCantidad = Producto.iCantidad
+                                     
 
                                  }).ToList();
             }
@@ -182,7 +183,6 @@ namespace Verkoop.Business
                         {
                             iIdUsuario = _iIdUsuario,
                             iIdDireccion = _objPago.iIdDireccion,
-                            iIdTarjeta = _objPago.objTarjeta.iIdTarjeta,
                             dtFecha = DateTime.Today
                         };
 
@@ -237,46 +237,37 @@ namespace Verkoop.Business
             });
         }
 
-        public PagoPaypalDTO ObtenerProductosCarrito(RealizarPagoDTO _objPago)
-        {
-            List<int> productsIds = new List<int> { 1, 2, 3, 2, 1 };
+        public PagoPaypalDTO ObtenerProductosCarrito(PagoPaypalDTO Productos)
+        { 
+
+            List<ProductoPaypalDTO> lstProducto = new List<ProductoPaypalDTO>();
 
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
-                var shoppingCart = _ctx.tblCat_Producto
-                   .Join(productsIds, SC => SC.iIdProducto, PI => PI, (SC, PI) => SC)
-                   .ToList();
-
-                var xD = shoppingCart;
-            }
-
-            List<ProductoPaypalDTO> lstProductos = new List<ProductoPaypalDTO>();
-
-            PagoPaypalDTO ProductosxD = new PagoPaypalDTO();
-
-            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
-            {
-                _objPago.lstProductoComprado.ForEach(x =>
+                Productos.lstProducto.ForEach(x =>
                 {
                     ProductoPaypalDTO ob = (from producto in _ctx.tblCat_Producto
                                             where producto.iIdProducto == x.iIdProducto
                                             select new ProductoPaypalDTO
                                             {
                                                 iCantidad = x.iCantidad,
-                                                cNombre = producto.cNombre
+                                                cNombre = producto.cNombre,
+                                                dPrecio = producto.dPrecio
                                             }).SingleOrDefault();
 
-                    lstProductos.Add(/*ob*/null);
+                    lstProducto.Add(ob);
                 });
 
-                ProductosxD.lstProducto = lstProductos;
+                Productos.lstProducto = lstProducto;
+
+                Productos.dPrecioTotal = Productos.lstProducto.Sum(x => x.dPrecio * x.iCantidad);
 
             }
 
-            return ProductosxD;
+            return Productos;
         }
 
-        public bool VerificarProductosEnCarrito(VerkoopDBEntities _ctx,int _iIdProducto, int _iIdUsuario)
+        public bool VerificarProductosEnCarrito(VerkoopDBEntities _ctx, int _iIdProducto, int _iIdUsuario)
         {
 
             bool _bCoincidencia = _ctx.tblCarrito.Any(x => x.iIdProducto == _iIdProducto && x.iIdUsuario == _iIdUsuario);

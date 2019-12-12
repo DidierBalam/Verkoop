@@ -10,6 +10,9 @@
         /// </summary>
         public int iCantidad { get; set; }
 
+        /// <summary>
+        /// Identificador del producto.
+        /// </summary>
         public int iIdProducto { get; set; }
 
         /// <summary>

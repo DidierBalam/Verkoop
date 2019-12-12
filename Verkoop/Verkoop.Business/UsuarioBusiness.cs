@@ -234,7 +234,8 @@ namespace Verkoop.Business
                                 dtFechaIngreso = DateTime.Today,
                                 lEstatus = false,
                                 iTipoUsuario = 2
-                                //cCodigoVerifiacion=_cCodigoVerificacion
+                                
+                                
                             };
 
                             List<tblDireccion> _lstTablaDireccion = new List<tblDireccion>
@@ -254,7 +255,9 @@ namespace Verkoop.Business
                         {
                             iIdUsuario = _TablaUsuario.iIdUsuario,
                             cCorreo = _objDatosUsuario.cCorreo,
-                            cContrasenia = _cContraseniaEncriptada
+                            cContrasenia = _cContraseniaEncriptada,
+                            cCodigoVerificacion = _cCodigoVerificacion,
+                            lEstadoVerificacion = false
                         }
                     };
 
@@ -282,10 +285,10 @@ namespace Verkoop.Business
                     _cMensaje = "El Correo ya se ha registrado con otra cuenta";
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 _bEstadoOperacion = false;
-                _cMensaje = "Woow, algo salió mal al momento de registrar la cuenta";
+                _cMensaje = e.Message;// "Woow, algo salió mal al momento de registrar la cuenta";
             }
 
             return (new { _bEstadoOperacion, _cMensaje });
@@ -303,7 +306,7 @@ namespace Verkoop.Business
 
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
-                _bCoincidencia = _ctx.tblCat_Usuario.Any(x => x.cTelefono == _cTelefono);
+                _bCoincidencia = _ctx.tblCat_Usuario.Any(x => x.cTelefono == _cTelefono && x.cTelefono != null);
             }
 
             return _bCoincidencia;

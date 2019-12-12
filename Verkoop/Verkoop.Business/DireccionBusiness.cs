@@ -155,5 +155,59 @@ namespace Verkoop.Business
 
 
         }
+
+        /// <summary>
+        /// MÉTODO PARA OBTENER TODOS LOS PAISES.
+        /// </summary>
+        /// <returns>Retorna una lista con todos los paises.</returns>
+        public List<tblPais> ObtenerTodosPaises()
+        {
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                _ctx.Configuration.LazyLoadingEnabled = false;
+
+                List<tblPais> _lstPais = _ctx.tblPais.AsNoTracking().ToList();
+
+                return _lstPais;
+            }
+
+
+        }
+
+        /// <summary>
+        /// MÉTODO PARA OBTENER LOS ESTADOS DE UN PAÍS.
+        /// </summary>
+        /// <param name="_iIdPais">Recibe el Id del país</param>
+        /// <returns>Retorna una lista con los estados</returns>
+        public List<tblEstado> ObtenerEstadosPorPais(int _iIdPais)
+        {
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                _ctx.Configuration.LazyLoadingEnabled = false;
+
+                List<tblEstado> _lstEstado = _ctx.tblEstado.Where(x => x.iIdPais == _iIdPais).ToList();
+
+                return _lstEstado;
+            }
+        }
+
+        /// <summary>
+        /// MÉTODO PARA OBTENER LOS MUNICIPIOS DE UN ESTADO.
+        /// </summary>
+        /// <param name="_iIdPais">Recibe el Id del estado</param>
+        /// <returns>Retorna una lista con los Municipios</returns>
+        public List<tblMunicipio> ObtenerMunicipiosPorEstado(int _iIEstado)
+        {
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                _ctx.Configuration.LazyLoadingEnabled = false;
+
+                List<tblMunicipio> _lstMunicipio = _ctx.tblMunicipio.Where(x => x.iIdEstado == _iIEstado).ToList();
+
+                return _lstMunicipio;
+
+            }
+
+        }
     }
 }

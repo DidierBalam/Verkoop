@@ -1,5 +1,6 @@
 ﻿using PayPal.Api;
 using System.Collections.Generic;
+using Verkoop.CapaDatos.DTO;
 
 namespace Verkoop.Business
 {
@@ -34,36 +35,28 @@ namespace Verkoop.Business
         /// <param name="apiContext"></param>
         /// <param name="redirectUrl"></param>
         /// <returns></returns>
-        public Payment CrearPago(APIContext apiContext, string redirectUrl)
+        public Payment CrearPago(APIContext apiContext, string redirectUrl, PagoPaypalDTO Productos)
         {
+
             CarritoBusiness oCarrito = new CarritoBusiness();
+
+            PagoPaypalDTO lstProductos = oCarrito.ObtenerProductosCarrito(Productos);
 
             //var productosEnCarrito = oCarrito.ObtenerProductosCarrito();
 
             var itemList = new ItemList() { items = new List<Item>() }; // Creación de una lista de Productos.
 
             // Añadir productos a la lista de productos.
-
-            //foreach(var item in productosEnCarrito)
-            //{
-            //    itemList.items.Add(new Item()
-            //    {
-            //        name = item.cNombre,
-            //        currency = "MXN",
-            //        price = item.dPrecio.ToString(),
-            //        quantity = "1",
-            //    });
-            //}
-
-            itemList.items.Add(new Item()
+            foreach (var item in lstProductos.lstProducto)
             {
-                name = "Item Name comes here",
-                currency = "MXN",
-                price = "1",
-                quantity = "1",
-                sku = "sku"
-
-            });
+                itemList.items.Add(new Item()
+                {
+                    name = item.cNombre,
+                    currency = "MXN",
+                    price = item.dPrecio.ToString(),
+                    quantity = item.iCantidad.ToString(),
+                });
+            }
 
             var payer = new Payer() { payment_method = "paypal" }; // Creación del objeto comprador y también el método.
 
@@ -79,14 +72,14 @@ namespace Verkoop.Business
             {
                 //tax = "1",
                 //shipping = "1",
-                subtotal = "1"
+                subtotal = lstProductos.dPrecioTotal.ToString()//"1"
             };
 
             //Cantidad final con detalles.
             var amount = new Amount()
             {
                 currency = "MXN",
-                total = "1", // El total debe ser igual a la suma del impuesto, envío y subtotal.
+                total = lstProductos.dPrecioTotal.ToString(),//"1", // El total debe ser igual a la suma del impuesto, envío y subtotal.
                 details = details
             };
 
