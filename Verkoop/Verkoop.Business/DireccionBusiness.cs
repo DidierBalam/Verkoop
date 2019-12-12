@@ -16,7 +16,7 @@ namespace Verkoop.Business
         public object ActualizarDireccion(tblDireccion _objDatosDireccion)
         {
             string _cMensaje; ///Se crea variable tipo string.
-            bool _bEstadoOperación;///Se crea variable tipo booleano.
+            bool _bEstadoOperacion;///Se crea variable tipo booleano.
 
             try ///Se usa try catch para controlar los posibles errores que surgen.
             {
@@ -36,18 +36,18 @@ namespace Verkoop.Business
                     _ctx.SaveChanges();
 
                     _cMensaje = "Se han actualizado los datos con éxito";
-                    _bEstadoOperación = true;
+                    _bEstadoOperacion = true;
 
                 }
             }
             catch (Exception)
             {
                 _cMensaje = "Ocurrió un error al momento de actualizar, intente de nuevo.";
-                _bEstadoOperación = false;
+                _bEstadoOperacion = false;
 
             }
 
-            return (new { _bEstadoOperación, _cMensaje });
+            return (new { _bEstadoOperacion, _cMensaje });
 
         }
 
@@ -57,36 +57,33 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_iIdDireccion">Recibe el id de la dirección.</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
-        public object EliminarDirecion(int _iIdDireccion)
+        public object EliminarDireccion(int _iIdDireccion)
         {
             string _cMensaje;
-            bool _bEstadoOperación;
+            bool _bEstadoOperacion;
 
             try
             {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    tblDireccion _tabladireccion = new tblDireccion
-                    {
-                        iIdDireccion = (from Direccion in _ctx.tblDireccion
-                                        where Direccion.iIdDireccion == _iIdDireccion
-                                        select Direccion.iIdDireccion).First()
-                    };
+                    tblDireccion _tabladireccion = (from Direccion in _ctx.tblDireccion
+                                                    where Direccion.iIdDireccion == _iIdDireccion
+                                                    select Direccion).SingleOrDefault();
 
                     _ctx.tblDireccion.Remove(_tabladireccion);
                     _ctx.SaveChanges();
 
-                    _cMensaje = "La dirección ha sido eliminado";
-                    _bEstadoOperación = true;
+                    _cMensaje = "La dirección ha sido eliminada";
+                    _bEstadoOperacion = true;
                 }
             }
             catch (Exception)
             {
 
-                _cMensaje = "¡Wow, la tarjeta no se pudo eliminar!";
-                _bEstadoOperación = false;
+                _cMensaje = "¡Algo salio mal, la tarjeta no se pudo eliminar!";
+                _bEstadoOperacion = false;
             }
-            return (new { _bEstadoOperación, _cMensaje });
+            return (new { _bEstadoOperacion, _cMensaje });
         }
 
 
@@ -153,10 +150,63 @@ namespace Verkoop.Business
 
                                                       }).ToList();
 
-
                 return _lstDirecciones;
             }
 
+
+        }
+
+        /// <summary>
+        /// MÉTODO PARA OBTENER TODOS LOS PAISES.
+        /// </summary>
+        /// <returns>Retorna una lista con todos los paises.</returns>
+        public List<tblPais> ObtenerTodosPaises()
+        {
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                _ctx.Configuration.LazyLoadingEnabled = false;
+
+                List<tblPais> _lstPais = _ctx.tblPais.AsNoTracking().ToList();
+
+                return _lstPais;
+            }
+
+
+        }
+
+        /// <summary>
+        /// MÉTODO PARA OBTENER LOS ESTADOS DE UN PAÍS.
+        /// </summary>
+        /// <param name="_iIdPais">Recibe el Id del país</param>
+        /// <returns>Retorna una lista con los estados</returns>
+        public List<tblEstado> ObtenerEstadosPorPais(int _iIdPais)
+        {
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                _ctx.Configuration.LazyLoadingEnabled = false;
+
+                List<tblEstado> _lstEstado = _ctx.tblEstado.Where(x => x.iIdPais == _iIdPais).ToList();
+
+                return _lstEstado;
+            }
+        }
+
+        /// <summary>
+        /// MÉTODO PARA OBTENER LOS MUNICIPIOS DE UN ESTADO.
+        /// </summary>
+        /// <param name="_iIdPais">Recibe el Id del estado</param>
+        /// <returns>Retorna una lista con los Municipios</returns>
+        public List<tblMunicipio> ObtenerMunicipiosPorEstado(int _iIEstado)
+        {
+            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+                _ctx.Configuration.LazyLoadingEnabled = false;
+
+                List<tblMunicipio> _lstMunicipio = _ctx.tblMunicipio.Where(x => x.iIdEstado == _iIEstado).ToList();
+
+                return _lstMunicipio;
+
+            }
 
         }
     }

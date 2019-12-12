@@ -9,7 +9,7 @@ namespace Verkoop.Business
     public class SesionBusiness
     {
         /// <summary>
-        /// Método para cambiar la contraseña del usuario.
+        /// MÉTODO PARA CAMBIAR LA CONTRASEÑA DEL USUARIO.
         /// </summary>
         /// <param name="_cContraseniaActual">Recibe la contraseña actual</param>
         /// <param name="_cContraseniaNueva">Recibe la nueva contraseña</param>
@@ -42,12 +42,13 @@ namespace Verkoop.Business
                         _cMensaje = "La contraseña ha sido actualizada";
 
                     }
-                    else {
+                    else
+                    {
                         _bEstadoOperacion = false;
                         _cMensaje = "La contraseña actual es incorrecta.";
 
                     }
-                   
+
                 }
             }
             catch (Exception)
@@ -60,7 +61,7 @@ namespace Verkoop.Business
 
 
         /// <summary>
-        /// Este método sirve para verificar la contraseña
+        /// EsTE MÉTODO SIRVE PARA VERIFICAR LA CONTRASEÑA
         /// </summary>
         /// <param name="_cContraseniaActual">contiene la contraseña actual</param>
         /// <param name="_ctx">Recibe el contexto de la DB</param>
@@ -80,7 +81,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para iniciar sesión haciendo una consulta en la tabla sesion y se comprar si el correo y la contraseña coinciden
+        /// MÉTODO PARA INICIAR SESIÓN HACIENDO UNA CONSULTA EN LA TABLA SESION Y SE COMPRAR SI EL CORREO Y LA CONTRASEÑA COINCIDEN
         /// </summary>
         /// <param name="_cCorreo">recibe el correo electronico del usuario</param>
         /// <param name="_cContrasenia">Recibe la contraseña del usuario</param>
@@ -91,36 +92,37 @@ namespace Verkoop.Business
             string _cVariableSesion = "";
             string _cMensaje = "";
 
-            try { 
-            using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            try
             {
-                tblSesion _objSesion = (from Sesion in _ctx.tblSesion // se hace la consulta para tener el registro que contiene ese correo
-                                        where Sesion.cCorreo == _cCorreo
-                                        select Sesion).SingleOrDefault(); 
-
-                if (_objSesion != null)
+                using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
-                    string _cContraseniaEncriptada = EncriptarContrasenia(_cContrasenia); //se envia la contraseña y se toma el metodo EncriptarContraseña para compararlo en la base de datos
+                    tblSesion _objSesion = (from Sesion in _ctx.tblSesion // se hace la consulta para tener el registro que contiene ese correo
+                                            where Sesion.cCorreo == _cCorreo
+                                            select Sesion).SingleOrDefault();
 
-                    if (_objSesion.cContrasenia.Equals(_cContraseniaEncriptada)) // se comprueba si la contraseña es igual a la ingresada
+                    if (_objSesion != null)
                     {
-                        _cVariableSesion = _objSesion.iIdUsuario.ToString();
-                        _bEstadoOperacio = true;
-                        _cMensaje = "ok";
+                        string _cContraseniaEncriptada = EncriptarContrasenia(_cContrasenia); //se envia la contraseña y se toma el metodo EncriptarContraseña para compararlo en la base de datos
+
+                        if (_objSesion.cContrasenia.Equals(_cContraseniaEncriptada)) // se comprueba si la contraseña es igual a la ingresada
+                        {
+                            _cVariableSesion = _objSesion.iIdUsuario.ToString();
+                            _bEstadoOperacio = true;
+                            _cMensaje = "ok";
+                        }
+                        else
+                        {
+                            _cMensaje = "La contraseña es incorrecta";
+                            _bEstadoOperacio = false;
+                        }
                     }
+
                     else
                     {
-                        _cMensaje = "La contraseña es incorrecta";
+                        _cMensaje = "No se encuentra el correo";
                         _bEstadoOperacio = false;
                     }
                 }
-
-                else
-                {
-                    _cMensaje = "No se encuentra el correo";
-                    _bEstadoOperacio = false;
-                }
-            }
             }
             catch (Exception)
             {
@@ -131,7 +133,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método que comprueba si el correo existe en la base de datos.
+        /// MÉTODO QUE COMPRUEBA SI EL CORREO EXISTE EN LA BASE DE DATOS.
         /// </summary>
         /// <param name="_cCorreo">Recibe el correo del usuario</param>
         /// <returns>Retorna true si existen coincidencias o false si no</returns>
@@ -148,7 +150,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método para encriptar la contraseña del usuario con SHA256
+        /// MÉTODO PARA ENCRIPTAR LA CONTRASEÑA DEL USUARIO CON SHA256
         /// </summary>
         /// <param name="cContraseña">Recibe la contraseña</param>
         /// <returns>Retorna la cadena resultante del encriptado</returns>
@@ -167,6 +169,50 @@ namespace Verkoop.Business
 
                 return _CadenaEncriptada.ToString();
             }
+        }
+
+        /// <summary>
+        /// MÉTODO PARA VALIDAR LA CUENTA DEL USUARIO.
+        /// </summary>
+        /// <param name="_iIdUsuario">Recibe el Id del usuario</param>
+        /// <param name="_cCodigo">Recibe el código enviado al correo</param>
+        /// <returns>Retorna el estado de la operación y su mensaje</returns>
+        public object VerificarCuenta(string _cCodigo, string _cCorreo)
+        {
+            bool _bEstadoOperacion;
+            string _cMensaje = "";
+            string  _cVariableSesion="";
+           
+            try
+            {
+                using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
+                {
+                    tblSesion _objSesion = _ctx.tblSesion.Where(x => x.cCorreo == _cCorreo).SingleOrDefault();
+
+                    if (_objSesion.cCodigoVerificacion == _cCodigo)
+                    {
+                        _objSesion.lEstadoVerificacion = true;
+
+                        _ctx.SaveChanges();
+
+                        _bEstadoOperacion = true;
+                        _cVariableSesion = _objSesion.iIdUsuario.ToString();
+                    }
+                    else
+                    {
+                        _bEstadoOperacion = false;
+                        _cMensaje = "Código inválido";
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                _bEstadoOperacion = false;
+                _cMensaje = "Algo falló al verificar la cuenta";
+            }
+
+            return (new { EstadoOperacion = _bEstadoOperacion, Mensaje = _cMensaje, VariableSesion = _cVariableSesion});
         }
     }
 }

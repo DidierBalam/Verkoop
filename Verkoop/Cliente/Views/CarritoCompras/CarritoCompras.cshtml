@@ -23,7 +23,7 @@
                 <div class="cart-title mt-50">
                     <h2>Carrito de compras.</h2>
                 </div>
-                <div class="cart-table clearfix">
+                <div class="cart-table clearfix" id="ContenedorProductos">
                    
                           @Html.Partial("_ProductoCarrito")
                         
@@ -42,13 +42,13 @@
 
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                       id="inlineRadio1" value="option1">
+                                       id="inlineRadio1" value="Paypal">
                                 <img src="~/Assets/img/core-img/paypal.svg">
                                 <label class="form-check-label" for="inlineRadio1"></label>
                             </div>
                             <div class="-formaDePago-l4px form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                       id="inlineRadio2" value="option2">
+                                       id="inlineRadio2" value="Tarjeta">
                                 <img src="~/Assets/img/core-img/tarjeta.svg">
                                 <label class="form-check-label" for="inlineRadio2"></label>
                             </div>
@@ -57,16 +57,15 @@
 
                     </div>
                     <div class="cart-btn mt-50">
-                        <a href="cart.html" class="btn amado-btn w-100">Pagar</a>
+                        <a class="btn amado-btn w-100 disabled" id="btnPagar">Pagar</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>@section scripts{
-
-
     <script src="~/Scripts/UtileriaVerkoop.js"></script>
     <script src="~/Scripts/ProductoCarrito.js"></script>
+    <script src="~/Scripts/CarritoHerramientas.js"></script>
 }
 

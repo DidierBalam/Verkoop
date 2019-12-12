@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos;
-using Verkoop.CapaDatos.DTO;
 
 namespace Cliente.Controllers
 {
@@ -43,9 +40,7 @@ namespace Cliente.Controllers
             tblTarjeta _objTarjeta = JsonConvert.DeserializeObject<tblTarjeta>(Request["Tarjeta"]);
 
              _objResultado = TarjetaBusiness.GuardarTarjeta(1/*Session["iIdUsuario"]*/, _objTarjeta);///Se guardan las propiedades de la tarjeta en un objeto llamado _objResultado.
-
-           // _objTarjeta.iIdTarjeta = Convert.ToInt32(_objResultado.GetType().GetProperty("_objResultado.iIdTarjeta").GetValue(_objResultado)); 
-            
+                     
             return  Json( _objResultado);//Regresa un JSON con los datos que este en la variable _objResultado.
         }        
 
@@ -57,6 +52,8 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult EliminarTarjeta(int _iIdTarjeta)
         {
+            var xd = _iIdTarjeta;
+
              _objResultado = TarjetaBusiness.EliminarTarjeta(_iIdTarjeta);
 
             return Json(_objResultado);
@@ -70,12 +67,9 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult ObtenerTodasTarjetas(int _iIdUsuario)
         {
-            List<TarjetaDTO> _lstTarjetas = TarjetaBusiness.ObtenerTodasTarjetas(_iIdUsuario);
+            object _lstTarjetas = TarjetaBusiness.ObtenerTodasTarjetas(_iIdUsuario);
 
             return Json(_lstTarjetas);
         }
-
-
-
     }
 }

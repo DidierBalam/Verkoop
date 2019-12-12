@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "NuevaDireccion";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@section  Titulo{
+    <h2>Nueva dirección</h2>
+}
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+            <div class="w-100">
+
+                <div class="tab-content" id="myTabContent">
+                    <form id="FormularioDireccion">
+                        <div class="form-group">
+                            <label for="cDireccion">Dirección</label>
+                            <input type="text" class="form-control" id="cDireccion" placeholder=" ejemplo: calle 1 x 2 y 3 S/N">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="cPais">País</label>
+                                <select id="cPais" class="form-control">
+                                    <option selected>....</option>
+                                    <option>México</option>
+                                    <option>Estados Unidos</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="cCiudad">Ciudad</label>
+                                <select id="cCiudad" class="form-control">
+                                    <option selected>....</option>
+                                    <option>Mérida</option>
+                                    <option>Guanajuato</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="cMunicipio">Municipio</label>
+                                <select id="cMunicipio" class="form-control">
+                                    <option selected>....</option>
+                                    <option>Progreso</option>
+                                    <option>Baca</option>
+                                    <option>Motul</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="cApellidoPaterno">Código postal</label>
+                                <input type="text" class="form-control" id="cCodigoPostal" placeholder="27900">
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+
+                @section Pie{
+                    <button id="btnGuardarTarjeta" type="button" class="btn btn-outline-dark">Guardar</button>
+                }
+
+                </div>
+            </div>
+        </div>
+    </div>

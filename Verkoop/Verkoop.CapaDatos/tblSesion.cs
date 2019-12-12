@@ -18,6 +18,8 @@ namespace Verkoop.CapaDatos
         public int iIdUsuario { get; set; }
         public string cCorreo { get; set; }
         public string cContrasenia { get; set; }
+        public string cCodigoVerificacion { get; set; }
+        public bool lEstadoVerificacion { get; set; }
         public Nullable<System.DateTime> dtFechaActualizacion { get; set; }
     
         public virtual tblCat_Usuario tblCat_Usuario { get; set; }

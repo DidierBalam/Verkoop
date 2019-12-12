@@ -22,6 +22,13 @@ function Boton() {
     });
 
 }
+$(document).on('click', '#linkNoTengoCuenta', function () {
+
+   
+    window.location.href = "../Sesion/RegistroUsuario";
+
+});
+
 
 /**Función para validar los campos de iniciar sesión */
 function ValidarInicioSesion() {

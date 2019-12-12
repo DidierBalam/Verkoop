@@ -62,7 +62,8 @@
                 <h2>Tarjetas guardadas.</h2>
             </div>
 
-            <div>  <!--botón agregar tarjeta-->
+            <div>
+                <!--botón agregar tarjeta-->
                 <button id="btnAgregarTarjeta" class="-BotonAgregarTarjeta">
                     <img class="-SeparacionIconoAgregar"
                          src="~/Assets/img/core-img/anadir.svg" alt=""> Nueva
@@ -71,16 +72,16 @@
         </div>
 
         <!-- Aqui se encierra los cards -->
-        <div class="-cardPadreDireccion2" >
+        <div id="ContenedorTarjetas"  class="-cardPadreDireccion2">
 
             @Html.Partial("_CardTarjeta")
 
-          
         </div>
     </div>
 </div>
 
 @section scripts{
     <script src="http://localhost/Cliente/Scripts/utileriamodal.js"></script>
+    <script src="~/Scripts/UtileriaVerkoop.js"></script>
     <script src="~/Scripts/tarjetaHerramientas.js"></script>
 } 

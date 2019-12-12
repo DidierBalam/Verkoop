@@ -1,5 +1,6 @@
 ﻿using Verkoop.Business;
 using System.Web.Mvc;
+using System.Collections.Generic;
 using Verkoop.CapaDatos;
 
 namespace Cliente.Controllers
@@ -61,11 +62,37 @@ namespace Cliente.Controllers
         /// <param name="_iIdUsuario">Contiene el id del usuario.</param>
         /// <returns>Retorna el estado de la operación y su mensaje de confirmación.</returns>
         [HttpPost]
-        public JsonResult EliminarDireccion(int _iIdUsuario)
+        public JsonResult EliminarDireccion(int _iIdDireccion)
         {
-            _objResultado = DireccionBusiness.EliminarDirecion(_iIdUsuario);
+            _objResultado = DireccionBusiness.EliminarDireccion(_iIdDireccion);
 
             return Json(_objResultado);
+        }
+
+        /// <summary>
+        /// MÉTODO PARA OBTENER LOS ESTADOS DE UN PAÍS.
+        /// </summary>
+        /// <param name="_iIdPais">Recibe el Id del país</param>
+        /// <returns>Retorna una lista con los estados</returns>
+        [HttpPost]
+        public JsonResult ObtenerEstadosPorPais(int _iIdPais)
+        {
+            List<tblEstado> _lstEstado = DireccionBusiness.ObtenerEstadosPorPais(_iIdPais);
+
+            return Json(_lstEstado);
+        }
+
+        /// <summary>
+        /// MÉTODO PARA OBTENER MUNICIPIOS DE UN ESTADO.
+        /// </summary>
+        /// <param name="_iIdEstado">Recibe el Id del estado</param>
+        /// <returns>Retorna una lista con los municipios</returns>
+        [HttpPost]
+        public JsonResult ObtenerMunicipiosPorEstado(int _iIdEstado)
+        {
+            List<tblMunicipio> _lstMunicipio = DireccionBusiness.ObtenerMunicipiosPorEstado(_iIdEstado);
+
+            return Json(_lstMunicipio);
         }
     }
 }

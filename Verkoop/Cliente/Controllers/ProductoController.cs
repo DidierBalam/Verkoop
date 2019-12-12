@@ -2,7 +2,6 @@
 using Verkoop.CapaDatos.DTO;
 using Verkoop.Business;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using System;
 namespace Cliente.Controllers
 {
@@ -16,9 +15,7 @@ namespace Cliente.Controllers
         [HttpGet]
         public ActionResult Catalogo(string _cFiltro)
         {
-            string cSesion = System.Web.HttpContext.Current.Session["iIdProducto"] as String;
-            bool _bEstadoSesion;
-
+            
             string _cFiltroUpper = _cFiltro != null ? _cFiltro.ToUpper() : "RECIENTES";
             //string _cFiltro = JsonConvert.DeserializeObject<string>(Request["Filtro"]==null ? "": Request["Filtro"]);
 
@@ -42,12 +39,9 @@ namespace Cliente.Controllers
 
             List<CategoriaDTO> _lstCategoria = CategoriaBusiness.ObtenerCategorias();
 
-            if (cSesion != null) _bEstadoSesion = true;
-            else _bEstadoSesion = false;
-
+           
             ViewBag.Data = _lstCategoria;
             ViewBag.Select = _cFiltroUpper;
-            ViewBag.Sesion = _bEstadoSesion;
 
             return View(_lstProducto);
         }

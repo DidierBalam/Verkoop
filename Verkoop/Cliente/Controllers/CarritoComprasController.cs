@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
-using Verkoop.CapaDatos;
 using System;
 using PayPal.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
@@ -14,15 +13,14 @@ namespace Cliente.Controllers
         CarritoBusiness CarritoBusiness = new CarritoBusiness();
         TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
 
-        // GET: CarritoCompras
 
-            /// <summary>
-            /// Método para visualizar el carrito de compras
-            /// </summary>
-            /// <returns>Retorna la lista de los productos en carrito</returns>
+        /// <summary>
+        /// Método para visualizar el carrito de compras
+        /// </summary>
+        /// <returns>Retorna la lista de los productos en carrito</returns>
         public ActionResult CarritoCompras()
         {
-            List<ProductoEnCarritoDTO> _lstProducto = ObtenerProductosDeUsuario(5/* Variable sesión*/);
+            List<ProductoEnCarritoDTO> _lstProducto = ObtenerProductosDeUsuario(1/* Variable sesión*/);
 
             return View(_lstProducto);
         }
@@ -58,7 +56,7 @@ namespace Cliente.Controllers
         /// </summary>
         /// <param name="_iIdUsuario">Contiene el idUsuario</param>
         /// <returns>Retorna la lista de los productos</returns>
-        
+
         public List<ProductoEnCarritoDTO> ObtenerProductosDeUsuario(int _iIdUsuario)
         {
             List<ProductoEnCarritoDTO> _lstResultado = CarritoBusiness.ObtenerProductosDeUsuario(_iIdUsuario);
@@ -78,7 +76,7 @@ namespace Cliente.Controllers
             if (_objPago.objTarjeta.iIdTarjeta == 0) //Verifica si no se está recibiendo el id de alguna tarjeta seleccionada
             {
 
-                _objRespuestaGuardarTarjeta = TarjetaBusiness.GuardarTarjeta(1,_objPago.objTarjeta); //Guarda la tarjeta y recibe el estado de la operación y la tarjeta guardada.
+                _objRespuestaGuardarTarjeta = TarjetaBusiness.GuardarTarjeta(1, _objPago.objTarjeta); //Guarda la tarjeta y recibe el estado de la operación y la tarjeta guardada.
 
                 _objPago.objTarjeta.iIdTarjeta = Convert.ToInt32(_objRespuestaGuardarTarjeta.GetType().GetProperty("_objDatosTarjeta.iIdTarjeta").GetValue(_objRespuestaGuardarTarjeta));//Obtiene el id de la tarjeta y se lo asigna al objeto tarjeta que pertenece al objeto pago.
 
@@ -94,15 +92,17 @@ namespace Cliente.Controllers
         /// </summary>
         /// <param name="Cancel">Sirve para cancelar el pago.</param>
         /// <returns>Una vista de Éxito o Error.</returns>
-        [HttpGet]
-        public ActionResult PagoConPaypal(string Cancel = null)
+        [HttpPost]
+        public JsonResult PagoConPaypal(PagoPaypalDTO Productos, string Cancel = null)
         {
-            //_objPago = JsonConvert.DeserializeObject<RealizarPagoDTO>(Request["_objPago"]);
+            bool _bEstadoOperacion = false;
 
             PaypalBusiness oPaypal = new PaypalBusiness();
 
-            // Llamada al apiContext de Paypal.
-            APIContext apiContext = PaypalConfiguracion.GetAPIContext();
+            
+            APIContext apiContext = PaypalConfiguracion.GetAPIContext();// Llamada al apiContext de Paypal.
+
+            string _cPaypalRedirectUrl = null;
 
             try
             {
@@ -117,20 +117,18 @@ namespace Cliente.Controllers
                     // Creación del pago.
                     // La url donde paypal envia de regreso datos.
                     string _baseURI = Request.Url.Scheme + "://" + Request.Url.Authority +
-                                "/Cliente/CarritoCompras/PagoConPaypal?";
+                                "/Cliente";
 
                     // Aquí se genera el GUID para almacenar el ID del pago recibido en la sesión.
                     // Será usado en el proceso de pago.
                     var _guid = Convert.ToString((new Random()).Next(100000));
-                    
+
                     // _pagoCreado devuelve la url aprovada
                     // en el cuál el comprador es redirigido para proceder al proceso de pago de paypal.
-                    var _pagoCreado = oPaypal.CrearPago(apiContext, _baseURI + "guid=" + _guid);
+                    var _pagoCreado = oPaypal.CrearPago(apiContext, _baseURI, Productos);
 
-                    
+
                     var _links = _pagoCreado.links.GetEnumerator(); // Obtiene los links devueltos de paypal.
-
-                    string _cPaypalRedirectUrl = null;
 
                     while (_links.MoveNext())
                     {
@@ -138,44 +136,52 @@ namespace Cliente.Controllers
 
                         if (lnk.rel.ToLower().Trim().Equals("approval_url"))
                         {
-                            
+                            _bEstadoOperacion = true;
                             _cPaypalRedirectUrl = lnk.href; // Guardar la url de paypal para redirigir al usuario a pagar.
                         }
                     }
 
-                    Session.Add(_guid, _pagoCreado.id);// guardar el ID del pago en GUID
+                    Session.Add(_guid, _pagoCreado.id);// guardar el ID del pago en GUID.
 
-                    return Redirect(_cPaypalRedirectUrl);
+                    return Json( new { _cPaypalRedirectUrl , _bEstadoOperacion});
                 }
                 else
                 {
 
-                    // Este bloque de código se ejecuta después de recibir todos los parámetros del pago
+                    // Este bloque de código se ejecuta después de recibir todos los parámetros del pago.
 
                     var _guid = Request.Params["guid"];
 
                     var _pagoRealizado = oPaypal.EjecutarPago(apiContext, _payerId, Session[_guid] as string);
 
-                    
+
                     if (_pagoRealizado.state.ToLower() != "approved") // Si pagoRealizado falló entonces se redirige a la vista de error.
                     {
-
-                        return View("FailureView");
-
+                        _bEstadoOperacion = false;
+                        return Json(new { _bEstadoOperacion});
                     }
                 }
             }
             catch (Exception ex)
             {
                 Logger.LogMessage("Error" + ex.Message); // Imprimir el mensaje de error.
-
-                return View("FailureView"); // Si ocurre algun error, enviar mensaje de error
-
+                _bEstadoOperacion = false;
+                return Json(new { _bEstadoOperacion });
             }
 
-            // En caso de éxito, se muestra un mensaje de aprovado al user.
-            return View("SuccessView");
+            return Json(new { _cPaypalRedirectUrl, _bEstadoOperacion });
 
+            
+
+        }
+
+        /// <summary>
+        /// Vista que se carga después de haber completado con éxito la compra en paypal.
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Agradecimiento()
+        {
+            return View();
         }
     }
 }

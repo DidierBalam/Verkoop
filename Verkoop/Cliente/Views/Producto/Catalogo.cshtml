@@ -13,10 +13,10 @@
         <img src="~/Assets/img/core-img/icono-carrito.svg" alt=""> Carrito<span>(0)</span>
     </a>
     <a class="fav-nav"><img src="~/Assets/img/core-img/icono-compra.svg" alt="">Compras</a>
-    @if (ViewBag.Sesion == true)
+    @if (Session["iIdUsuario"] != null)
     {
         <a class=""><img src="~/Assets/img/core-img/icono-usuario.svg" alt=""> Perfil</a>
-        <a class=""><img src="~/Assets/img/core-img/icono-salir.svg" alt=""> Salir</a>
+        <a id="btnSalir"><img src="~/Assets/img/core-img/icono-salir.svg" alt=""> Salir</a>
 
     }
 
@@ -90,9 +90,9 @@
                 <button id="btnBuscarProducto" class="-boton-icono"><img src="~/Assets/img/core-img/icono-buscar.svg" alt=""></button>
             </div>
             <div class="-width-20pst">
-                @if (ViewBag.Sesion == false)
+                @if (Session["iIdUsuario"] == null)
                 {
-                    <button id="btnAcceder" class="-boton-icono -padding15pst -flex-center-center"><img src="~/Assets/img/core-img/icono-usuario.svg" alt="">Acceder</button>
+                    <button id="btnAcceder" class="-boton-icono -padding15pst -flex-center-center"><img src="~/Assets/img/core-img/icono-usuario.svg" alt="" class="-padding-r4pst">Acceder</button>
 
                 }
                 else
@@ -118,7 +118,6 @@
 @section scripts{
 
     <script src="~/Assets/js/utileriamodal.js"></script>
-    <script src="~/Assets/js/Producto.js"></script>
     <script src="~/Scripts/ProductoHerramietas.js"></script>
     <script src="~/Scripts/UtileriaVerkoop.js"></script>
 }

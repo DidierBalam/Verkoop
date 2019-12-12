@@ -12,7 +12,6 @@
           <Property Name="iIdCarrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="iIdUsuario" Type="int" Nullable="false" />
           <Property Name="iIdProducto" Type="int" Nullable="false" />
-          <Property Name="iCantidad" Type="int" Nullable="false" />
           <Property Name="lEstatus" Type="bit" Nullable="false" />
           <Property Name="dtFechaSeleccion" Type="datetime" Nullable="false" />
         </EntityType>
@@ -49,7 +48,6 @@
           <Property Name="cApellidoMaterno" Type="varchar" MaxLength="50" />
           <Property Name="cImagen" Type="varchar(max)" />
           <Property Name="cTelefono" Type="varchar" MaxLength="14" />
-          <Property Name="cCodigoVerificacion" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="iTipoUsuario" Type="int" Nullable="false" />
           <Property Name="lEstatus" Type="bit" Nullable="false" />
           <Property Name="dtFechaIngreso" Type="datetime" Nullable="false" />
@@ -63,7 +61,6 @@
           <Property Name="iIdCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="iIdUsuario" Type="int" Nullable="false" />
           <Property Name="iIdDireccion" Type="int" Nullable="false" />
-          <Property Name="iIdTarjeta" Type="int" Nullable="false" />
           <Property Name="dtFecha" Type="datetime" />
         </EntityType>
         <EntityType Name="tblDireccion">
@@ -117,6 +114,8 @@
           <Property Name="iIdUsuario" Type="int" Nullable="false" />
           <Property Name="cCorreo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cContrasenia" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="cCodigoVerificacion" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="lEstadoVerificacion" Type="bit" Nullable="false" />
           <Property Name="dtFechaActualizacion" Type="datetime" />
         </EntityType>
         <EntityType Name="tblTarjeta">
@@ -128,7 +127,6 @@
           <Property Name="cNumeroTarjeta" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cMesVigencia" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="cAnioVigencia" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="lDefault" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_tblCarrito_iIdProducto">
           <End Role="tblCat_Producto" Type="Self.tblCat_Producto" Multiplicity="1" />
@@ -175,18 +173,6 @@
             </Principal>
             <Dependent Role="tblCompra">
               <PropertyRef Name="iIdDireccion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCompra_iIdTarjeta">
-          <End Role="tblTarjeta" Type="Self.tblTarjeta" Multiplicity="1" />
-          <End Role="tblCompra" Type="Self.tblCompra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblTarjeta">
-              <PropertyRef Name="iIdTarjeta" />
-            </Principal>
-            <Dependent Role="tblCompra">
-              <PropertyRef Name="iIdTarjeta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -327,10 +313,6 @@
             <End Role="tblDireccion" EntitySet="tblDireccion" />
             <End Role="tblCompra" EntitySet="tblCompra" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblCompra_iIdTarjeta" Association="Self.FK_tblCompra_iIdTarjeta">
-            <End Role="tblTarjeta" EntitySet="tblTarjeta" />
-            <End Role="tblCompra" EntitySet="tblCompra" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblCompra_iIdUsuario" Association="Self.FK_tblCompra_iIdUsuario">
             <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
             <End Role="tblCompra" EntitySet="tblCompra" />
@@ -421,10 +403,6 @@
             <End Role="tblDireccion" EntitySet="tblDireccion" />
             <End Role="tblCompra" EntitySet="tblCompra" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblCompra_iIdTarjeta" Association="VerkoopDBModel.FK_tblCompra_iIdTarjeta">
-            <End Role="tblTarjeta" EntitySet="tblTarjeta" />
-            <End Role="tblCompra" EntitySet="tblCompra" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblProductoComprado_iIdCompra" Association="VerkoopDBModel.FK_tblProductoComprado_iIdCompra">
             <End Role="tblCompra" EntitySet="tblCompra" />
             <End Role="tblProductoComprado" EntitySet="tblProductoComprado" />
@@ -449,7 +427,6 @@
           <Property Name="iIdCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
           <Property Name="iIdProducto" Type="Int32" Nullable="false" />
-          <Property Name="iCantidad" Type="Int32" Nullable="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaSeleccion" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblCarrito_iIdProducto" FromRole="tblCarrito" ToRole="tblCat_Producto" />
@@ -492,7 +469,6 @@
           <Property Name="cApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cImagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="cTelefono" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
-          <Property Name="cCodigoVerificacion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="iTipoUsuario" Type="Int32" Nullable="false" />
           <Property Name="lEstatus" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
@@ -511,11 +487,9 @@
           <Property Name="iIdCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
           <Property Name="iIdDireccion" Type="Int32" Nullable="false" />
-          <Property Name="iIdTarjeta" Type="Int32" Nullable="false" />
           <Property Name="dtFecha" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblCompra_iIdUsuario" FromRole="tblCompra" ToRole="tblCat_Usuario" />
           <NavigationProperty Name="tblDireccion" Relationship="VerkoopDBModel.FK_tblCompra_iIdDireccion" FromRole="tblCompra" ToRole="tblDireccion" />
-          <NavigationProperty Name="tblTarjeta" Relationship="VerkoopDBModel.FK_tblCompra_iIdTarjeta" FromRole="tblCompra" ToRole="tblTarjeta" />
           <NavigationProperty Name="tblProductoComprado" Relationship="VerkoopDBModel.FK_tblProductoComprado_iIdCompra" FromRole="tblCompra" ToRole="tblProductoComprado" />
         </EntityType>
         <EntityType Name="tblDireccion">
@@ -579,6 +553,8 @@
           <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
           <Property Name="cCorreo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cContrasenia" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="cCodigoVerificacion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="lEstadoVerificacion" Type="Boolean" Nullable="false" />
           <Property Name="dtFechaActualizacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblSesion_iIdUsuario" FromRole="tblSesion" ToRole="tblCat_Usuario" />
         </EntityType>
@@ -591,9 +567,7 @@
           <Property Name="cNumeroTarjeta" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="cMesVigencia" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="cAnioVigencia" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="lDefault" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblTarjeta_iIdUsuario" FromRole="tblTarjeta" ToRole="tblCat_Usuario" />
-          <NavigationProperty Name="tblCompra" Relationship="VerkoopDBModel.FK_tblCompra_iIdTarjeta" FromRole="tblTarjeta" ToRole="tblCompra" />
         </EntityType>
         <Association Name="FK_tblCarrito_iIdProducto">
           <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
@@ -703,18 +677,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblCompra_iIdTarjeta">
-          <End Type="VerkoopDBModel.tblTarjeta" Role="tblTarjeta" Multiplicity="1" />
-          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblTarjeta">
-              <PropertyRef Name="iIdTarjeta" />
-            </Principal>
-            <Dependent Role="tblCompra">
-              <PropertyRef Name="iIdTarjeta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblProductoComprado_iIdCompra">
           <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="1" />
           <End Type="VerkoopDBModel.tblProductoComprado" Role="tblProductoComprado" Multiplicity="*" />
@@ -774,7 +736,6 @@
               <MappingFragment StoreEntitySet="tblCarrito">
                 <ScalarProperty Name="dtFechaSeleccion" ColumnName="dtFechaSeleccion" />
                 <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
-                <ScalarProperty Name="iCantidad" ColumnName="iCantidad" />
                 <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
                 <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
                 <ScalarProperty Name="iIdCarrito" ColumnName="iIdCarrito" />
@@ -814,7 +775,6 @@
                 <ScalarProperty Name="dtFechaIngreso" ColumnName="dtFechaIngreso" />
                 <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
                 <ScalarProperty Name="iTipoUsuario" ColumnName="iTipoUsuario" />
-                <ScalarProperty Name="cCodigoVerificacion" ColumnName="cCodigoVerificacion" />
                 <ScalarProperty Name="cTelefono" ColumnName="cTelefono" />
                 <ScalarProperty Name="cImagen" ColumnName="cImagen" />
                 <ScalarProperty Name="cApellidoMaterno" ColumnName="cApellidoMaterno" />
@@ -828,7 +788,6 @@
             <EntityTypeMapping TypeName="VerkoopDBModel.tblCompra">
               <MappingFragment StoreEntitySet="tblCompra">
                 <ScalarProperty Name="dtFecha" ColumnName="dtFecha" />
-                <ScalarProperty Name="iIdTarjeta" ColumnName="iIdTarjeta" />
                 <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
                 <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
                 <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
@@ -887,6 +846,8 @@
             <EntityTypeMapping TypeName="VerkoopDBModel.tblSesion">
               <MappingFragment StoreEntitySet="tblSesion">
                 <ScalarProperty Name="dtFechaActualizacion" ColumnName="dtFechaActualizacion" />
+                <ScalarProperty Name="lEstadoVerificacion" ColumnName="lEstadoVerificacion" />
+                <ScalarProperty Name="cCodigoVerificacion" ColumnName="cCodigoVerificacion" />
                 <ScalarProperty Name="cContrasenia" ColumnName="cContrasenia" />
                 <ScalarProperty Name="cCorreo" ColumnName="cCorreo" />
                 <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
@@ -897,7 +858,6 @@
           <EntitySetMapping Name="tblTarjeta">
             <EntityTypeMapping TypeName="VerkoopDBModel.tblTarjeta">
               <MappingFragment StoreEntitySet="tblTarjeta">
-                <ScalarProperty Name="lDefault" ColumnName="lDefault" />
                 <ScalarProperty Name="cAnioVigencia" ColumnName="cAnioVigencia" />
                 <ScalarProperty Name="cMesVigencia" ColumnName="cMesVigencia" />
                 <ScalarProperty Name="cNumeroTarjeta" ColumnName="cNumeroTarjeta" />

@@ -26,7 +26,6 @@ $("#BarraBusqueda").keyup(function (e) {
 //Botón que redirigea a la vista de inicar sesión.
 $("#btnAcceder").click(function () {
 
-    
     window.location.href = "Cliente/Sesion/Index";
 
 });
@@ -35,6 +34,13 @@ $("#btnAcceder").click(function () {
 $("#contendorProductos").on('click', '.btnVerProducto', function () {
 
     VisualizarDetallesProducto($(this).attr('idProducto'));
+
+});
+
+//BOTÓN AGREGAR PRODUCTO.
+$("#contendorProductos").on('click', '.btnAgregarCarrito', function () {
+
+    AgregarProductoCarrito($(this).attr('idProducto'));
 
 });
 
@@ -54,6 +60,13 @@ $(function () {
         }
     });
 });
+
+$("#btnSalir").click(function () {
+  
+    CerrarSesion();
+
+});
+
 
 /**
  * FUNCIÓN PARA OBTENER EL FILTRO SELECCIONADO EN LA VISTA.
