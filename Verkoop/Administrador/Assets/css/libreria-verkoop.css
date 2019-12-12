@@ -136,13 +136,6 @@ button {
     margin-top: 5%;
 }
 
-.-margin {
-    margin-left: 45%;
-}
-.marginleft {
-    margin-left: 4%;
-}
-
 /* padding-right */
 .-padding-r4pst {
     padding-right: 4%;
@@ -634,9 +627,9 @@ button {
 .-AlingSesion3 {
     margin-right: 10px;
 }
-.-width-80pst{width:85%;}
+.-width-80pst{width:80%;}
 .-width-20pst {
-    width: 15%;
+    width: 20%;
 }
 
 .-AlingInput3 {
@@ -649,19 +642,4 @@ button {
 
 .-ColorText{    
     color:white!important;
-}
-
-
-.-color-producto-agotado {
-    color: #d83219;
-    text-decoration: line-through;
-    
-}
-.-fuente-muy-pequeña{font-size:10px;}
-
-
-
-.th {
-    margin-top: 0px;
-    margin-bottom: 0px;
 }

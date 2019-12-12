@@ -33,7 +33,6 @@ function GuardarTarjeta() {
         }
        //console.log(1);
     });
-
 }
 
 /**esta función trae los datos de la tarjeta y contiene el método que contiene la URL con los datos */
@@ -73,7 +72,7 @@ function ValidarCampos(ValidarFormulario) {
     });
 };
 
-/*contiene los mensajes que seran llamados en la configuración de la función ValidarCampos*/
+/*contiene los mensajes que serán llamados en la configuración de la función ValidarCampos*/
 $.extend($.validator.messages, {
     required: "Este campo es requerido.",
     number: "Por favor introduzca un número válido.",

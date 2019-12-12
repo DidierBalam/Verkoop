@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
-using Verkoop.CapaDatos;
 using System;
 using PayPal.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
@@ -112,13 +111,16 @@ namespace Cliente.Controllers
         /// <param name="Cancel">Sirve para cancelar el pago.</param>
         /// <returns>Una vista de Éxito o Error.</returns>
         [HttpPost]
-        public ActionResult PagoConPaypal(PagoPaypalDTO Productos, string Cancel = null)
+        public JsonResult PagoConPaypal(PagoPaypalDTO Productos, string Cancel = null)
         {
+            bool _bEstadoOperacion = false;
 
             PaypalBusiness oPaypal = new PaypalBusiness();
 
 
             APIContext apiContext = PaypalConfiguracion.GetAPIContext();// Llamada al apiContext de Paypal.
+
+            string _cPaypalRedirectUrl = null;
 
             try
             {
@@ -133,7 +135,7 @@ namespace Cliente.Controllers
                     // Creación del pago.
                     // La url donde paypal envia de regreso datos.
                     string _baseURI = Request.Url.Scheme + "://" + Request.Url.Authority +
-                                "/Cliente/CarritoCompras/PagoConPaypal?";
+                                "/Cliente";
 
                     // Aquí se genera el GUID para almacenar el ID del pago recibido en la sesión.
                     // Será usado en el proceso de pago.
@@ -141,12 +143,10 @@ namespace Cliente.Controllers
 
                     // _pagoCreado devuelve la url aprovada
                     // en el cuál el comprador es redirigido para proceder al proceso de pago de paypal.
-                    var _pagoCreado = oPaypal.CrearPago(apiContext, _baseURI + "guid=" + _guid, Productos);
+                    var _pagoCreado = oPaypal.CrearPago(apiContext, _baseURI, Productos);
 
 
                     var _links = _pagoCreado.links.GetEnumerator(); // Obtiene los links devueltos de paypal.
-
-                    string _cPaypalRedirectUrl = null;
 
                     while (_links.MoveNext())
                     {
@@ -154,19 +154,19 @@ namespace Cliente.Controllers
 
                         if (lnk.rel.ToLower().Trim().Equals("approval_url"))
                         {
-
+                            _bEstadoOperacion = true;
                             _cPaypalRedirectUrl = lnk.href; // Guardar la url de paypal para redirigir al usuario a pagar.
                         }
                     }
 
-                    Session.Add(_guid, _pagoCreado.id);// guardar el ID del pago en GUID
+                    Session.Add(_guid, _pagoCreado.id);// guardar el ID del pago en GUID.
 
-                    return Redirect(_cPaypalRedirectUrl);
+                    return Json( new { _cPaypalRedirectUrl , _bEstadoOperacion});
                 }
                 else
                 {
 
-                    // Este bloque de código se ejecuta después de recibir todos los parámetros del pago
+                    // Este bloque de código se ejecuta después de recibir todos los parámetros del pago.
 
                     var _guid = Request.Params["guid"];
 
@@ -175,23 +175,31 @@ namespace Cliente.Controllers
 
                     if (_pagoRealizado.state.ToLower() != "approved") // Si pagoRealizado falló entonces se redirige a la vista de error.
                     {
-
-                        return View("FailureView");
-
+                        _bEstadoOperacion = false;
+                        return Json(new { _bEstadoOperacion});
                     }
                 }
             }
             catch (Exception ex)
             {
                 Logger.LogMessage("Error" + ex.Message); // Imprimir el mensaje de error.
-
-                return View("FailureView"); // Si ocurre algun error, enviar mensaje de error
-
+                _bEstadoOperacion = false;
+                return Json(new { _bEstadoOperacion });
             }
 
-            // En caso de éxito, se muestra un mensaje de aprovado al user.
-            return View("SuccessView");
+            return Json(new { _cPaypalRedirectUrl, _bEstadoOperacion });
 
+            
+
+        }
+
+        /// <summary>
+        /// Vista que se carga después de haber completado con éxito la compra en paypal.
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Agradecimiento()
+        {
+            return View();
         }
     }
 }

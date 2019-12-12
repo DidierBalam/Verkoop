@@ -16,7 +16,7 @@ namespace Verkoop.Business
         public object ActualizarDireccion(tblDireccion _objDatosDireccion)
         {
             string _cMensaje; ///Se crea variable tipo string.
-            bool _bEstadoOperación;///Se crea variable tipo booleano.
+            bool _bEstadoOperacion;///Se crea variable tipo booleano.
 
             try ///Se usa try catch para controlar los posibles errores que surgen.
             {
@@ -36,18 +36,18 @@ namespace Verkoop.Business
                     _ctx.SaveChanges();
 
                     _cMensaje = "Se han actualizado los datos con éxito";
-                    _bEstadoOperación = true;
+                    _bEstadoOperacion = true;
 
                 }
             }
             catch (Exception)
             {
                 _cMensaje = "Ocurrió un error al momento de actualizar, intente de nuevo.";
-                _bEstadoOperación = false;
+                _bEstadoOperacion = false;
 
             }
 
-            return (new { _bEstadoOperación, _cMensaje });
+            return (new { _bEstadoOperacion, _cMensaje });
 
         }
 
@@ -60,7 +60,7 @@ namespace Verkoop.Business
         public object EliminarDireccion(int _iIdDireccion)
         {
             string _cMensaje;
-            bool _bEstadoOperación;
+            bool _bEstadoOperacion;
 
             try
             {
@@ -73,17 +73,17 @@ namespace Verkoop.Business
                     _ctx.tblDireccion.Remove(_tabladireccion);
                     _ctx.SaveChanges();
 
-                    _cMensaje = "La dirección ha sido eliminado";
-                    _bEstadoOperación = true;
+                    _cMensaje = "La dirección ha sido eliminada";
+                    _bEstadoOperacion = true;
                 }
             }
             catch (Exception)
             {
 
-                _cMensaje = "¡Wow, la tarjeta no se pudo eliminar!";
-                _bEstadoOperación = false;
+                _cMensaje = "¡Algo salio mal, la tarjeta no se pudo eliminar!";
+                _bEstadoOperacion = false;
             }
-            return (new { _bEstadoOperación, _cMensaje });
+            return (new { _bEstadoOperacion, _cMensaje });
         }
 
 

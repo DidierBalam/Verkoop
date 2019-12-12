@@ -2,7 +2,6 @@
 using Verkoop.CapaDatos.DTO;
 using Verkoop.Business;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using System;
 namespace Cliente.Controllers
 {

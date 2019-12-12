@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Agradecimiento";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Page Title</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="jumbotron text-center">
+            <h1 class="display-3">¡Gracias por su compra!</h1>
+            <p class="lead"><strong>Revise su email</strong> para ver su ticket de compra</p>
+            <hr>
+            <p class="lead">
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Catalogo", "Producto")" role="button">Continuar comprando</a>
+            </p>
+        </div>
+
+
+    </div>
+    <script src="~/Assets/Librerias/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/Agradecimiento.js"></script>
+</body>
+</html>
+

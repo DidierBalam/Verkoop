@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos;
-using Verkoop.CapaDatos.DTO;
 
 namespace Cliente.Controllers
 {
@@ -74,8 +71,5 @@ namespace Cliente.Controllers
 
             return Json(_lstTarjetas);
         }
-
-
-
     }
 }

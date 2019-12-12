@@ -230,11 +230,18 @@ function QuitarProductoDeCarrito(iIdCarrito, cElementoEliminar) {
  * Función para eliminar una dirección.
  * @param {any} iIdDireccion Recibe el id de la dirección.
  */
-function EliminarDireccion(iIdDireccion) {
-    console.log(iIdDireccion)
-    ObtenerMetodoControlador("POST", "/Direccion/EliminarDireccion", { _iIdDireccion: iIdDireccion }, "JSON").then((objRespuesta) => {
-        alert(objRespuesta._bEstadoOperacion + " : " + objRespuesta._cMensaje);
+function EliminarDireccion(iIdDireccion, cElementoDireccion) {
+    //console.log(iIdDireccion)
+    ObtenerMetodoControlador("POST", "../Direccion/EliminarDireccion", { _iIdDireccion: iIdDireccion }).then((objRespuesta) => {
+        //alert(objRespuesta._bEstadoOperacion + " : " + objRespuesta._cMensaje);
+        if (objRespuesta._bEstadoOperacion == true) { /// se obtiene  el estado verdadero y se redirecciona a la acción de eliminardirección.
 
+            LlamarSwetalertDireccion(objRespuesta)
+            EliminarElementoDireccion(cElementoDireccion)
+        }
+        else {
+            LlamarSwetalertDireccion(objRespuesta)
+        }
 
     })
 }
@@ -382,6 +389,19 @@ function EliminarElementoHTML(cElemento) {
     cElemento.remove();
 
 }
+}
+
+
+
+/**
+ * función que elimina elementos HTML
+ * @param {any} cElementoDireccion contiene el elemento que sera removido
+ */
+function EliminarElementoDireccion(cElementoDireccion) {
+
+    cElementoDireccion.remove();
+
+}
 
 function AlmacenarTarjeta(cElemento, objTarjeta) {
 
@@ -463,7 +483,7 @@ function InsertarCardTarjeta(objTarjeta, cElemento) {
 * @param {any} cMetodo Recibe la url del método.
 * @param {any} datoEnvio Recibe los datos a enviar.
 */
-function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato) {
+function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato, cTipoContenido = null) {
 
     return new Promise((objResultado) => {
 
@@ -473,6 +493,7 @@ function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato) {
             data: Data,
             async: false,
             dataType: cTipoDato,
+            contentType: cTipoContenido,
             success: function (Respuesta) {
 
                 objResultado(Respuesta);
@@ -504,6 +525,22 @@ function EjecutarAlerta(cTipo, cTitulo, cTexto) {
  * @param {any} objRespuesta recibe el objeto respuesta
  */
 function llamarSwetalert(objRespuesta) {
+
+    if (objRespuesta._bEstadoOperacion) {
+
+        EjecutarAlerta("success", "Ok", objRespuesta._cMensaje);
+    }
+    else {
+        EjecutarAlerta("error", "Error", objRespuesta._cMensaje);
+    }
+}
+
+
+/**
+ * Función para llamar el swetAlert
+ * @param {any} objRespuesta recibe el objeto respuesta
+ */
+function LlamarSwetalertDireccion(objRespuesta) {
 
     if (objRespuesta._bEstadoOperacion) {
 

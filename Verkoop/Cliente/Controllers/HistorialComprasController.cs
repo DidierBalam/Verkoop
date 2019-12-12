@@ -37,12 +37,12 @@ namespace Cliente.Controllers
         /// Método que sirve para descargar un documento PDF.
         /// </summary>
         /// <returns>Devuelve un True si se lográ descargar el pdf.</returns>
-        [HttpPost]
-        public JsonResult ImprimirTicketDeCompra()
+        [HttpGet]
+        public JsonResult ImprimirTicketDeCompra(int iIdCompra)
         {
-            int.TryParse(Request["iIdCompra"], out int _iIdCompra);
+            //int.TryParse(/*Request*/"iIdCompra", out int _iIdCompra);
 
-            byte[] _bPDF = CompraBusiness.ImprimirTicketDeCompra(2);
+            byte[] _bPDF = CompraBusiness.ImprimirTicketDeCompra(iIdCompra);
 
             Response.Clear();
             Response.ContentType = "Application/pdf";
@@ -54,5 +54,7 @@ namespace Cliente.Controllers
             return Json(true);
         }
         #endregion
+
+
     }
 }

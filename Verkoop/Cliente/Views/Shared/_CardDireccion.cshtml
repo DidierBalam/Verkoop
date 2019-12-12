@@ -2,7 +2,6 @@
 @model List<Verkoop.CapaDatos.DTO.DireccionDTO>
 
 @{
-
     int iConteo = 1;
 }
 
@@ -24,12 +23,12 @@
                                 </h6>
 
                                 <div class="-cardDireciones2">
-                                    <a idDireccion=" @i.iIdDireccion" class="btnEditar">
+                                    <a idDireccionEditar=" @i.iIdDireccion" class="btnEditar">
                                         <img class="-cardDireciones3"
                                              src="~/Assets/img/core-img/editar.svg" alt="">
                                     </a>
 
-                                    <a idDireccion="@i.iIdDireccion" class="btnEliminar">
+                                    <a idDireccion="@i.iIdDireccion" class="btnEliminarDireccion">
                                         <img class="-cardDireciones3"
                                              src="~/Assets/img/core-img/basura.svg" alt="">
                                     </a>

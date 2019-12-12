@@ -231,9 +231,11 @@
     <Content Include="Assets\js\plugins.js" />
     <Content Include="Assets\js\popper.min.js" />
     <Content Include="Scripts\barraLateralHerramientas.js" />
+    <Content Include="Scripts\Agradecimiento.js" />
     <Content Include="Scripts\CarritoHerramientas.js" />
     <Content Include="Scripts\DireccionHerramientas.js" />
     <Content Include="Assets\Librerias\SweetAlert\sweetalert2.all.min.js" />
+    <Content Include="Scripts\Imprimir.js" />
     <Content Include="Scripts\Producto.js" />
     <Content Include="Scripts\registroHerramientas.js" />
     <Content Include="Scripts\utileriamodal.js" />
@@ -273,7 +275,6 @@
     <Content Include="Views\HistorialCompras\ComprasRealizadas.cshtml" />
     <Content Include="Views\CarritoCompras\PagoConTarjeta.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
-    <Content Include="Views\Sesion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -288,6 +289,9 @@
     <Content Include="Views\Producto\VerMasProductos.cshtml" />
     <Content Include="Views\Shared\_ProductoCarrito.cshtml" />
     <Content Include="Views\Shared\_ComprasRealizadas.cshtml" />
+    <Content Include="Views\Sesion\Index.cshtml" />
+    <Content Include="Views\CarritoCompras\Agradecimiento.cshtml" />
+    <Content Include="Views\Perfil\NuevaDireccion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\scss\style.scss" />
@@ -308,6 +312,7 @@
     <Content Include="Assets\fonts\helvetica_neu_bold-webfont.woff2" />
     <Content Include="Views\Shared\_ModalDetalles.cshtml" />
     <Content Include="Views\Producto\DetallesProductos.cshtml" />
+    <Content Include="Views\Sesion\RegistroUsuario.cshtml" />
     <Content Include="Views\Sesion\Contrasenia.cshtml" />
   </ItemGroup>
   <ItemGroup>
