@@ -1,6 +1,5 @@
 ﻿using Verkoop.Business;
 using System.Web.Mvc;
-using Verkoop.CapaDatos.DTO;
 using Verkoop.CapaDatos;
 
 namespace Cliente.Controllers

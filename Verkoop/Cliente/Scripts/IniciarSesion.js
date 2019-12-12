@@ -1,4 +1,4 @@
-﻿
+﻿/**Función para inicar botón */
 $(document).ready(function () {
     Boton();
 
@@ -69,6 +69,6 @@ function hideValidate(input) {
 /**Mensaje de validacion de formato de correo electrónico correcto */
 jQuery.extend(jQuery.validator.messages, {
 
-    email: "Formato de correo lectrónico incorrecto."
+    email: "Formato de correo electrónico incorrecto."
     
 });

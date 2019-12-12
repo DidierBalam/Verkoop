@@ -13,7 +13,7 @@ function Boton() {
         let iIdProducto = $(this).attr('IdProducto');
 
         console.log(iIdProducto);
-        //ObtenerMetodoControlador("POST", "/CarritoCompras/AgregarProductoCarrito", { IdProducto = iIdProducto });
+        //ObtenerMetodoControlador("POST", "../CarritoCompras/AgregarProductoCarrito", { IdProducto = iIdProducto });
 
     });
 
@@ -24,7 +24,7 @@ function Boton() {
         let iIdProducto = $(this).attr('IdProducto');
 
         console.log(iIdProducto);
-        //ObtenerMetodoControlador("POST", "/CarritoCompras/QuitarProductoCarrito", { IdProducto = iIdProducto });
+        //ObtenerMetodoControlador("POST", "../CarritoCompras/QuitarProductoCarrito", { IdProducto = iIdProducto });
 
     });
 

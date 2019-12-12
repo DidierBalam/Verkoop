@@ -6,19 +6,23 @@
 
     foreach (var i in Model)
     {
-        <table class="table table-responsive">
-            <thead>
-                <tr>
+    <table class="table">
 
-                    <th class="date"><h4>@i.dtFecha</h4></th>
-                    <th><h4>Precio: $@i.dPrecio</h4></th>
-                    <th></th>
-                    <th><button class="-boton-estandar ">Imprimir</button> <button type="button" class="-boton-" data-toggle="collapse" data-target="#demo">↕</button></th>
+        <thead style="width: 1000px;">
+            <tr>
 
-                </tr>
-            </thead>
+                <th class="date th"><h3 class="th">@i.dtFecha</h3></th>
+                <th class="th" ><h3 class="th">Precio: $@i.dPrecio</h3 ></th>
+                <th></th>
+                <th><button iIdCompra="@i.iIdCompra" class="-boton-estandar -margin btnImprimir">Imprimir</button> <button type="button" class="-boton- marginleft" data-toggle="collapse" data-target="#@i.iIdCompra" >↕</button></th>
 
-            <tbody id="demo" class="collapse">
+            </tr>
+        </thead>
+    </table>
+
+    @*<div class="collapse" id="collapseExample">*@
+        <table class="table table-responsive collapse" id="@i.iIdCompra">
+            <tbody @*id="demo" class="collapse"*@>
                 @foreach (var e in i.ProductoComprado)
                 {
                     <tr>
@@ -40,10 +44,11 @@
 
 
         </table>
-
+    @*</div>*@
     }
 }
 else
 {
     <h4> No hay productos agregados al carrito </h4>
 }
+

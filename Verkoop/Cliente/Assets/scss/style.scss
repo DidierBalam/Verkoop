@@ -725,7 +725,7 @@ img {
                 display: block;
                 tr {
                     @include display-flex(flex);
-                    width: 100%;
+                    width: 150%;
                     height: 40px;
                     background-color: #f5f7fa;
                     th {

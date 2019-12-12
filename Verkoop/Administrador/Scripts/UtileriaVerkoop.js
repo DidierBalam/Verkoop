@@ -9,11 +9,11 @@ function IniciarSesion(cCorreo, cContrasenia) {
     Data["Correo"] = JSON.stringify(cCorreo);
     Data["Contrasenia"] = JSON.stringify(cContrasenia);
 
-    ObtenerMetodoControlador("POST", "/Sesion/IniciarSesion", Data).then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "../Sesion/IniciarSesion", Data).then((objRespuesta) => {
 
         if (objRespuesta._bEstadoOperacion == true) { //se obtiene que la respuesta sea true y redirecciona a la vista principal
             llamarSwetalert(objRespuesta);
-           // window.location.replace("//") //redirecciona a la vista
+           window.location.replace("../Dashboard/Principal") //redirecciona a la vista
         }
         else {
 

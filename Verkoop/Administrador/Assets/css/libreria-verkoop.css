@@ -136,13 +136,6 @@ button {
     margin-top: 5%;
 }
 
-.-margin {
-    margin-left: 45%;
-}
-.marginleft {
-    margin-left: 4%;
-}
-
 /* padding-right */
 .-padding-r4pst {
     padding-right: 4%;
@@ -649,10 +642,4 @@ button {
 
 .-ColorText{    
     color:white!important;
-}
-
-
-.th {
-    margin-top: 0px;
-    margin-bottom: 0px;
 }

@@ -231,6 +231,7 @@
     <Content Include="Assets\js\popper.min.js" />
     <Content Include="Scripts\DireccionHerramientas.js" />
     <Content Include="Assets\Librerias\SweetAlert\sweetalert2.all.min.js" />
+    <Content Include="Scripts\Imprimir.js" />
     <Content Include="Scripts\Producto.js" />
     <Content Include="Scripts\utileriamodal.js" />
     <Content Include="Assets\Librerias\Boostrap\bootstrap.min.js" />
@@ -269,7 +270,6 @@
     <Content Include="Views\HistorialCompras\ComprasRealizadas.cshtml" />
     <Content Include="Views\CarritoCompras\PagoConTarjeta.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
-    <Content Include="Views\Sesion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -281,11 +281,11 @@
     <Content Include="Views\Shared\_CardTarjeta.cshtml" />
     <Content Include="Views\Shared\_CardDireccion.cshtml" />
     <Content Include="Views\Shared\_Producto.cshtml" />
-    <Content Include="Views\Sesion\Index.cshtml" />
     <Content Include="Views\Producto\BuscarProducto.cshtml" />
     <Content Include="Views\Producto\VerMasProductos.cshtml" />
     <Content Include="Views\Shared\_ProductoCarrito.cshtml" />
     <Content Include="Views\Shared\_ComprasRealizadas.cshtml" />
+    <Content Include="Views\Sesion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\scss\style.scss" />
@@ -342,7 +342,6 @@
     <PropertyGroup>
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
-   
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

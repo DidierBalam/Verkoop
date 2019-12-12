@@ -125,7 +125,7 @@ namespace Verkoop.Business
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 _objCompra = (from Compra in _ctx.tblCompra
-                              where Compra.iIdUsuario == _iIdCompra
+                              where Compra.iIdCompra == _iIdCompra
                               select new TicketCompraDTO
                               {
                                   iIdCompra = Compra.iIdCompra,
@@ -161,7 +161,7 @@ namespace Verkoop.Business
         }
 
         /// <summary>
-        /// Método que genera el contenido del documento PDF.
+        /// Método que generar el contenido del documento PDF.
         /// </summary>
         /// <param name="_objCompra">Contiene los datos de la compra de un cliente.</param>
         /// <returns>Devuelve un array de bytes que contienen el documento PDF.</returns>

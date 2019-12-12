@@ -3,6 +3,9 @@
     ViewBag.Title = "ComprasRealizadas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<title>Verkoop | Compras Realizadas</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 @section Opciones {
     <a href="#" class="fav-nav -azul-cielo"><img src="~/Assets/img/core-img/icono-producto.svg" alt=""> Productos</a>
@@ -30,7 +33,10 @@
 
 
 @section scripts{
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/Imprimir.js"></script>
+    <script src="~/Scripts/UtileriaVerkoop.js"></script>
 }
