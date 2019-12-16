@@ -12,23 +12,36 @@ namespace Cliente.Controllers
     {
         UsuarioBusiness UsuarioBusiness = new UsuarioBusiness();
         DireccionBusiness DireccionBusiness = new DireccionBusiness();
+        CarritoBusiness CarritoBusiness = new CarritoBusiness();
 
         TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
 
         #region Vistas
         public ActionResult InformacionPersonal()
         {
+            int _iTotalCarrito = CarritoBusiness.ObtenerNumeroTotalProductosDeUsuario(Convert.ToInt32(Session["iIdUsuario"]));
+
+            ViewBag.TotalCarrito = _iTotalCarrito;
+
             return View();
         }
 
 
         public ActionResult CambiarContraseña()
         {
+            int _iTotalCarrito = CarritoBusiness.ObtenerNumeroTotalProductosDeUsuario(Convert.ToInt32(Session["iIdUsuario"]));
+
+            ViewBag.TotalCarrito = _iTotalCarrito;
+
             return View();
         }
 
         public ActionResult Direcciones()
         {
+            int _iTotalCarrito = CarritoBusiness.ObtenerNumeroTotalProductosDeUsuario(Convert.ToInt32(Session["iIdUsuario"]));
+
+            ViewBag.TotalCarrito = _iTotalCarrito;
+
             List<DireccionDTO> _lstDirecciones = DireccionBusiness.ObtenerDireccionesDeUsuario(2);
 
             return View(_lstDirecciones);
@@ -45,6 +58,10 @@ namespace Cliente.Controllers
         /// <returns>retorna la vista de tarjetas con la lista </returns>
         public ActionResult Tarjetas()
         {
+            int _iTotalCarrito = CarritoBusiness.ObtenerNumeroTotalProductosDeUsuario(Convert.ToInt32(Session["iIdUsuario"]));
+
+            ViewBag.TotalCarrito = _iTotalCarrito;
+
             List<TarjetaDTO> _lstTarjetas = TarjetaBusiness.ObtenerTodasTarjetas(1);
 
             return View(_lstTarjetas);

@@ -63,13 +63,13 @@ namespace Verkoop.Business
         /// </summary>
         /// <param name="_ctx">Recibe el contexto de la base de datos</param>
         /// <param name="_lstProducto">Recibe la lista de los productos a afectar</param>
-        public List<tblCarrito> CambiarEstadoProductoCarrito(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto)
+        public List<tblCarrito> CambiarEstadoProductoCarrito(VerkoopDBEntities _ctx, List<tblProductoComprado> _lstProducto, int _iIdUsuario)
         {
             List<tblCarrito> _lstCarritoAfectado = new List<tblCarrito>();
 
             _lstProducto.ForEach(x =>
             {
-                tblCarrito _objCarrito = _ctx.tblCarrito.Where(z => z.iIdProducto == x.iIdProducto).FirstOrDefault();
+                tblCarrito _objCarrito = _ctx.tblCarrito.Where(z => z.iIdProducto == x.iIdProducto && z.iIdUsuario == _iIdUsuario).FirstOrDefault();
 
                 _objCarrito.lEstatus = true;
 
@@ -125,6 +125,7 @@ namespace Verkoop.Business
                                      cImagenCarrito = Producto.cImagen,
                                      cNombreproducto = Producto.cNombre,
                                      dPrecioProducto = Producto.dPrecio,
+                                     iCantidad = Producto.iCantidad
 
 
                                  }).ToList();
@@ -208,10 +209,19 @@ namespace Verkoop.Business
                         _TablaCompra.tblProductoComprado = _TablaProductoComprado;
                         _ctx.tblCompra.Add(_TablaCompra);
 
-                        List<tblCarrito> _lstCarritoAfectado = CambiarEstadoProductoCarrito(_ctx, _objPago.lstProductoComprado);//Cambia estado del producto a true indicando que el producto se ha comprado.
+                        List<tblCarrito> _lstCarritoAfectado = CambiarEstadoProductoCarrito(_ctx, _objPago.lstProductoComprado, _iIdUsuario);//Cambia estado del producto a true indicando que el producto se ha comprado.
                                                                                                                                 //List<tblCat_Producto> _lstProductoAfectado = ProductoBusiness.DisminuirCantidadProducto(_ctx, _objPago.lstProductoComprado); //Resta a la cantidad disponible del producto la cantidad asignada en la compra.
 
                         _ctx.SaveChanges();
+
+                        CompraBusiness compraBusiness = new CompraBusiness();
+
+                        byte[] _bPDF = compraBusiness.ImprimirTicketDeCompra(_TablaCompra.iIdCompra);
+                        CorreoBusiness correoBusiness = new CorreoBusiness();
+
+                        tblSesion _objSesion = _ctx.tblSesion.AsNoTracking().Where(x => x.iIdUsuario == _iIdUsuario).FirstOrDefault();
+
+                        correoBusiness.EnviarTicketCompra(_objSesion.cCorreo, _bPDF);
 
                         _bEstadoOperacion = true;
                         _cMensaje = "Pago realizado exitosamente";
@@ -288,7 +298,7 @@ namespace Verkoop.Business
         public bool VerificarProductosEnCarrito(VerkoopDBEntities _ctx, int _iIdProducto, int _iIdUsuario)
         {
 
-            bool _bCoincidencia = _ctx.tblCarrito.Any(x => x.iIdProducto == _iIdProducto && x.iIdUsuario == _iIdUsuario);
+            bool _bCoincidencia = _ctx.tblCarrito.Any(x => x.iIdProducto == _iIdProducto && x.iIdUsuario == _iIdUsuario && x.lEstatus== false);
 
             return _bCoincidencia;
 

@@ -6,125 +6,131 @@
 
 @model  List<Verkoop.CapaDatos.tblPais>
 
-<div class="w-100">
+<title class="-padding-t10pst">Verkoop | Registro</title>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+            <div class="w-100">
 
-    <ul class="nav nav-tabs " id="myTab" role="tablist">
-        @*<li class="nav-item col-lg-6 -AlingTabs" >
-            <a class="nav-link active" id="home-tab" href="#cRegistro" role="tab" aria-controls="home" aria-selected="true">Registro usuario</a>
-        </li>
+                <ul class="nav nav-tabs " id="myTab" role="tablist">
+                    @*<li class="nav-item col-lg-6 -AlingTabs" >
+                            <a class="nav-link active" id="home-tab" href="#cRegistro" role="tab" aria-controls="home" aria-selected="true">Registro usuario</a>
+                        </li>
 
-        <li class="nav-item  col-lg-6 -AlingTabs" >
-            <a class="nav-link" id="profile-tab"  href="#cContrasenia" role="tab" aria-controls="profile" aria-selected="false">Contraseña</a>
-        </li>*@
-    </ul>
+                        <li class="nav-item  col-lg-6 -AlingTabs" >
+                            <a class="nav-link" id="profile-tab"  href="#cContrasenia" role="tab" aria-controls="profile" aria-selected="false">Contraseña</a>
+                        </li>*@
+                </ul>
 
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="cRegistro" role="tabpanel" aria-labelledby="home-tab">
-            <form id="DatosPersonales">
-                <h3 class="title text-center -AlinearBotonRegistro ">Registro de usuario.</h3>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="cRegistro" role="tabpanel" aria-labelledby="home-tab">
+                        <form id="DatosPersonales">
+                            <h3 class="title text-center -AlinearBotonRegistro ">Registro de usuario.</h3>
 
-                <div class="form-group">
-                    <label for="cNombre"></label>
-                    <input type="text" class="form-control" id="cNombre" placeholder="Ingrese nombre." name="Nombre">
-                </div>
+                            <div class="form-group">
+                                <label for="cNombre"></label>
+                                <input type="text" class="form-control" id="cNombre" placeholder="Ingrese nombre." name="Nombre">
+                            </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="cApellidoPaterno"></label>
-                        <input type="text" class="form-control" id="cApellidoPaterno" placeholder="Apellido paterno" name="ApellidoP">
-                    </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="cApellidoPaterno"></label>
+                                    <input type="text" class="form-control" id="cApellidoPaterno" placeholder="Apellido paterno" name="ApellidoP">
+                                </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="cApellidoMaterno"></label>
-                        <input type="text" class="form-control" id="cApellidoMaterno" placeholder="Apellido Materno" name="ApellidoM">
-                    </div>
-                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="cApellidoMaterno"></label>
+                                    <input type="text" class="form-control" id="cApellidoMaterno" placeholder="Apellido Materno" name="ApellidoM">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="cCorreo">Correo electrónico</label>
-                    <input type="email" class="form-control" id="cCorreo" placeholder="ejemplo@gmail.mx" name="Correo">
-                </div>
+                            <div class="form-group">
+                                <label for="cCorreo">Correo electrónico</label>
+                                <input type="email" class="form-control" id="cCorreo" placeholder="ejemplo@gmail.mx" name="Correo">
+                            </div>
 
-                <div class="form-group">
-                    <label for="cDireccion">Dirección</label>
-                    <input type="text" class="form-control" id="cDireccion" placeholder=" ejemplo: calle 1 x 2 y 3 S/N" name="Direccion">
-                </div>
+                            <div class="form-group">
+                                <label for="cDireccion">Dirección</label>
+                                <input type="text" class="form-control" id="cDireccion" placeholder=" ejemplo: calle 1 x 2 y 3 S/N" name="Direccion">
+                            </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="cPais">País</label>
-                        <select id="cPais" class="form-control">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="cPais">País</label>
+                                    <select id="cPais" class="form-control">
 
-                            <option value=""></option>
+                                        <option value=""></option>
 
-                            @foreach (var i in Model)
-                            {
-                                <option value="@i.iIdPais">@i.cNombre</option>
+                                        @foreach (var i in Model)
+                                        {
+                                            <option value="@i.iIdPais">@i.cNombre</option>
 
-                            }
+                                        }
 
-                        </select>
-                    </div>
+                                    </select>
+                                </div>
 
-                    <div class="form-group col-md-4">
-                        <label for="cCiudad">Ciudad</label>
-                        <select id="cEstado" class="form-control" disabled>
-                            <option value=""></option>
-                        </select>
-                    </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cCiudad">Ciudad</label>
+                                    <select id="cEstado" class="form-control" disabled>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
 
-                    <div class="form-group col-md-4">
-                        <label for="cMunicipio">Municipio</label>
-                        <select id="cMunicipio" class="form-control" disabled name="Municipio">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                </div>
-            </form>
-                <div class="cart-btn mt-30 justify-content-center">
-                    <button id="cContinuar" class="btn amado-btn w-50 -ml-15" disabled>Continuar</button>
-                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="cMunicipio">Municipio</label>
+                                    <select id="cMunicipio" class="form-control" disabled name="Municipio">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="cart-btn mt-30 justify-content-center">
+                            <button id="cContinuar" class="btn amado-btn w-50 -ml-15 -radio-15px" disabled>Continuar</button>
+                        </div>
 
-                <div class="cart-btn mt-30 justify-content-center">
-                    <a id="linkInicioSesion" class="-AlinearPregunta w-50 -ml-15">¿Ya tengo cuenta?</a>
-                </div>
-            
-        </div>
-
-        <div class="tab-pane fade" id="cContrasenia" role="tabpanel" aria-labelledby="profile-tab">
-            <form id="tapContrasenia">
-                <h3 class="title text-center -AlinearBotonRegistro ">Contraseña.</h3>
-
-                <div>
-                    <div class=" -AlingInput">
-                        <img class="-AlingIconoSesion" src="~/Assets/img/core-img/candado.svg" alt="">
-
-                        <label for="cNombre"></label>
-                        <input type="password" class="form-control w-100  " id="cPassword" placeholder="Ingrese contraseña" name="contrasenia">
+                        <div class="cart-btn mt-30 justify-content-center">
+                            <a id="linkInicioSesion" class="-AlinearPregunta w-50 -ml-15">¿Ya tengo cuenta?</a>
+                        </div>
 
                     </div>
-                </div>
 
-                <div>
-                    <div class=" -AlingInput">
-                        <img class="-AlingIconoSesion " src="~/Assets/img/core-img/recargar.svg" alt="">
-                        <label for="cNombre"></label>
-                        <input type="password" class="form-control w-100  " id="confirmar" placeholder="Confirmar contraseña" name="confirmar">
+                    <div class="tab-pane fade" id="cContrasenia" role="tabpanel" aria-labelledby="profile-tab">
+                        <form id="tapContrasenia">
+                            <h3 class="title text-center -AlinearBotonRegistro ">Contraseña.</h3>
+
+                            <div>
+                                <div class=" -AlingInput">
+                                    <img class="-AlingIconoSesion" src="~/Assets/img/core-img/candado.svg" alt="">
+
+                                    <label for="cNombre"></label>
+                                    <input type="password" class="form-control w-100  " id="cPassword" placeholder="Ingrese contraseña" name="contrasenia">
+
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class=" -AlingInput">
+                                    <img class="-AlingIconoSesion " src="~/Assets/img/core-img/recargar.svg" alt="">
+                                    <label for="cNombre"></label>
+                                    <input type="password" class="form-control w-100  " id="confirmar" placeholder="Confirmar contraseña" name="confirmar">
+                                </div>
+                            </div>
+                        </form>
+                        <div>
+                            <div class=" -padding-9px">
+                                <button id="cAtras" class="btn amado-btn  -AlingSesion3 -radio-15px -boton-secundario">Atrás</button>
+                                <button id="btnRegistar" class="btn amado-btn w-30 -radio-15px">Registrar</button>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </form>
-                <div>
-                    <div class=" -padding-9px">
-                        <button id="cAtras" class="btn amado-btn active -AlingSesion3">Atrás</button>
-                        <button id="btnRegistar" class="btn amado-btn w-30">Registrar</button>
-
-                    </div>
-                </div>
-            
+            </div>
         </div>
     </div>
 </div>
-
 @section scripts{
 
     <script src="~/Scripts/UtileriaVerkoop.js"></script>

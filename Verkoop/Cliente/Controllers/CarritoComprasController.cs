@@ -2,9 +2,11 @@
 using System.Web.Mvc;
 using Verkoop.Business;
 using Verkoop.CapaDatos.DTO;
+using Verkoop.CapaDatos;
 using System;
 using PayPal.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
+using Newtonsoft.Json;
 
 namespace Cliente.Controllers
 {
@@ -12,10 +14,11 @@ namespace Cliente.Controllers
     {
         CarritoBusiness CarritoBusiness = new CarritoBusiness();
         TarjetaBusiness TarjetaBusiness = new TarjetaBusiness();
+        DireccionBusiness DireccionBusiness = new DireccionBusiness();
 
 
         /// <summary>
-        /// Método para visualizar el carrito de compras
+        /// MÉTODO PARA VISUALIZAR EL CARRITO DE COMPRAS
         /// </summary>
         /// <returns>Retorna la lista de los productos en carrito</returns>
         public ActionResult CarritoCompras()
@@ -27,6 +30,21 @@ namespace Cliente.Controllers
             List<ProductoEnCarritoDTO> _lstProducto = ObtenerProductosDeUsuario(Convert.ToInt32(Session["iIdUsuario"]));
 
             return View(_lstProducto);
+        }
+
+        /// <summary>
+        /// MÉTODO PARA VISUALIZAR EL APARTADO DE PAGO
+        /// </summary>
+        /// <returns>Retorna la vista de pago</returns>
+        public ActionResult PagoConTarjeta()
+        {
+            int _iTotalCarrito = CarritoBusiness.ObtenerNumeroTotalProductosDeUsuario(Convert.ToInt32(Session["iIdUsuario"]));
+
+            tblDireccion _objDireccion = DireccionBusiness.ObtenerDireccionPredeterminada(Convert.ToInt32(Session["iIdUsuario"]));
+
+            ViewBag.TotalCarrito = _iTotalCarrito;
+            
+            return View(_objDireccion);
         }
 
         /// <summary>
@@ -87,20 +105,18 @@ namespace Cliente.Controllers
         /// </summary>
         /// <param name="_objPago">Recibe el objeto con el id de la dirección usuario, los atributos de la tarjeta y los productos a comprar</param>
         /// <returns></returns>
-        public JsonResult RealizarPago(RealizarPagoDTO _objPago)
+        public JsonResult RealizarPago(/*RealizarPagoDTO _objPago*/)
         {
-            object _objRespuestaGuardarTarjeta;
-
+            RealizarPagoDTO _objPago = JsonConvert.DeserializeObject<RealizarPagoDTO>(Request["Pago"]);
+    
             if (_objPago.objTarjeta.iIdTarjeta == 0) //Verifica si no se está recibiendo el id de alguna tarjeta seleccionada
             {
 
-                _objRespuestaGuardarTarjeta = TarjetaBusiness.GuardarTarjeta(1, _objPago.objTarjeta); //Guarda la tarjeta y recibe el estado de la operación y la tarjeta guardada.
-
-                _objPago.objTarjeta.iIdTarjeta = Convert.ToInt32(_objRespuestaGuardarTarjeta.GetType().GetProperty("_objDatosTarjeta.iIdTarjeta").GetValue(_objRespuestaGuardarTarjeta));//Obtiene el id de la tarjeta y se lo asigna al objeto tarjeta que pertenece al objeto pago.
-
+                TarjetaBusiness.GuardarTarjeta(Convert.ToInt32(Session["iIdUsuario"]), _objPago.objTarjeta); //Guarda la tarjeta y recibe el estado de la operación y la tarjeta guardada.
+         
             }
 
-            object _objRespuestaPago = CarritoBusiness.RealizarPago(1, _objPago);
+            object _objRespuestaPago = CarritoBusiness.RealizarPago(Convert.ToInt32(Session["iIdUsuario"]), _objPago);
 
             return Json(_objRespuestaPago);
         }

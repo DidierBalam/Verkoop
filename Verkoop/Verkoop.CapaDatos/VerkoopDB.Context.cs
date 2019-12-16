@@ -25,10 +25,12 @@ namespace Verkoop.CapaDatos
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tblCarrito> tblCarrito { get; set; }
         public virtual DbSet<tblCat_Categoria> tblCat_Categoria { get; set; }
         public virtual DbSet<tblCat_Producto> tblCat_Producto { get; set; }
         public virtual DbSet<tblCat_Usuario> tblCat_Usuario { get; set; }
+        public virtual DbSet<tblComentario> tblComentario { get; set; }
         public virtual DbSet<tblCompra> tblCompra { get; set; }
         public virtual DbSet<tblDireccion> tblDireccion { get; set; }
         public virtual DbSet<tblEstado> tblEstado { get; set; }
@@ -37,5 +39,6 @@ namespace Verkoop.CapaDatos
         public virtual DbSet<tblProductoComprado> tblProductoComprado { get; set; }
         public virtual DbSet<tblSesion> tblSesion { get; set; }
         public virtual DbSet<tblTarjeta> tblTarjeta { get; set; }
+        public virtual DbSet<tblValoracion> tblValoracion { get; set; }
     }
 }

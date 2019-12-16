@@ -4,14 +4,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Opciones{
+@section Opciones {
+    <div class="-padding-t20pst -padding-b10pst">
+        @if (Session["iIdUsuario"] == null)
+        {
+            <button id="btnAcceder" class="-boton-acceder -radio-15px -padding15pst -flex-center-center"><img src="~/Assets/img/core-img/icono-usuario.svg" alt="" class="-padding-r4pst">Acceder</button>
 
-    <a href="#" class="fav-nav -azul-cielo"><img src="~/Assets/img/core-img/icono-producto-azul.svg" alt=""> Productos</a>
-    <a href="carrito.html" class="cart-nav">
-        <img src="~/Assets/img/core-img/icono-carrito.svg" alt=""> Carrito<span>(0)</span>
+        }
+        else
+        {
+            <p>@@Didier Balam</p>
+
+        }
+    </div>
+    <a id="btnProducto" class="fav-nav -azul-cielo"><img src="~/Assets/img/core-img/icono-producto.svg" alt=""> Productos</a>
+    <a id="tbnCarrito" class="cart-nav">
+        <img src="~/Assets/img/core-img/icono-carrito.svg" alt=""> Carrito<span>(<span id="TotalProductosCarrito">@ViewBag.TotalCarrito</span>)</span>
     </a>
-    <a href="compras.html" class="fav-nav"><img src="~/Assets/img/core-img/icono-compra.svg" alt="">Compras</a>
-    <a href="nuevoperfil.html" class=""><img src="~/Assets/img/core-img/icono-usuario.svg" alt=""> Perfil</a>
+    <a id="btnCompras" class="fav-nav"><img src="~/Assets/img/core-img/icono-compra.svg" alt="">Compras</a>
+
+    <a id="btnPerfil"><img src="~/Assets/img/core-img/icono-usuario-azul.svg" alt=""> Perfil</a>
+    <a id="btnSalir"><img src="~/Assets/img/core-img/icono-salir.svg" alt=""> Salir</a>
 }
 
 <div class="-width-35pst">
@@ -72,7 +85,7 @@
         </div>
 
         <!-- Aqui se encierra los cards -->
-        <div id="ContenedorTarjetas"  class="-cardPadreDireccion2">
+        <div id="ContenedorTarjetas" class="-cardPadreDireccion2">
 
             @Html.Partial("_CardTarjeta")
 

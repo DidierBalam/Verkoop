@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using Verkoop.Business;
@@ -9,11 +10,16 @@ namespace Cliente.Controllers
     public class HistorialComprasController : Controller
     {
         CompraBusiness CompraBusiness = new CompraBusiness();
+        CarritoBusiness CarritoBusiness = new CarritoBusiness();
 
         #region Vistas
         public ActionResult ComprasRealizadas()
         {
-            List<CompraDeClienteDTO> _lstResultado = ObtenerComprasDeCliente();
+            int _iTotalCarrito = CarritoBusiness.ObtenerNumeroTotalProductosDeUsuario(Convert.ToInt32(Session["iIdUsuario"]));
+
+            ViewBag.TotalCarrito = _iTotalCarrito;
+
+            List<CompraDeClienteDTO> _lstResultado = ObtenerComprasDeCliente(Convert.ToInt32(Session["iIdUsuario"]));
 
             return View(_lstResultado);
         }
@@ -26,9 +32,9 @@ namespace Cliente.Controllers
         /// </summary>
         /// <param name="_iIdUsuario">Contiene el idUsuario</param>
         /// <returns>Retorna la lista de las compras</returns>
-        public List<CompraDeClienteDTO> ObtenerComprasDeCliente()
+        public List<CompraDeClienteDTO> ObtenerComprasDeCliente(int _iIdUsuario)
         {
-            List<CompraDeClienteDTO> _lstResultado = CompraBusiness.ObtenerComprasDeCliente(5/*Variable sesión*/);
+            List<CompraDeClienteDTO> _lstResultado = CompraBusiness.ObtenerComprasDeCliente(_iIdUsuario);
 
             return _lstResultado;
         }

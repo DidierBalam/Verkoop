@@ -12,23 +12,15 @@ namespace Verkoop.CapaDatos
     using System;
     using System.Collections.Generic;
     
-    public partial class tblCompra
+    public partial class tblComentario
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblCompra()
-        {
-            this.tblProductoComprado = new HashSet<tblProductoComprado>();
-        }
-    
-        public int iIdCompra { get; set; }
+        public int iIdComentario { get; set; }
         public int iIdUsuario { get; set; }
-        public int iIdDireccion { get; set; }
-        public int iMetodoPago { get; set; }
+        public int iIdProducto { get; set; }
+        public string cComentario { get; set; }
         public Nullable<System.DateTime> dtFecha { get; set; }
     
+        public virtual tblCat_Producto tblCat_Producto { get; set; }
         public virtual tblCat_Usuario tblCat_Usuario { get; set; }
-        public virtual tblDireccion tblDireccion { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProductoComprado> tblProductoComprado { get; set; }
     }
 }

@@ -209,5 +209,23 @@ namespace Verkoop.Business
             }
 
         }
+
+        /// <summary>
+        /// MÉTODO PARA OBTENER LA DIRECCIÓN PREDETERMINADA
+        /// </summary>
+        /// <param name="_idUsuario">Recibe el id del usuario</param>
+        /// <returns>Retorna el objeto dirección</returns>
+        public tblDireccion ObtenerDireccionPredeterminada(int _idUsuario)
+        {
+            using(VerkoopDBEntities _ctx = new VerkoopDBEntities())
+            {
+
+                tblDireccion _objDireccion = _ctx.tblDireccion.AsNoTracking().Where(x => x.iIdUsuario == _idUsuario && x.lDefault == true).FirstOrDefault();
+
+                return _objDireccion;
+            
+            }
+
+        }
     }
 }

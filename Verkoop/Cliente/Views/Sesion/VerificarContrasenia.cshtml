@@ -3,29 +3,36 @@
     ViewBag.Title = "VerificarContrasenia";
     Layout = "~/Views/Shared/_SesionLayout.cshtml";
 }
+<title class="-padding-t10pst">Verkoop | Registro</title>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+            <div class="w-100">
+                <form action="/" method="post">
+                    <div>
+                        <h3 class=" title text-center ">Verificación de cuenta.</h3>
+                        <p class="title text-center -AlinearBotonRegistro">Ingrese el código de verificación enviado a su correo.</p>
 
-    <form action="/" method="post">
-        <div>
-            <h3 class=" title text-center ">Verificación de contraseña.</h3>
-            <p class="title text-center -AlinearBotonRegistro">Ingrese el código de verificación enviado a su correo.</p>
-
-            <div>
-                <div class="-AlingInput4">
-                    <input type="text" class="form-control w-100  " id="cCodigo" placeholder="XXXXXXXXXX" style="text-align:center;" maxlength="10">
+                        <div>
+                            <div class="-AlingInput4">
+                                <input type="text" class="form-control w-100  " id="cCodigo" placeholder="XXXXXXXXXX" style="text-align:center;" maxlength="10">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <div class="cart-btn mt-30 justify-content-center">
+                        <a id="cVerificarContrasenia" class="btn amado-btn -ColorText w-50 -ml-15 ">Confirmar</a>
+                    </div>
                 </div>
+
             </div>
         </div>
-    </form>
-    <div>
-        <div class="cart-btn mt-30 justify-content-center">
-            <a id="cVerificarContrasenia" class="btn amado-btn -ColorText w-50 -ml-15 ">Confirmar</a>
-        </div>
     </div>
-
-
+</div>
 @section scripts{
 
     <script src="~/Scripts/UtileriaVerkoop.js"></script>
     <script src="~/Scripts/VerificarCuentaHerramientas.js"></script>>
-    
+
 }

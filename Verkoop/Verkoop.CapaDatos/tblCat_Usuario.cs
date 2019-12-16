@@ -18,10 +18,12 @@ namespace Verkoop.CapaDatos
         public tblCat_Usuario()
         {
             this.tblCarrito = new HashSet<tblCarrito>();
+            this.tblComentario = new HashSet<tblComentario>();
             this.tblCompra = new HashSet<tblCompra>();
             this.tblDireccion = new HashSet<tblDireccion>();
             this.tblSesion = new HashSet<tblSesion>();
             this.tblTarjeta = new HashSet<tblTarjeta>();
+            this.tblValoracion = new HashSet<tblValoracion>();
         }
     
         public int iIdUsuario { get; set; }
@@ -39,6 +41,8 @@ namespace Verkoop.CapaDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCarrito> tblCarrito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblComentario> tblComentario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCompra> tblCompra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDireccion> tblDireccion { get; set; }
@@ -46,5 +50,7 @@ namespace Verkoop.CapaDatos
         public virtual ICollection<tblSesion> tblSesion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTarjeta> tblTarjeta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblValoracion> tblValoracion { get; set; }
     }
 }

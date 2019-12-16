@@ -33,14 +33,14 @@ namespace Verkoop.Business
 
                     _cMensaje = "Categoría agregada con éxito!";
                     _EstadoConsulta = "success";
-                    _bEstadoCategoria = true;
+                    //_bEstadoCategoria = true;
                 }
             }
             catch (Exception )
             {
                 _cMensaje = "Algo falló, no se pudo agregar categoría, intente de nuevo.";
                 _EstadoConsulta = "error";
-                _bEstadoCategoria = false;
+                //_bEstadoCategoria = false;
 
             }
             return (new { EstadoConsulta = _EstadoConsulta, Mensaje = _cMensaje, tarjeta = _TablaCategoria });

@@ -69,6 +69,7 @@ namespace Verkoop.Business
                                                        on Producto.iIdProducto equals CatalogoProducto.iIdProducto
                                                        select new ProductoCompradoDTO
                                                        {
+                                                           
                                                            iCantidad = Producto.iCantidad,
                                                            dPrecio = Producto.iCantidad * CatalogoProducto.dPrecio,
                                                            cNombre = CatalogoProducto.cNombre,

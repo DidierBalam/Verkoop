@@ -18,7 +18,9 @@ namespace Verkoop.CapaDatos
         public tblCat_Producto()
         {
             this.tblCarrito = new HashSet<tblCarrito>();
+            this.tblComentario = new HashSet<tblComentario>();
             this.tblProductoComprado = new HashSet<tblProductoComprado>();
+            this.tblValoracion = new HashSet<tblValoracion>();
         }
     
         public int iIdProducto { get; set; }
@@ -37,6 +39,10 @@ namespace Verkoop.CapaDatos
         public virtual ICollection<tblCarrito> tblCarrito { get; set; }
         public virtual tblCat_Categoria tblCat_Categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblComentario> tblComentario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProductoComprado> tblProductoComprado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblValoracion> tblValoracion { get; set; }
     }
 }

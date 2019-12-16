@@ -9,5 +9,7 @@ namespace Verkoop.CapaDatos.DTO
         public string cNombre { get; set; }
         public string cImagen { get; set; }
 
+        
+
     }
 }

@@ -1,8 +1,15 @@
 ﻿
-//BOTÓN PARA IR AL CARRITO DE COMPRAS
+//Botón que redirigea a la vista de inicar sesión.
+$("#btnAcceder").click(function () {
+
+    window.location.href = "/Cliente/Sesion/Index";
+
+});
+
+//BOTÓN PARA IR AL LISTADO DE LOS PRODUCTOS
 $(document).on('click', '#btnProducto', function () {
 
-    window.location.href = "/Cliente/Producto/Catalogo";
+    window.location.href = "/Cliente";
 
 });
 
@@ -16,7 +23,19 @@ $(document).on('click', '#tbnCarrito', function () {
 //BOTÓN PARA CERRAR SESIÓN
 $(document).on('click', '#btnSalir',function () {
 
-    CerrarSesion();
+    window.location.href = "/Cliente/Sesion/CerrarSesion";
 
 });
 
+//BOTÓN PARA IR AL HISTORIAL DE COMPRAS
+$(document).on('click', '#btnCompras', function () {
+
+    window.location.href = "/Cliente/HistorialCompras/ComprasRealizadas";
+
+});
+
+//BOTÓN PARA IR AL PERFIL
+$(document).on('click', '#btnPerfil', function () {
+    window.location.href = "/Cliente/Perfil/InformacionPersonal";
+    
+});

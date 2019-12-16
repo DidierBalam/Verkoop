@@ -150,13 +150,7 @@ function IniciarSesion(cCorreo, cContrasenia) {
     });
 }
 
-/**
- * FUNCIÓN PARA CERRAR LA SESIÓN.
- * */
-function CerrarSesion() {
 
-    window.location.href = "../Sesion/CerrarSesion";
-}
 
 
 /**
@@ -195,7 +189,7 @@ function AgregarProductoCarrito(iIdProducto, cElementoRellenar) {
             let iValor = parseInt(cElemento.html());
 
             cElemento.html(iValor += 1);
-            cElementoRellenar.html('<div class="-flex-center-center -padding-t3pst"><p class="-fuente-muy-pequeña"><img src="../Assets/img/checkmark.svg"/>Agregado</p></div>');
+            cElementoRellenar.html('<div class="-flex-center-center -padding-t3pst"><p class="-fuente-muy-pequeña"><img src="/Cliente/Assets/img/checkmark.svg"/>Agregado</p></div>');
         }
     })
 
@@ -208,22 +202,33 @@ function AgregarProductoCarrito(iIdProducto, cElementoRellenar) {
  */
 function QuitarProductoDeCarrito(iIdCarrito, cElementoEliminar) {
 
-    ObtenerMetodoControlador('POST', '../CarritoCompras/QuitarProductoCarrito', { _iIdCarrito: iIdCarrito }, 'JSON').then((objRespuesta) => {
+    MostrarMensajeEspera('¿Estás seguro?', 'Quitarás el producto del carrito definitivamente').then((objRespuesta) => {
 
-        llamarSwetalert(objRespuesta); //Ejecuta sweetalert
+        if (objRespuesta) {
 
-        if (objRespuesta._bEstadoOperacion) {
+            ObtenerMetodoControlador('POST', '../CarritoCompras/QuitarProductoCarrito', { _iIdCarrito: iIdCarrito }, 'JSON').then((objRespuesta) => {
 
-            EliminarElementoHTML(cElementoEliminar); //Elimina la carta del producto
+                llamarSwetalert(objRespuesta); //Ejecuta sweetalert
 
-            let cElemento = $("#TotalProductosCarrito");
+                if (objRespuesta._bEstadoOperacion) {
 
-            let iValor = parseInt(cElemento.html());
+                    EliminarElementoHTML(cElementoEliminar); //Elimina la carta del producto
 
-            cElemento.html(iValor -= 1); //Aumenta el valor del contador del carrito en la barra lateral
+                    let cElemento = $("#TotalProductosCarrito");
+
+                    let iValor = parseInt(cElemento.html());
+
+                    cElemento.html(iValor -= 1); //Aumenta el valor del contador del carrito en la barra lateral
+                }
+
+            });
+
         }
 
+
     });
+
+   
 }
 
 /**
@@ -252,7 +257,7 @@ function EliminarDireccion(iIdDireccion, cElementoDireccion) {
  */
 function VisualizarDetallesProducto(iIdProducto) {
 
-    ObtenerMetodoControlador("POST", "Cliente/Producto/DetallesProductos", { iIdProducto: iIdProducto }, "HTML").then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "cliente/Producto/DetallesProductos", { iIdProducto: iIdProducto }, "HTML").then((objRespuesta) => {
 
         $("#ModalDetalles").html(objRespuesta);
         $("#ModalDetalles").modal({
@@ -269,7 +274,7 @@ function VisualizarDetallesProducto(iIdProducto) {
  */
 function BuscarProducto(cNombre, iConsulta) {
 
-    ObtenerMetodoControlador("POST", "Cliente/Producto/BuscarProducto", { _cNombre: cNombre, _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "cliente/Producto/BuscarProducto", { _cNombre: cNombre, _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
 
         if (objRespuesta.trim() != "") {
 
@@ -312,7 +317,7 @@ function VerMasProductos(cFiltro, iConsulta, cContenedor) {
 
     if (cFiltro.toUpperCase() == 'BUSCAR') {
 
-        ObtenerMetodoControlador("POST", "/Producto/BuscarProducto", { _cNombre: $("#BarraBusqueda").val(), _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
+        ObtenerMetodoControlador("POST", "cliente/Producto/BuscarProducto", { _cNombre: $("#BarraBusqueda").val(), _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
 
             if (objRespuesta.trim() != "") {
 
@@ -325,7 +330,7 @@ function VerMasProductos(cFiltro, iConsulta, cContenedor) {
 
     } else {
 
-        ObtenerMetodoControlador("POST", "/Producto/VerMasProductos", { _cFiltro: cFiltro.toUpperCase(), _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
+        ObtenerMetodoControlador("POST", "cliente/Producto/VerMasProductos", { _cFiltro: cFiltro.toUpperCase(), _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
 
             if (objRespuesta.trim() != "") {
 
@@ -389,7 +394,7 @@ function EliminarElementoHTML(cElemento) {
     cElemento.remove();
 
 }
-}
+
 
 
 
@@ -477,13 +482,59 @@ function InsertarCardTarjeta(objTarjeta, cElemento) {
     $(cElemento).append(cTarjeta);
 }
 
+function RealizarPagoConTarjeta(objPago) {
+    
+    let Data = {};
+
+    Data["Pago"] = JSON.stringify(objPago);
+
+    ObtenerMetodoControlador("POST", "./RealizarPago", Data, "JSON").then((objRespuesta) => {
+
+        if (objRespuesta._bEstadoOperacion == true) { //se obtiene la respuesta verdadera y redirecciona a la vista compras
+
+            llamarSwetalert(objRespuesta);
+
+            window.Location.href = "/cliente/HistorialCompras/ComprasRealizadas";
+
+        }
+        else {
+
+            llamarSwetalert(objRespuesta);
+        }
+    });
+}
 
 /**
 * FUNCIÓN AJAX QUE CONECTA A LOS MÉTODOS DEL CONTROLADOR
 * @param {any} cMetodo Recibe la url del método.
 * @param {any} datoEnvio Recibe los datos a enviar.
 */
-function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato, cTipoContenido = null) {
+function ObtenerMetodoControlador(cTipo, cUrl, Data, cTipoDato, /*cTipoContenido = null*/) {
+
+    return new Promise((objResultado) => {
+
+        $.ajax({
+            url: cUrl,
+            type: cTipo,
+            data: Data,
+            async: false,
+            dataType: cTipoDato,
+            //contentType: cTipoContenido,
+            success: function (Respuesta) {
+
+                objResultado(Respuesta);
+            }
+        });
+
+    })
+}
+
+/**
+* FUNCIÓN AJAX QUE CONECTA CON EL API DE PAYPAL
+* @param {any} cMetodo Recibe la url del método.
+* @param {any} datoEnvio Recibe los datos a enviar.
+*/
+function ConectarPagoPaypal(cTipo, cUrl, Data, cTipoDato, cTipoContenido = null) {
 
     return new Promise((objResultado) => {
 
@@ -549,4 +600,31 @@ function LlamarSwetalertDireccion(objRespuesta) {
     else {
         EjecutarAlerta("error", "Error", objRespuesta._cMensaje);
     }
+}
+
+/**
+ * FUNCIÓN QUE MUESTRA UN MENSAJE DE ESPERA
+ * */
+function MostrarMensajeEspera(cTitulo, cTexto) {
+
+    return new Promise((objResultado) => {
+
+        Swal.fire({
+            title: cTitulo,
+            text: cTexto,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#6c757d',
+            cancelButtonText: 'No',
+            cancelButtonColor: '#ffc107',
+            confirmButtonText: 'Si, continuar!'
+        }).then((result) => {
+            if (result.value) {
+
+                objResultado(true);
+                
+            }
+        })
+
+    })
 }

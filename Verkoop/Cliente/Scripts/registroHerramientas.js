@@ -26,6 +26,7 @@ $(document).on('change', '#cMunicipio', function () {
 //BOTÓN REGISTRAR DEL APARTADO CONTRASEÑA.
 $(document).on('click', '#btnRegistar', function () {
 
+
     lFormularioValido = ValidarContrasenia();
 
     if (lFormularioValido === true) {
@@ -142,7 +143,7 @@ function ValidarContrasenia() {
     let oFormulario = $("#tapContrasenia");
 
     oFormulario.validate({
-
+       
         errorClass: "is-invalid",
         validClass: "is-valid",
 
@@ -164,6 +165,12 @@ function ValidarContrasenia() {
     return oFormulario.valid();
 }
 
+/**Mensaje de validacion de formato de correo electrónico correcto */
+jQuery.extend(jQuery.validator.messages, {
+
+    email: "Formato de correo electrónico incorrecto."
+
+});
 
 /**
  * Función para mandar una alerta de la validación

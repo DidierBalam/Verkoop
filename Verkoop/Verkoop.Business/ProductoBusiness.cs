@@ -9,7 +9,7 @@ namespace Verkoop.Business
 {
     public class ProductoBusiness
     {
-        
+
         private string _cMensaje = string.Empty;
         private string _EstadoConsulta = string.Empty;
 
@@ -38,7 +38,7 @@ namespace Verkoop.Business
 
             });
 
-            return _lstProductoAfectado;       
+            return _lstProductoAfectado;
         }
 
         /// <summary>
@@ -49,9 +49,9 @@ namespace Verkoop.Business
         /// <returns>Retorna el estado de la operación y su mensaje</returns>
         public object CambiarEstadoProducto(bool _bEstado, int _iIdProducto)
         {
-            
+
             try
-            {             
+            {
                 using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
                 {
                     tblCat_Producto _objProductos;
@@ -130,8 +130,8 @@ namespace Verkoop.Business
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
-                List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto                                                                    
-                                                                     //orderby Producto.cNombre descending
+                List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto
+                                                                     orderby Producto.cNombre descending
                                                                      select new VistaPreviaProductoClienteDTO
                                                                      {
                                                                          iIdProducto = Producto.iIdProducto,
@@ -139,11 +139,11 @@ namespace Verkoop.Business
                                                                          cImagenProducto = Producto.cImagen,
                                                                          dPrecioProducto = Producto.dPrecio.ToString(),
                                                                          iCantidad = Producto.iCantidad,
-                                                                         bEstadoCarrito = _ctx.tblCarrito.Any(x => x.iIdProducto == Producto.iIdProducto 
-                                                                         && x.iIdUsuario == _iIdUsuario && x.lEstatus==false)
+                                                                         bEstadoCarrito = _ctx.tblCarrito.Any(x => x.iIdProducto == Producto.iIdProducto
+                                                                         && x.iIdUsuario == _iIdUsuario && x.lEstatus == false)
 
-            })/*.Skip(_iNumeroConsulta * _iProductosObtener)*/
-                                                                     //.Take(_iProductosObtener)
+                                                                     }).Skip(_iNumeroConsulta * _iProductosObtener) 
+                                                                     .Take(_iProductosObtener)
                                                                      .ToList();
                 return _lstProductos;
             }
@@ -161,7 +161,7 @@ namespace Verkoop.Business
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
             {
                 List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto
-                                                                     join Categoria in _ctx.tblCat_Categoria 
+                                                                     join Categoria in _ctx.tblCat_Categoria
                                                                      on Producto.iIdCategoria equals Categoria.iIdCategoria
                                                                      where Categoria.cNombre == _cCategoria
                                                                      orderby Producto.dtFechaAlta descending
@@ -203,7 +203,7 @@ namespace Verkoop.Business
                                                                          cImagenProducto = ProductoAgrupado.Select(x => x.Producto.cImagen).FirstOrDefault(),
                                                                          dPrecioProducto = ProductoAgrupado.Select(x => x.Producto.dPrecio).FirstOrDefault().ToString(),
                                                                          iCantidad = ProductoAgrupado.Select(x => x.Producto.iCantidad).FirstOrDefault(),
-                                                                         bEstadoCarrito = _ctx.tblCarrito.Any(y => y.iIdProducto == ProductoAgrupado.Select(x=>x.Producto.iIdProducto).FirstOrDefault()
+                                                                         bEstadoCarrito = _ctx.tblCarrito.Any(y => y.iIdProducto == ProductoAgrupado.Select(x => x.Producto.iIdProducto).FirstOrDefault()
                                                                          && y.iIdUsuario == _iIdUsuario && y.lEstatus == false)
 
                                                                      }).Skip(_iNumeroConsulta * _iProductosObtener)
@@ -222,7 +222,7 @@ namespace Verkoop.Business
         public List<VistaPreviaProductoClienteDTO> BuscarProducto(string _cNombre, int _iNumeroConsulta, int _iProductosObtener, int _iIdUsuario)
         {
             using (VerkoopDBEntities _ctx = new VerkoopDBEntities())
-            { 
+            {
                 List<VistaPreviaProductoClienteDTO> _lstProductos = (from Producto in _ctx.tblCat_Producto
                                                                      where Producto.cNombre.ToUpper().Contains(_cNombre.Trim().ToUpper())
 

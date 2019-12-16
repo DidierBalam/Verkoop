@@ -3,11 +3,14 @@ using Verkoop.CapaDatos.DTO;
 using Verkoop.Business;
 using System.Collections.Generic;
 using System;
+using Verkoop.CapaDatos;
+using Bogus;
+
 namespace Cliente.Controllers
 {
     public class ProductoController : Controller
     {
-        int iProductosObtener = 3;
+        int iProductosObtener = 20;
 
         ProductoBusiness ProductoBusiness = new ProductoBusiness();
         CategoriaBusiness CategoriaBusiness = new CategoriaBusiness();
@@ -158,6 +161,35 @@ namespace Cliente.Controllers
 
 
             return PartialView(_lstProducto);
+        }
+
+     
+        public void GenerarDatos(int _iIdCategoria)
+        {
+            var ListAdministradores = new Faker<tblCat_Producto>()
+
+                .RuleFor(o => o.cNombre, f => f.Commerce.ProductName())
+                .RuleFor(o => o.iCantidad, f => f.Random.Number(0, 100))
+                .RuleFor(o => o.iIdCategoria, f => _iIdCategoria)
+                .RuleFor(o => o.cImagen, f => f.Image.PicsumUrl())
+                .RuleFor(o => o.dPrecio, f => f.Random.Number(1, 3000))
+                .RuleFor(o => o.lEstatus, f => f.Random.Bool(1))
+                .RuleFor(o => o.dtFechaAlta, f => f.Date.Recent())
+                .RuleFor(o => o.cDescripcion, f => f.Lorem.Word());
+
+
+
+            using (VerkoopDBEntities ctx = new VerkoopDBEntities())
+            {
+
+                var user = ListAdministradores.Generate(100);
+
+               
+
+                ctx.tblCat_Producto.AddRange(user);
+
+                ctx.SaveChanges();
+            }
         }
         #endregion
     }

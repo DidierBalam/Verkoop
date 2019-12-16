@@ -126,10 +126,11 @@ namespace Cliente.Controllers
 
             bool _bEstadoOperacion = Convert.ToBoolean(_objRespuesta.GetType().GetProperty("EstadoOperacion").GetValue(_objRespuesta));
             string _cMensaje = Convert.ToString(_objRespuesta.GetType().GetProperty("Mensaje").GetValue(_objRespuesta));
-            int _iVariableSesion =  Convert.ToInt32(_objRespuesta.GetType().GetProperty("VariableSesion").GetValue(_objRespuesta));
+            
             
                 if(_bEstadoOperacion) 
             {
+                int _iVariableSesion =  Convert.ToInt32(_objRespuesta.GetType().GetProperty("VariableSesion").GetValue(_objRespuesta));
                 Session["iIdUsuario"] = _iVariableSesion;
  
             }

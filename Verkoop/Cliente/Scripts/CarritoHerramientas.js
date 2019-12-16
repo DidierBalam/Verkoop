@@ -1,17 +1,22 @@
 ﻿
+
+
 $(document).on('click', '.btnEliminarCarrito', function () {
 
     let iIdCarrito = $(this).attr('idCarrito');
 
     QuitarProductoDeCarrito(iIdCarrito, $(this).closest("tr"));
-  
+
 
 });
 
 
 $(document).ready(function () {
 
-    leerRadioButtonPago()
+    leerRadioButtonPago();
+
+    ObtenerTotalApagar();
+
 
 });
 
@@ -27,16 +32,39 @@ function leerRadioButtonPago() {
         if (radioButtonSeleccionado != null) {
 
             let radioButtonValor = radioButtonSeleccionado.value
-            console.log(radioButtonValor)
+           
 
             if (radioButtonValor == "Paypal") {
 
-                ObtenerProductos()
+                let Productos = ObtenerProductos();
+
+                ConectarPagoPaypal("POST", "PagoConPaypal", Productos, "JSON", "application/json; charset=utf-8").then((objRespuesta) => {
+
+                    if (objRespuesta._bEstadoOperacion == true) {
+
+                        window.location.replace(objRespuesta._cPaypalRedirectUrl);
+
+                    }
+                    else {
+
+                        llamarSwetalert(objRespuesta);
+
+                    }
+
+                })
 
             }
 
             if (radioButtonValor == "Tarjeta") {
 
+                let Productos = ObtenerProductos();
+
+                let iCantidad = $("#Total").html();
+
+                sessionStorage.setItem('productos', Productos);
+                sessionStorage.setItem('cantidad', iCantidad);
+
+                window.location.href = "/Cliente/CarritoCompras/PagoConTarjeta";
             }
 
         }
@@ -64,11 +92,11 @@ function ObtenerProductos() {
         lstProducto
     }
 
-    $(".CartaProducto").each(function () {
+    $(".NumeroPedido").each(function () {
 
-        let iIdProducto = $(this).attr("idProducto")
+        let iIdProducto = $(this).attr("id")
 
-        let iCantidad = $(this).find(".NumeroPedido").val()
+        let iCantidad = $(this).val()
 
         lstProducto.push({ iIdProducto: iIdProducto, iCantidad: iCantidad })
 
@@ -77,19 +105,47 @@ function ObtenerProductos() {
 
     Productos = JSON.stringify(Productos);
 
-    ObtenerMetodoControlador("POST", "PagoConPaypal", Productos, "JSON", "application/json; charset=utf-8").then((objRespuesta) => {
+    return Productos;
 
-        if (objRespuesta._bEstadoOperacion == true) {
+  }
 
-            window.location.replace(objRespuesta._cPaypalRedirectUrl);
+/**
+ * MÉTODO PARA OBTNER EL PRECIO TOTAL DE LOS PRODUCTOS EN CARRITO
+ * */
+function ObtenerTotalApagar() {
 
-        }
-        else {
+    let dPrecio = 0
 
-            llamarSwetalert(objRespuesta);
+    $(".precioProducto").each(function () {
 
-        }
+        dPrecio += parseInt($(this).html());
+    });
 
-    })
+    $("#SubTotal").html(dPrecio);
+    $("#Total").html(dPrecio);
 
 }
+
+
+/**
+ * MÉTODO PARA DISMINUIR LA CANTIDAD DE PEDIDO DEL PRODUCTO.
+ * */
+$(".aumentarCantidad").click(function () {
+    let cElemento = $(this).siblings('.NumeroPedido');
+    let iValor = parseInt(cElemento.val());
+
+    if (iValor > 1 ) cElemento.val(iValor - 1);
+   
+});
+
+/**
+ * MÉTODO PARA AUMENTAR LA CANTIDAD DE PEDIDO DEL PRODUCTO.
+ * */
+$(".disminuirCantidad").click(function () {
+    let cElemento = $(this).siblings('.NumeroPedido');
+    let iValor = parseInt(cElemento.val());
+    let iCantidadDisponible = parseInt($(this).attr('cantidadDisponible'));
+    console.log(iCantidadDisponible);
+    if (iValor < iCantidadDisponible) cElemento.val(iValor + 1);
+
+});
