@@ -103,6 +103,25 @@ function ObtenerValoresDelUsuario() {
 
 }
 
+$('#cNombre').on('input', function (e) {
+    if (!/^[ a-záéíóúüñ-]*$/i.test(this.value)) {
+        this.value = this.value.replace(/[^ a-záéíóúüñ-]+/ig, "");
+    }
+});
+
+$('#cApellidoPaterno').on('input', function (e) {
+    if (!/^[ a-záéíóúüñ-]*$/i.test(this.value)) {
+        this.value = this.value.replace(/[^ a-záéíóúüñ-]+/ig, "");
+    }
+});
+
+$('#cApellidoMaterno').on('input', function (e) {
+    if (!/^[ a-záéíóúüñ-]*$/i.test(this.value)) {
+        this.value = this.value.replace(/[^ a-záéíóúüñ-]+/ig, "");
+    }
+});
+
+
 
 /**Función para validar los campos de iniciar sesión */
 function ValidarDatosPersonales() {
@@ -113,7 +132,7 @@ function ValidarDatosPersonales() {
 
         rules: {
             Nombre: { required: true },
-            ApellidoP: { required: true },
+            ApellidoP: { required: true, },
             Correo: { required: true },
             Direccion: { required: true },
         },
