@@ -5,38 +5,38 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5b04cb9abc874825ab4967f9879a3ee8" Name="Diagram1" ZoomLevel="85">
-        <EntityTypeShape EntityType="VerkoopDBModel.tblCarrito" Width="1.5" PointX="6" PointY="7.5" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblCat_Categoria" Width="1.5" PointX="1.5" PointY="4" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblCat_Producto" Width="1.5" PointX="3.75" PointY="2.75" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblCarrito" Width="1.5" PointX="3" PointY="11.5" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblCat_Categoria" Width="1.5" PointX="1.5" PointY="1.875" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblCat_Producto" Width="1.5" PointX="0.75" PointY="4.625" />
         <EntityTypeShape EntityType="VerkoopDBModel.tblCat_Usuario" Width="1.5" PointX="0.75" PointY="10.5" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblDireccion" Width="1.5" PointX="3" PointY="11.375" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblEstado" Width="1.5" PointX="1.5" PointY="0.75" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblMunicipio" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblPais" Width="1.5" PointX="1.5" PointY="23" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblProductoComprado" Width="1.5" PointX="7.5" PointY="11.625" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblTarjeta" Width="1.5" PointX="3" PointY="19.625" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblComentario" Width="1.5" PointX="6" PointY="11.5" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblCompra" Width="1.5" PointX="5.25" PointY="15" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblDireccion" Width="1.5" PointX="3" PointY="15.375" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblEstado" Width="1.5" PointX="1.5" PointY="19.75" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblMunicipio" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblPais" Width="1.5" PointX="1.5" PointY="22.875" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblProductoComprado" Width="1.5" PointX="7.5" PointY="15.25" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblSesion" Width="1.5" PointX="3" PointY="29" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblTarjeta" Width="1.5" PointX="3" PointY="25.875" />
+        <EntityTypeShape EntityType="VerkoopDBModel.tblValoracion" Width="1.5" PointX="3" PointY="8.625" />
         <AssociationConnector Association="VerkoopDBModel.FK_tblCarrito_iIdProducto" />
         <AssociationConnector Association="VerkoopDBModel.FK_tblCarrito_iIdUsuario" />
         <AssociationConnector Association="VerkoopDBModel.FK_tblCat_Producto_iIdCategoria" />
+        <AssociationConnector Association="VerkoopDBModel.FK_tblComentario_iIdProducto" />
         <AssociationConnector Association="VerkoopDBModel.FK_tblProductoComprado_iIdProducto" />
+        <AssociationConnector Association="VerkoopDBModel.FK_tblValoracion_iIdProducto" />
+        <AssociationConnector Association="VerkoopDBModel.FK_tblComentario_iIdUsuario" />
+        <AssociationConnector Association="VerkoopDBModel.FK_tblCompra_iIdUsuario" />
         <AssociationConnector Association="VerkoopDBModel.FK_tblDireccion_iIdUsuario" />
+        <AssociationConnector Association="VerkoopDBModel.FK_tblSesion_iIdUsuario" />
         <AssociationConnector Association="VerkoopDBModel.FK_tblTarjeta_iIdUsuario" />
+        <AssociationConnector Association="VerkoopDBModel.FK_tblValoracion_iIdUsuario" />
+        <AssociationConnector Association="VerkoopDBModel.FK_tblCompra_iIdDireccion" />
+        <AssociationConnector Association="VerkoopDBModel.FK_tblProductoComprado_iIdCompra" />
         <AssociationConnector Association="VerkoopDBModel.FK_tblDireccion_iIdMunicipio" />
         <AssociationConnector Association="VerkoopDBModel.FK_tblEstado_iIdPais" />
         <AssociationConnector Association="VerkoopDBModel.FK_tblMunicipio_iIdEstado" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblComentario" Width="1.5" PointX="9" PointY="4.625" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblValoracion" Width="1.5" PointX="9" PointY="7.75" />
-        <AssociationConnector Association="VerkoopDBModel.FK_tblComentario_iIdProducto" />
-        <AssociationConnector Association="VerkoopDBModel.FK_tblValoracion_iIdProducto" />
-        <AssociationConnector Association="VerkoopDBModel.FK_tblComentario_iIdUsuario" />
-        <AssociationConnector Association="VerkoopDBModel.FK_tblValoracion_iIdUsuario" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblSesion" Width="1.5" PointX="3" PointY="15.625" />
-        <AssociationConnector Association="VerkoopDBModel.FK_tblSesion_iIdUsuario" />
-        <EntityTypeShape EntityType="VerkoopDBModel.tblCompra" Width="1.5" PointX="5.25" PointY="11.5" />
-        <AssociationConnector Association="VerkoopDBModel.FK_tblCompra_iIdUsuario" />
-        <AssociationConnector Association="VerkoopDBModel.FK_tblCompra_iIdDireccion" />
-        <AssociationConnector Association="VerkoopDBModel.FK_tblProductoComprado_iIdCompra" />
-        </Diagram>
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
