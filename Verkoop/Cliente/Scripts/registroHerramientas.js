@@ -113,6 +113,7 @@ $('#cApellidoPaterno').on('input', function (e) {
     if (!/^[ a-záéíóúüñ-]*$/i.test(this.value)) {
         this.value = this.value.replace(/[^ a-záéíóúüñ-]+/ig, "");
     }
+    
 });
 
 $('#cApellidoMaterno').on('input', function (e) {

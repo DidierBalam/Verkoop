@@ -179,7 +179,7 @@ function EliminarTarjeta(iIdTarjeta, cElemento) {
  */
 function AgregarProductoCarrito(iIdProducto, cElementoRellenar) {
 
-    ObtenerMetodoControlador("POST", "/Cliente/CarritoCompras/AgregarProductoCarrito", { _iIdProducto: iIdProducto }, "JSON").then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "../CarritoCompras/AgregarProductoCarrito", { _iIdProducto: iIdProducto }, "JSON").then((objRespuesta) => {
         llamarSwetalert(objRespuesta)
 
         if (objRespuesta._bEstadoOperacion) {
@@ -257,7 +257,7 @@ function EliminarDireccion(iIdDireccion, cElementoDireccion) {
  */
 function VisualizarDetallesProducto(iIdProducto) {
 
-    ObtenerMetodoControlador("POST", "cliente/Producto/DetallesProductos", { iIdProducto: iIdProducto }, "HTML").then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "../Producto/DetallesProductos", { iIdProducto: iIdProducto }, "HTML").then((objRespuesta) => {
 
         $("#ModalDetalles").html(objRespuesta);
         $("#ModalDetalles").modal({
@@ -274,7 +274,7 @@ function VisualizarDetallesProducto(iIdProducto) {
  */
 function BuscarProducto(cNombre, iConsulta) {
 
-    ObtenerMetodoControlador("POST", "cliente/Producto/BuscarProducto", { _cNombre: cNombre, _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "../Producto/BuscarProducto", { _cNombre: cNombre, _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
 
         if (objRespuesta.trim() != "") {
 
@@ -317,7 +317,7 @@ function VerMasProductos(cFiltro, iConsulta, cContenedor) {
 
     if (cFiltro.toUpperCase() == 'BUSCAR') {
 
-        ObtenerMetodoControlador("POST", "cliente/Producto/BuscarProducto", { _cNombre: $("#BarraBusqueda").val(), _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
+        ObtenerMetodoControlador("POST", "../Producto/BuscarProducto", { _cNombre: $("#BarraBusqueda").val(), _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
 
             if (objRespuesta.trim() != "") {
 
@@ -330,7 +330,7 @@ function VerMasProductos(cFiltro, iConsulta, cContenedor) {
 
     } else {
 
-        ObtenerMetodoControlador("POST", "cliente/Producto/VerMasProductos", { _cFiltro: cFiltro.toUpperCase(), _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
+        ObtenerMetodoControlador("POST", "../Producto/VerMasProductos", { _cFiltro: cFiltro.toUpperCase(), _iNumeroConsulta: iConsulta }, "HTML").then((objRespuesta) => {
 
             if (objRespuesta.trim() != "") {
 
@@ -488,13 +488,13 @@ function RealizarPagoConTarjeta(objPago) {
 
     Data["Pago"] = JSON.stringify(objPago);
 
-    ObtenerMetodoControlador("POST", "./RealizarPago", Data, "JSON").then((objRespuesta) => {
+    ObtenerMetodoControlador("POST", "../CarritoCompras/RealizarPago", Data, "JSON").then((objRespuesta) => {
 
         if (objRespuesta._bEstadoOperacion == true) { //se obtiene la respuesta verdadera y redirecciona a la vista compras
 
             llamarSwetalert(objRespuesta);
 
-            window.Location.href = "/cliente/HistorialCompras/ComprasRealizadas";
+            window.Location.href = "../HistorialCompras/ComprasRealizadas";
 
         }
         else {

@@ -52,7 +52,7 @@
             <div class="-cardDireciones1 ">
                 <div class="-cardDireccion">
 
-                    <form action="#" class="contact-form">
+                    <form action="#" id="PagoTarjeta" class="contact-form">
 
                         <div class="-cardPadreDireccion1">
 
@@ -70,14 +70,14 @@
                         <div class="-cardPadreDireccion1">
                             <div class="w-75 -botonAgregarDireccionPago">
                                 <label class="-letranegrita">Total a pagar.</label>
-                                <input type="text" class="form-control " id="precio"  disabled>
+                                <input type="text" class="form-control " id="precio" disabled>
                             </div>
                         </div>
 
                         <div class="-cardPadreDireccion1">
                             <div class="w-75 -botonAgregarDireccionPago">
                                 <label class="-letranegrita">Tarjeta.</label>
-                                <input type="text" class="form-control " id="direccion" idTarjeta="" placeholder="XXXX-XXXX-XXXX-4653">
+                                <input type="text" class="form-control " id="tarjeta" name="tarjeta" idTarjeta="" maxlength="16" placeholder="XXXX-XXXX-XXXX-4653">
                             </div>
 
                             <div>
@@ -92,17 +92,17 @@
                                 <div class="row">
                                     <div class="col col-md-3">
                                         <label class="-letranegrita">Mes</label>
-                                        <input id="mes" type="text" class="form-control" placeholder="Enero">
+                                        <input id="mes" name="mes" type="text" class="form-control" maxlength="2" placeholder="01">
                                     </div>
 
                                     <div class="col col-md-3">
                                         <label class="-letranegrita">Año</label>
-                                        <input id="anio" type="text" class="form-control" placeholder="2019">
+                                        <input id="anio" name="anio" type="text" class="form-control" maxlength="4" placeholder="2019">
                                     </div>
 
                                     <div class="col col-md-3">
                                         <label class="-letranegrita">CCV</label>
-                                        <input type="text" class="form-control" placeholder="123">
+                                        <input type="text" id="ccv" name="ccv" class="form-control" maxlength="3" placeholder="123">
                                     </div>
                                 </div>
                             </div>
@@ -132,4 +132,5 @@
     <script src="~/Scripts/ProductoCarrito.js"></script>
     <script src="~/Scripts/CarritoHerramientas.js"></script>
     <script src="~/Scripts/pagoHerramientas.js"></script>
+    <script src="~/Assets/Librerias/jQueryValidate/jquery.validate.min.js"></script>
 }
