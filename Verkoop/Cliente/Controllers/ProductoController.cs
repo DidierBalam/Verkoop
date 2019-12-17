@@ -162,7 +162,6 @@ namespace Cliente.Controllers
 
             return PartialView(_lstProducto);
         }
-
      
         public void GenerarDatos(int _iIdCategoria)
         {

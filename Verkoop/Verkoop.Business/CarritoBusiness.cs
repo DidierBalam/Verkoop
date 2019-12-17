@@ -271,6 +271,7 @@ namespace Verkoop.Business
                                             where producto.iIdProducto == x.iIdProducto
                                             select new ProductoPaypalDTO
                                             {
+                                                iIdProducto = producto.iIdProducto,
                                                 iCantidad = x.iCantidad,
                                                 cNombre = producto.cNombre,
                                                 dPrecio = producto.dPrecio

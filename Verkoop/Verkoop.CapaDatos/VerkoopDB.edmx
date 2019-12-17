@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="VerkoopDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="tblCarrito">
           <Key>
             <PropertyRef Name="iIdCarrito" />
@@ -22,6 +12,7 @@
           <Property Name="iIdCarrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="iIdUsuario" Type="int" Nullable="false" />
           <Property Name="iIdProducto" Type="int" Nullable="false" />
+          <Property Name="iCantidad" Type="int" Nullable="false" />
           <Property Name="lEstatus" Type="bit" Nullable="false" />
           <Property Name="dtFechaSeleccion" Type="datetime" Nullable="false" />
         </EntityType>
@@ -81,7 +72,6 @@
           <Property Name="iIdCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="iIdUsuario" Type="int" Nullable="false" />
           <Property Name="iIdDireccion" Type="int" Nullable="false" />
-          <Property Name="iMetodoPago" Type="int" Nullable="false" />
           <Property Name="dtFecha" Type="datetime" />
         </EntityType>
         <EntityType Name="tblDireccion">
@@ -364,7 +354,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="VerkoopDBModelStoreContainer">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCarrito" EntityType="Self.tblCarrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCat_Categoria" EntityType="Self.tblCat_Categoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCat_Producto" EntityType="Self.tblCat_Producto" Schema="dbo" store:Type="Tables" />
@@ -453,21 +442,16 @@
     <edmx:ConceptualModels>
       <Schema Namespace="VerkoopDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="VerkoopDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="sysdiagrams" EntityType="VerkoopDBModel.sysdiagrams" />
           <EntitySet Name="tblCarrito" EntityType="VerkoopDBModel.tblCarrito" />
           <EntitySet Name="tblCat_Categoria" EntityType="VerkoopDBModel.tblCat_Categoria" />
           <EntitySet Name="tblCat_Producto" EntityType="VerkoopDBModel.tblCat_Producto" />
           <EntitySet Name="tblCat_Usuario" EntityType="VerkoopDBModel.tblCat_Usuario" />
-          <EntitySet Name="tblComentario" EntityType="VerkoopDBModel.tblComentario" />
-          <EntitySet Name="tblCompra" EntityType="VerkoopDBModel.tblCompra" />
           <EntitySet Name="tblDireccion" EntityType="VerkoopDBModel.tblDireccion" />
           <EntitySet Name="tblEstado" EntityType="VerkoopDBModel.tblEstado" />
           <EntitySet Name="tblMunicipio" EntityType="VerkoopDBModel.tblMunicipio" />
           <EntitySet Name="tblPais" EntityType="VerkoopDBModel.tblPais" />
           <EntitySet Name="tblProductoComprado" EntityType="VerkoopDBModel.tblProductoComprado" />
-          <EntitySet Name="tblSesion" EntityType="VerkoopDBModel.tblSesion" />
           <EntitySet Name="tblTarjeta" EntityType="VerkoopDBModel.tblTarjeta" />
-          <EntitySet Name="tblValoracion" EntityType="VerkoopDBModel.tblValoracion" />
           <AssociationSet Name="FK_tblCarrito_iIdProducto" Association="VerkoopDBModel.FK_tblCarrito_iIdProducto">
             <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
             <End Role="tblCarrito" EntitySet="tblCarrito" />
@@ -480,49 +464,17 @@
             <End Role="tblCat_Categoria" EntitySet="tblCat_Categoria" />
             <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblComentario_iIdProducto" Association="VerkoopDBModel.FK_tblComentario_iIdProducto">
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-            <End Role="tblComentario" EntitySet="tblComentario" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblProductoComprado_iIdProducto" Association="VerkoopDBModel.FK_tblProductoComprado_iIdProducto">
             <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
             <End Role="tblProductoComprado" EntitySet="tblProductoComprado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblValoracion_iIdProducto" Association="VerkoopDBModel.FK_tblValoracion_iIdProducto">
-            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
-            <End Role="tblValoracion" EntitySet="tblValoracion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblComentario_iIdUsuario" Association="VerkoopDBModel.FK_tblComentario_iIdUsuario">
-            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
-            <End Role="tblComentario" EntitySet="tblComentario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCompra_iIdUsuario" Association="VerkoopDBModel.FK_tblCompra_iIdUsuario">
-            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
-            <End Role="tblCompra" EntitySet="tblCompra" />
           </AssociationSet>
           <AssociationSet Name="FK_tblDireccion_iIdUsuario" Association="VerkoopDBModel.FK_tblDireccion_iIdUsuario">
             <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
             <End Role="tblDireccion" EntitySet="tblDireccion" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSesion_iIdUsuario" Association="VerkoopDBModel.FK_tblSesion_iIdUsuario">
-            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
-            <End Role="tblSesion" EntitySet="tblSesion" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblTarjeta_iIdUsuario" Association="VerkoopDBModel.FK_tblTarjeta_iIdUsuario">
             <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
             <End Role="tblTarjeta" EntitySet="tblTarjeta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblValoracion_iIdUsuario" Association="VerkoopDBModel.FK_tblValoracion_iIdUsuario">
-            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
-            <End Role="tblValoracion" EntitySet="tblValoracion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCompra_iIdDireccion" Association="VerkoopDBModel.FK_tblCompra_iIdDireccion">
-            <End Role="tblDireccion" EntitySet="tblDireccion" />
-            <End Role="tblCompra" EntitySet="tblCompra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProductoComprado_iIdCompra" Association="VerkoopDBModel.FK_tblProductoComprado_iIdCompra">
-            <End Role="tblCompra" EntitySet="tblCompra" />
-            <End Role="tblProductoComprado" EntitySet="tblProductoComprado" />
           </AssociationSet>
           <AssociationSet Name="FK_tblDireccion_iIdMunicipio" Association="VerkoopDBModel.FK_tblDireccion_iIdMunicipio">
             <End Role="tblMunicipio" EntitySet="tblMunicipio" />
@@ -536,17 +488,43 @@
             <End Role="tblEstado" EntitySet="tblEstado" />
             <End Role="tblMunicipio" EntitySet="tblMunicipio" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
+          <EntitySet Name="tblComentario" EntityType="VerkoopDBModel.tblComentario" />
+          <EntitySet Name="tblValoracion" EntityType="VerkoopDBModel.tblValoracion" />
+          <AssociationSet Name="FK_tblComentario_iIdProducto" Association="VerkoopDBModel.FK_tblComentario_iIdProducto">
+            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
+            <End Role="tblComentario" EntitySet="tblComentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblValoracion_iIdProducto" Association="VerkoopDBModel.FK_tblValoracion_iIdProducto">
+            <End Role="tblCat_Producto" EntitySet="tblCat_Producto" />
+            <End Role="tblValoracion" EntitySet="tblValoracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblComentario_iIdUsuario" Association="VerkoopDBModel.FK_tblComentario_iIdUsuario">
+            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
+            <End Role="tblComentario" EntitySet="tblComentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblValoracion_iIdUsuario" Association="VerkoopDBModel.FK_tblValoracion_iIdUsuario">
+            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
+            <End Role="tblValoracion" EntitySet="tblValoracion" />
+          </AssociationSet>
+          <EntitySet Name="tblSesion" EntityType="VerkoopDBModel.tblSesion" />
+          <AssociationSet Name="FK_tblSesion_iIdUsuario" Association="VerkoopDBModel.FK_tblSesion_iIdUsuario">
+            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
+            <End Role="tblSesion" EntitySet="tblSesion" />
+          </AssociationSet>
+          <EntitySet Name="tblCompra" EntityType="VerkoopDBModel.tblCompra" />
+          <AssociationSet Name="FK_tblCompra_iIdUsuario" Association="VerkoopDBModel.FK_tblCompra_iIdUsuario">
+            <End Role="tblCat_Usuario" EntitySet="tblCat_Usuario" />
+            <End Role="tblCompra" EntitySet="tblCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCompra_iIdDireccion" Association="VerkoopDBModel.FK_tblCompra_iIdDireccion">
+            <End Role="tblDireccion" EntitySet="tblDireccion" />
+            <End Role="tblCompra" EntitySet="tblCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProductoComprado_iIdCompra" Association="VerkoopDBModel.FK_tblProductoComprado_iIdCompra">
+            <End Role="tblCompra" EntitySet="tblCompra" />
+            <End Role="tblProductoComprado" EntitySet="tblProductoComprado" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="tblCarrito">
           <Key>
             <PropertyRef Name="iIdCarrito" />
@@ -558,6 +536,7 @@
           <Property Name="dtFechaSeleccion" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblCarrito_iIdProducto" FromRole="tblCarrito" ToRole="tblCat_Producto" />
           <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblCarrito_iIdUsuario" FromRole="tblCarrito" ToRole="tblCat_Usuario" />
+          <Property Name="iCantidad" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="tblCat_Categoria">
           <Key>
@@ -584,8 +563,8 @@
           <Property Name="dtFechaModificacion" Type="DateTime" Precision="0" />
           <NavigationProperty Name="tblCarrito" Relationship="VerkoopDBModel.FK_tblCarrito_iIdProducto" FromRole="tblCat_Producto" ToRole="tblCarrito" />
           <NavigationProperty Name="tblCat_Categoria" Relationship="VerkoopDBModel.FK_tblCat_Producto_iIdCategoria" FromRole="tblCat_Producto" ToRole="tblCat_Categoria" />
-          <NavigationProperty Name="tblComentario" Relationship="VerkoopDBModel.FK_tblComentario_iIdProducto" FromRole="tblCat_Producto" ToRole="tblComentario" />
           <NavigationProperty Name="tblProductoComprado" Relationship="VerkoopDBModel.FK_tblProductoComprado_iIdProducto" FromRole="tblCat_Producto" ToRole="tblProductoComprado" />
+          <NavigationProperty Name="tblComentario" Relationship="VerkoopDBModel.FK_tblComentario_iIdProducto" FromRole="tblCat_Producto" ToRole="tblComentario" />
           <NavigationProperty Name="tblValoracion" Relationship="VerkoopDBModel.FK_tblValoracion_iIdProducto" FromRole="tblCat_Producto" ToRole="tblValoracion" />
         </EntityType>
         <EntityType Name="tblCat_Usuario">
@@ -604,37 +583,12 @@
           <Property Name="dtFechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="dtFechaBaja" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblCarrito" Relationship="VerkoopDBModel.FK_tblCarrito_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblCarrito" />
-          <NavigationProperty Name="tblComentario" Relationship="VerkoopDBModel.FK_tblComentario_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblComentario" />
-          <NavigationProperty Name="tblCompra" Relationship="VerkoopDBModel.FK_tblCompra_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblCompra" />
           <NavigationProperty Name="tblDireccion" Relationship="VerkoopDBModel.FK_tblDireccion_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblDireccion" />
-          <NavigationProperty Name="tblSesion" Relationship="VerkoopDBModel.FK_tblSesion_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblSesion" />
           <NavigationProperty Name="tblTarjeta" Relationship="VerkoopDBModel.FK_tblTarjeta_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblTarjeta" />
+          <NavigationProperty Name="tblComentario" Relationship="VerkoopDBModel.FK_tblComentario_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblComentario" />
           <NavigationProperty Name="tblValoracion" Relationship="VerkoopDBModel.FK_tblValoracion_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblValoracion" />
-        </EntityType>
-        <EntityType Name="tblComentario">
-          <Key>
-            <PropertyRef Name="iIdComentario" />
-          </Key>
-          <Property Name="iIdComentario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="iIdProducto" Type="Int32" Nullable="false" />
-          <Property Name="cComentario" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="dtFecha" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblComentario_iIdProducto" FromRole="tblComentario" ToRole="tblCat_Producto" />
-          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblComentario_iIdUsuario" FromRole="tblComentario" ToRole="tblCat_Usuario" />
-        </EntityType>
-        <EntityType Name="tblCompra">
-          <Key>
-            <PropertyRef Name="iIdCompra" />
-          </Key>
-          <Property Name="iIdCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="iIdDireccion" Type="Int32" Nullable="false" />
-          <Property Name="iMetodoPago" Type="Int32" Nullable="false" />
-          <Property Name="dtFecha" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblCompra_iIdUsuario" FromRole="tblCompra" ToRole="tblCat_Usuario" />
-          <NavigationProperty Name="tblDireccion" Relationship="VerkoopDBModel.FK_tblCompra_iIdDireccion" FromRole="tblCompra" ToRole="tblDireccion" />
-          <NavigationProperty Name="tblProductoComprado" Relationship="VerkoopDBModel.FK_tblProductoComprado_iIdCompra" FromRole="tblCompra" ToRole="tblProductoComprado" />
+          <NavigationProperty Name="tblSesion" Relationship="VerkoopDBModel.FK_tblSesion_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblSesion" />
+          <NavigationProperty Name="tblCompra" Relationship="VerkoopDBModel.FK_tblCompra_iIdUsuario" FromRole="tblCat_Usuario" ToRole="tblCompra" />
         </EntityType>
         <EntityType Name="tblDireccion">
           <Key>
@@ -647,8 +601,8 @@
           <Property Name="cCodigoPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="lDefault" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblDireccion_iIdUsuario" FromRole="tblDireccion" ToRole="tblCat_Usuario" />
-          <NavigationProperty Name="tblCompra" Relationship="VerkoopDBModel.FK_tblCompra_iIdDireccion" FromRole="tblDireccion" ToRole="tblCompra" />
           <NavigationProperty Name="tblMunicipio" Relationship="VerkoopDBModel.FK_tblDireccion_iIdMunicipio" FromRole="tblDireccion" ToRole="tblMunicipio" />
+          <NavigationProperty Name="tblCompra" Relationship="VerkoopDBModel.FK_tblCompra_iIdDireccion" FromRole="tblDireccion" ToRole="tblCompra" />
         </EntityType>
         <EntityType Name="tblEstado">
           <Key>
@@ -689,19 +643,6 @@
           <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblProductoComprado_iIdProducto" FromRole="tblProductoComprado" ToRole="tblCat_Producto" />
           <NavigationProperty Name="tblCompra" Relationship="VerkoopDBModel.FK_tblProductoComprado_iIdCompra" FromRole="tblProductoComprado" ToRole="tblCompra" />
         </EntityType>
-        <EntityType Name="tblSesion">
-          <Key>
-            <PropertyRef Name="iIdSesion" />
-          </Key>
-          <Property Name="iIdSesion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="cCorreo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cContrasenia" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="cCodigoVerificacion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="lEstadoVerificacion" Type="Boolean" Nullable="false" />
-          <Property Name="dtFechaActualizacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblSesion_iIdUsuario" FromRole="tblSesion" ToRole="tblCat_Usuario" />
-        </EntityType>
         <EntityType Name="tblTarjeta">
           <Key>
             <PropertyRef Name="iIdTarjeta" />
@@ -713,17 +654,6 @@
           <Property Name="cAnioVigencia" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="lDefault" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblTarjeta_iIdUsuario" FromRole="tblTarjeta" ToRole="tblCat_Usuario" />
-        </EntityType>
-        <EntityType Name="tblValoracion">
-          <Key>
-            <PropertyRef Name="iIdValoracion" />
-          </Key>
-          <Property Name="iIdValoracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="iIdProducto" Type="Int32" Nullable="false" />
-          <Property Name="dtFecha" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblValoracion_iIdProducto" FromRole="tblValoracion" ToRole="tblCat_Producto" />
-          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblValoracion_iIdUsuario" FromRole="tblValoracion" ToRole="tblCat_Usuario" />
         </EntityType>
         <Association Name="FK_tblCarrito_iIdProducto">
           <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
@@ -761,18 +691,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblComentario_iIdProducto">
-          <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
-          <End Type="VerkoopDBModel.tblComentario" Role="tblComentario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Producto">
-              <PropertyRef Name="iIdProducto" />
-            </Principal>
-            <Dependent Role="tblComentario">
-              <PropertyRef Name="iIdProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblProductoComprado_iIdProducto">
           <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
           <End Type="VerkoopDBModel.tblProductoComprado" Role="tblProductoComprado" Multiplicity="*" />
@@ -782,42 +700,6 @@
             </Principal>
             <Dependent Role="tblProductoComprado">
               <PropertyRef Name="iIdProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblValoracion_iIdProducto">
-          <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
-          <End Type="VerkoopDBModel.tblValoracion" Role="tblValoracion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Producto">
-              <PropertyRef Name="iIdProducto" />
-            </Principal>
-            <Dependent Role="tblValoracion">
-              <PropertyRef Name="iIdProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblComentario_iIdUsuario">
-          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
-          <End Type="VerkoopDBModel.tblComentario" Role="tblComentario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Usuario">
-              <PropertyRef Name="iIdUsuario" />
-            </Principal>
-            <Dependent Role="tblComentario">
-              <PropertyRef Name="iIdUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCompra_iIdUsuario">
-          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
-          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Usuario">
-              <PropertyRef Name="iIdUsuario" />
-            </Principal>
-            <Dependent Role="tblCompra">
-              <PropertyRef Name="iIdUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -833,18 +715,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSesion_iIdUsuario">
-          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
-          <End Type="VerkoopDBModel.tblSesion" Role="tblSesion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Usuario">
-              <PropertyRef Name="iIdUsuario" />
-            </Principal>
-            <Dependent Role="tblSesion">
-              <PropertyRef Name="iIdUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblTarjeta_iIdUsuario">
           <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
           <End Type="VerkoopDBModel.tblTarjeta" Role="tblTarjeta" Multiplicity="*" />
@@ -854,42 +724,6 @@
             </Principal>
             <Dependent Role="tblTarjeta">
               <PropertyRef Name="iIdUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblValoracion_iIdUsuario">
-          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
-          <End Type="VerkoopDBModel.tblValoracion" Role="tblValoracion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCat_Usuario">
-              <PropertyRef Name="iIdUsuario" />
-            </Principal>
-            <Dependent Role="tblValoracion">
-              <PropertyRef Name="iIdUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCompra_iIdDireccion">
-          <End Type="VerkoopDBModel.tblDireccion" Role="tblDireccion" Multiplicity="1" />
-          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblDireccion">
-              <PropertyRef Name="iIdDireccion" />
-            </Principal>
-            <Dependent Role="tblCompra">
-              <PropertyRef Name="iIdDireccion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProductoComprado_iIdCompra">
-          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="1" />
-          <End Type="VerkoopDBModel.tblProductoComprado" Role="tblProductoComprado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCompra">
-              <PropertyRef Name="iIdCompra" />
-            </Principal>
-            <Dependent Role="tblProductoComprado">
-              <PropertyRef Name="iIdCompra" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -929,26 +763,160 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblComentario">
+          <Key>
+            <PropertyRef Name="iIdComentario" />
+          </Key>
+          <Property Name="iIdComentario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="iIdProducto" Type="Int32" Nullable="false" />
+          <Property Name="cComentario" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="dtFecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblComentario_iIdProducto" FromRole="tblComentario" ToRole="tblCat_Producto" />
+          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblComentario_iIdUsuario" FromRole="tblComentario" ToRole="tblCat_Usuario" />
+        </EntityType>
+        <EntityType Name="tblValoracion">
+          <Key>
+            <PropertyRef Name="iIdValoracion" />
+          </Key>
+          <Property Name="iIdValoracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="iIdProducto" Type="Int32" Nullable="false" />
+          <Property Name="dtFecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tblCat_Producto" Relationship="VerkoopDBModel.FK_tblValoracion_iIdProducto" FromRole="tblValoracion" ToRole="tblCat_Producto" />
+          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblValoracion_iIdUsuario" FromRole="tblValoracion" ToRole="tblCat_Usuario" />
+        </EntityType>
+        <Association Name="FK_tblComentario_iIdProducto">
+          <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblComentario" Role="tblComentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Producto">
+              <PropertyRef Name="iIdProducto" />
+            </Principal>
+            <Dependent Role="tblComentario">
+              <PropertyRef Name="iIdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblValoracion_iIdProducto">
+          <End Type="VerkoopDBModel.tblCat_Producto" Role="tblCat_Producto" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblValoracion" Role="tblValoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Producto">
+              <PropertyRef Name="iIdProducto" />
+            </Principal>
+            <Dependent Role="tblValoracion">
+              <PropertyRef Name="iIdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblComentario_iIdUsuario">
+          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblComentario" Role="tblComentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Usuario">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="tblComentario">
+              <PropertyRef Name="iIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblValoracion_iIdUsuario">
+          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblValoracion" Role="tblValoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Usuario">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="tblValoracion">
+              <PropertyRef Name="iIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblSesion">
+          <Key>
+            <PropertyRef Name="iIdSesion" />
+          </Key>
+          <Property Name="iIdSesion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="cCorreo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cContrasenia" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="dtFechaActualizacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblSesion_iIdUsuario" FromRole="tblSesion" ToRole="tblCat_Usuario" />
+          <Property Name="cCodigoVerificacion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="lEstadoVerificacion" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblSesion_iIdUsuario">
+          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblSesion" Role="tblSesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Usuario">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="tblSesion">
+              <PropertyRef Name="iIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblCompra">
+          <Key>
+            <PropertyRef Name="iIdCompra" />
+          </Key>
+          <Property Name="iIdCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iIdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="iIdDireccion" Type="Int32" Nullable="false" />
+          <Property Name="dtFecha" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblCat_Usuario" Relationship="VerkoopDBModel.FK_tblCompra_iIdUsuario" FromRole="tblCompra" ToRole="tblCat_Usuario" />
+          <NavigationProperty Name="tblDireccion" Relationship="VerkoopDBModel.FK_tblCompra_iIdDireccion" FromRole="tblCompra" ToRole="tblDireccion" />
+          <NavigationProperty Name="tblProductoComprado" Relationship="VerkoopDBModel.FK_tblProductoComprado_iIdCompra" FromRole="tblCompra" ToRole="tblProductoComprado" />
+        </EntityType>
+        <Association Name="FK_tblCompra_iIdUsuario">
+          <End Type="VerkoopDBModel.tblCat_Usuario" Role="tblCat_Usuario" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCat_Usuario">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="tblCompra">
+              <PropertyRef Name="iIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCompra_iIdDireccion">
+          <End Type="VerkoopDBModel.tblDireccion" Role="tblDireccion" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDireccion">
+              <PropertyRef Name="iIdDireccion" />
+            </Principal>
+            <Dependent Role="tblCompra">
+              <PropertyRef Name="iIdDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProductoComprado_iIdCompra">
+          <End Type="VerkoopDBModel.tblCompra" Role="tblCompra" Multiplicity="1" />
+          <End Type="VerkoopDBModel.tblProductoComprado" Role="tblProductoComprado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCompra">
+              <PropertyRef Name="iIdCompra" />
+            </Principal>
+            <Dependent Role="tblProductoComprado">
+              <PropertyRef Name="iIdCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="VerkoopDBModelStoreContainer" CdmEntityContainer="VerkoopDBEntities">
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="VerkoopDBModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblCarrito">
             <EntityTypeMapping TypeName="VerkoopDBModel.tblCarrito">
               <MappingFragment StoreEntitySet="tblCarrito">
+                <ScalarProperty Name="iCantidad" ColumnName="iCantidad" />
                 <ScalarProperty Name="dtFechaSeleccion" ColumnName="dtFechaSeleccion" />
                 <ScalarProperty Name="lEstatus" ColumnName="lEstatus" />
                 <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
@@ -996,28 +964,6 @@
                 <ScalarProperty Name="cApellidoPaterno" ColumnName="cApellidoPaterno" />
                 <ScalarProperty Name="cNombre" ColumnName="cNombre" />
                 <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblComentario">
-            <EntityTypeMapping TypeName="VerkoopDBModel.tblComentario">
-              <MappingFragment StoreEntitySet="tblComentario">
-                <ScalarProperty Name="dtFecha" ColumnName="dtFecha" />
-                <ScalarProperty Name="cComentario" ColumnName="cComentario" />
-                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
-                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
-                <ScalarProperty Name="iIdComentario" ColumnName="iIdComentario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblCompra">
-            <EntityTypeMapping TypeName="VerkoopDBModel.tblCompra">
-              <MappingFragment StoreEntitySet="tblCompra">
-                <ScalarProperty Name="dtFecha" ColumnName="dtFecha" />
-                <ScalarProperty Name="iMetodoPago" ColumnName="iMetodoPago" />
-                <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
-                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
-                <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1069,19 +1015,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblSesion">
-            <EntityTypeMapping TypeName="VerkoopDBModel.tblSesion">
-              <MappingFragment StoreEntitySet="tblSesion">
-                <ScalarProperty Name="dtFechaActualizacion" ColumnName="dtFechaActualizacion" />
-                <ScalarProperty Name="lEstadoVerificacion" ColumnName="lEstadoVerificacion" />
-                <ScalarProperty Name="cCodigoVerificacion" ColumnName="cCodigoVerificacion" />
-                <ScalarProperty Name="cContrasenia" ColumnName="cContrasenia" />
-                <ScalarProperty Name="cCorreo" ColumnName="cCorreo" />
-                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
-                <ScalarProperty Name="iIdSesion" ColumnName="iIdSesion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblTarjeta">
             <EntityTypeMapping TypeName="VerkoopDBModel.tblTarjeta">
               <MappingFragment StoreEntitySet="tblTarjeta">
@@ -1094,6 +1027,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblComentario">
+            <EntityTypeMapping TypeName="VerkoopDBModel.tblComentario">
+              <MappingFragment StoreEntitySet="tblComentario">
+                <ScalarProperty Name="dtFecha" ColumnName="dtFecha" />
+                <ScalarProperty Name="cComentario" ColumnName="cComentario" />
+                <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
+                <ScalarProperty Name="iIdComentario" ColumnName="iIdComentario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblValoracion">
             <EntityTypeMapping TypeName="VerkoopDBModel.tblValoracion">
               <MappingFragment StoreEntitySet="tblValoracion">
@@ -1101,6 +1045,29 @@
                 <ScalarProperty Name="iIdProducto" ColumnName="iIdProducto" />
                 <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
                 <ScalarProperty Name="iIdValoracion" ColumnName="iIdValoracion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSesion">
+            <EntityTypeMapping TypeName="VerkoopDBModel.tblSesion">
+              <MappingFragment StoreEntitySet="tblSesion">
+                <ScalarProperty Name="lEstadoVerificacion" ColumnName="lEstadoVerificacion" />
+                <ScalarProperty Name="cCodigoVerificacion" ColumnName="cCodigoVerificacion" />
+                <ScalarProperty Name="dtFechaActualizacion" ColumnName="dtFechaActualizacion" />
+                <ScalarProperty Name="cContrasenia" ColumnName="cContrasenia" />
+                <ScalarProperty Name="cCorreo" ColumnName="cCorreo" />
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
+                <ScalarProperty Name="iIdSesion" ColumnName="iIdSesion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCompra">
+            <EntityTypeMapping TypeName="VerkoopDBModel.tblCompra">
+              <MappingFragment StoreEntitySet="tblCompra">
+                <ScalarProperty Name="dtFecha" ColumnName="dtFecha" />
+                <ScalarProperty Name="iIdDireccion" ColumnName="iIdDireccion" />
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
+                <ScalarProperty Name="iIdCompra" ColumnName="iIdCompra" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
