@@ -129,6 +129,8 @@ namespace Cliente.Controllers
         [HttpPost]
         public JsonResult PagoConPaypal(PagoPaypalDTO Productos, string Cancel = null)
         {
+            TempData["ListaProductos"] = Productos;
+
             bool _bEstadoOperacion = false;
 
             PaypalBusiness oPaypal = new PaypalBusiness();
@@ -216,6 +218,37 @@ namespace Cliente.Controllers
         public ActionResult Agradecimiento()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Guardarxd()
+        {
+            PagoPaypalDTO prod = TempData["ListaProductos"] as PagoPaypalDTO;
+
+            tblDireccion dirUsuario = DireccionBusiness.ObtenerDireccionPredeterminada(Convert.ToInt32(Session["iIdUsuario"]));
+
+            RealizarPagoDTO supPago = new RealizarPagoDTO();
+
+            supPago.iIdDireccion = dirUsuario.iIdUsuario;
+
+            supPago.lstProductoComprado = new List<tblProductoComprado>();
+
+            foreach(var item in prod.lstProducto)
+            {
+                tblProductoComprado objProducto = new tblProductoComprado()
+                {
+                    iIdProducto = item.iIdProducto,
+                    iCantidad = item.iCantidad
+                };
+
+                supPago.lstProductoComprado.Add(objProducto);
+            }
+
+            CarritoBusiness.RealizarPago(Convert.ToInt32(Session["iIdUsuario"]),supPago);
+
+            var wea = "xD";
+
+            return RedirectToAction("ComprasRealizadas","HistorialCompras");
         }
     }
 }
